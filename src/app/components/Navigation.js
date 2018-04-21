@@ -1,13 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SignOut from './SignOut';
 
 import * as routes from './tools/routes';
 
-const Navigation = () =>
+const Navigation = ({authUser}) =>
+    <div>
+        { authUser 
+            ? <NavigationAuth />
+            : <NavigationNonAuth />
+        }
+    </div>
+
+const NavigationNonAuth = () =>
+    <div>
+    </div>
+
+
+const NavigationAuth = () =>
   <div>
     <ul>
-      <li><Link to={routes.SIGN_IN}>Sign In</Link></li>
     </ul>
+    <SignOut />
   </div>
 
 export default Navigation;

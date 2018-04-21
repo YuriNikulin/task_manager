@@ -42,6 +42,7 @@ class SignUp extends React.Component {
             .catch(error => {
                 this.setState(byPropKey('error', error));
             });
+            debugger;
 
         event.preventDefault();    
     }
