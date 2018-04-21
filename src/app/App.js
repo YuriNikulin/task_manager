@@ -13,47 +13,24 @@ import { firebase } from './components/firebase';
 
 import * as routes from './components/tools/routes.js';
 
-export default class App extends React.Component {
-    
-    constructor(props) {
-        super(props);
+import withAuthentication from './components/withAuthentication';
 
-        this.state = {
-            authUser: null
-        };
-    }
-
-    componentDidMount() {
-        firebase.auth.onAuthStateChanged(authUser => {
-            authUser
-                ? this.setState({
-                    authUser
-                })
-                : this.setState({
-                    authUser: null
-                })
-        })
-    }
-
-    render() {
-        return (
-            <Router>
-                <div>
-                    <Navigation authUser={this.state.authUser} />
-                    <Route
-                        exact path={routes.HOME}
-                        component={() => <SignIn />}
-                    />
-                    <Route
-                        exact path={routes.SIGN_IN}
-                        component={() => <SignIn />}
-                    />
-                    <Route
-                        exact path={routes.SIGN_UP}
-                        component={() => <SignUp />}
-                    />
-                </div>
-            </Router>
-        );
-    }
-}
+const App = () => 
+    <Router>
+        <div>
+            <Navigation />
+            <Route
+                exact path={routes.HOME}
+                component={() => <SignIn />}
+            />
+            <Route
+                exact path={routes.SIGN_IN}
+                component={() => <SignIn />}
+            />
+            <Route
+                exact path={routes.SIGN_UP}
+                component={() => <SignUp />}
+            />
+        </div>
+    </Router>
+export default withAuthentication(App);
