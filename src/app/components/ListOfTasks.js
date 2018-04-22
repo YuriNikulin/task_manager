@@ -39,19 +39,50 @@ class ListOfTasks extends React.Component {
         console.log(tasksList);
         return (
             <div className="tm-tasks">
-                {tasksList.map((item) => {
-                    return (
-                        <div key={item.taskId} className="tm-tasks-item">
-                            <span className="tm-tasks-item__name">
-                                {item.taskName}
-                            </span>
-                            <span className="tm-tasks-item__status">
-                                {item.taskStatus}
-                            </span>
-                        </div>
-                    )
-                })}
-
+                <table className="tm-table tm-tasks-table">
+                    <thead>
+                        <tr>
+                            <td>
+                                <span>
+                                    Name
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    Status
+                                </span>
+                            </td>
+                            <td>
+                                <span>
+                                    Priority
+                                </span>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {tasksList.map((item) => {
+                        return (
+                            <tr key={item.taskId} className="tm-tasks-item">
+                                <td>
+                                    <span className="tm-tasks-item__name">
+                                        {item.taskName}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span className="tm-tasks-item__status">
+                                        {item.taskStatus}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span>
+                                        {item.taskPriority}
+                                    </span>
+                                </td>
+                            </tr>
+                        )
+                    })}
+                    </tbody>
+                </table>
             </div>
         )
     }

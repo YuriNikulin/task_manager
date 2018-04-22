@@ -1,4 +1,6 @@
 $base: #E8E8E8;
+$primary: #0D90DB;
+$disabled: #707F88;
 $tr: rgba(0,0,0,.1);
 
 $z--xl: 1001;
@@ -8,6 +10,12 @@ $z--sm: 10;
 
 $anim-duration: .2s;
 $gutter: 10px;
+$container-width: 1200px;
+
+$input_height: 40px;
+
+$body-font: 'Open Sans';
+$body-font-size: 15px;
 
 $xll: 1920px;
 $xl: 1400px;

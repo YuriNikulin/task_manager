@@ -5,14 +5,20 @@
     z-index: $z--lg;
     transition: $anim-duration;
     background: #fff;
-    height: 500px;
     width: 100%;
-    max-width: $sm - ($gutter * 2);
+    max-width: $xs - ($gutter * 2);
+    // min-height: 300px;
     padding: $gutter;
-    // transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     box-shadow: 0px 0px 20px 5px $tr;
 
-    @media (max-width: $sm) {
+    &__title {
+      text-align: center;
+      margin-top: $gutter;
+      margin-bottom: $gutter * 2;
+    }
+
+    @media (max-width: $xs) {
         max-width: calc(100% - #{$gutter} * 2)
     }
 }

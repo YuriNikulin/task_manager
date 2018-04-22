@@ -1,0 +1,15 @@
+.tm-toolbar {
+    background: #fff;
+    margin-bottom: $gutter;
+
+    &__item {
+        padding: 10px 18px;
+        display: inline-block;
+        border-right: 1px solid $base;
+        color: #000;
+
+        &:hover, &.active {
+            background: lighten($base, 7%);
+        }
+    }
+}

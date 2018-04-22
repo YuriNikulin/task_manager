@@ -64,40 +64,52 @@ class SignUp extends React.Component {
 
         return (
             <Popup>
-                <h1> Sign Up </h1>
+                <h2 className="tm__title tm-popup__title"> Sign Up </h2>
                 <form onSubmit={this.onSubmit}>
-                    <input 
-                    type="text" 
-                    placeholder="Username"
-                    value={username}
-                    onChange={event => this.setState(byPropKey('username', event.target.value))}
-                    />
+                    <div className="tm-input-container">
+                        <input 
+                        type="text" 
+                        placeholder="Username"
+                        className="tm-input"
+                        value={username}
+                        onChange={event => this.setState(byPropKey('username', event.target.value))}
+                        />
+                    </div>
 
-                    <input 
-                    type="email" 
-                    placeholder="Email"
-                    value={email}
-                    onChange={event => this.setState(byPropKey('email', event.target.value))}
-                    />
+                    <div className="tm-input-container">
+                        <input 
+                        type="email" 
+                        placeholder="Email"
+                        className="tm-input"
+                        value={email}
+                        onChange={event => this.setState(byPropKey('email', event.target.value))}
+                        />
+                    </div>
 
-                    <input 
-                    type="password" 
-                    placeholder="Password"
-                    value={passwordOne}
-                    onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
-                    />
+                    <div className="tm-input-container">
+                        <input 
+                        type="password" 
+                        placeholder="Password"
+                        className="tm-input"
+                        value={passwordOne}
+                        onChange={event => this.setState(byPropKey('passwordOne', event.target.value))}
+                        />
+                    </div>
 
-                    <input 
-                    type="password" 
-                    placeholder="Password"
-                    value={passwordTwo}
-                    onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
-                    />
+                    <div className="tm-input-container">
+                        <input 
+                        type="password" 
+                        placeholder="Repeat Password"
+                        className="tm-input"
+                        value={passwordTwo}
+                        onChange={event => this.setState(byPropKey('passwordTwo', event.target.value))}
+                        />
+                    </div>
 
                     { error && <p>{error.message}</p> }
 
-                    <button disabled={isInvalid} type="submit" className="btn btn--primary">Create an account</button>
-                    <Link className="btn btn--primary" to={routes.SIGN_IN}>I have an account</Link>
+                    <button disabled={isInvalid} type="submit" className={"tm-btn tm-btn--primary mr " + (isInvalid ? 'tm-btn--disabled' : null)}>Create an account</button>
+                    <Link className="tm-btn tm-btn--text" to={routes.SIGN_IN}>I have an account</Link>
                 </form>
             </Popup>
         )

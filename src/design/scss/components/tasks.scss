@@ -1,0 +1,12 @@
+.tm-tasks {
+    background-color: #fff;
+
+    &-item {
+        padding: $gutter;
+        border-bottom: 1px solid $base;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}

@@ -57,24 +57,30 @@ class SignIn extends React.Component {
         const isInvalid = password === '' || email === '';
         return (
             <Popup>
-                <h1> Sign in! </h1>
+                <h2 className="tm__title tm-popup__title"> Sign in </h2>
                 <form onSubmit = {this.onSubmit}>
-                    <input type="email"
-                        placeholder="Email"
-                        onChange={event => this.setState(byPropKey('email', event.target.value))}
-                        value={email}
-                      />
-
-                      <input type="password"
-                        placeholder="Password"
-                        onChange={event => this.setState(byPropKey('password', event.target.value))}
-                        value={password}
-                      />
+                    <div className="tm-input-container">
+                        <input type="email"
+                            placeholder="Email"
+                            className="tm-input"
+                            onChange={event => this.setState(byPropKey('email', event.target.value))}
+                            value={email}
+                          />
+                    </div>
+                    
+                    <div className="tm-input-container">  
+                        <input type="password"
+                            placeholder="Password"
+                            className="tm-input"
+                            onChange={event => this.setState(byPropKey('password', event.target.value))}
+                            value={password}
+                        />
+                    </div>  
 
                       { error && <p>{error.message}</p> }
 
-                    <button type="submit" className="btn btn--primary">Log in</button>
-                    <Link className="btn btn--primary" to={routes.SIGN_UP}>Create an account</Link>
+                    <button type="submit" className="tm-btn tm-btn--primary mr">Sign in</button>
+                    <Link className="tm-btn tm-btn--primary" to={routes.SIGN_UP}>Create an account</Link>
                 </form>
             </Popup>
         )

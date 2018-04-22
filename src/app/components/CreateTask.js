@@ -32,45 +32,71 @@ class CreateTask extends React.Component {
         const {taskName, taskDescription, estimatedTime} = this.state;
         return(
             <div className="tm-create">
-                <form onSubmit={this.handleSubmit}>
-                    <input 
-                        type="text"
-                        placeholder="Task name"
-                        value={taskName} 
-                        onChange = {(event) => {this.setState({taskName: event.target.value})}}/>
+                <div className="tm-create-content">
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="tm-input-container">
+                            <label className="tm-input__label">
+                                Enter the task name
+                            </label>
+                            <input 
+                                type="text"
+                                placeholder="Task name"
+                                className="tm-input"
+                                value={taskName} 
+                                onChange = {(event) => {this.setState({taskName: event.target.value})}}/>
+                        </div>
 
-                    <textarea 
-                        placeholder="Task description"
-                        value={taskDescription} 
-                        onChange = {(event) => {this.setState({taskDescription: event.target.value})}}>
-                    </textarea>    
+                        <div className="tm-input-container">
+                            <label className="tm-input__label">
+                                Enter the estimated time (numeric value, in hours)
+                            </label>
+                            <input 
+                                type="text"
+                                placeholder="Estimated time (in hours)"
+                                className="tm-input"
+                                value={estimatedTime} 
+                                onChange = {(event) => {this.setState({estimatedTime: event.target.value})}}/>
+                        </div> 
 
-                    <input 
-                        type="text"
-                        placeholder="Estimated time (in hours)"
-                        value={estimatedTime} 
-                        onChange = {(event) => {this.setState({estimatedTime: event.target.value})}}/>
+                        <div className="tm-input-container">
+                            <label className="tm-input__label">
+                                Enter a description for the task
+                            </label>
+                            <textarea 
+                                placeholder="Task description"
+                                value={taskDescription}
+                                className="tm-input tm-input--textarea"
+                                onChange = {(event) => {this.setState({taskDescription: event.target.value})}}>
+                            </textarea>
+                        </div>    
 
-                    <select onChange = {(event) => {this.setState({taskPriority: event.target.value})}}>
-                        <option value="Critical">
-                            Critical
-                        </option>
-                        <option value="High">
-                            High
-                        </option>
-                        <option value="Medium">
-                            Medium
-                        </option>
-                        <option value="Minor">
-                            Minor
-                        </option>
-                        <option value="Low">
-                            Low
-                        </option>
-                    </select>    
-
-                    <button type="submit" className="tm-btn tm-btn--primary">Create</button>    
-                </form>
+                        <div className="tm-input-container">
+                            <label className="tm-input__label">
+                                Choose an initial priority for the task
+                            </label>
+                            <select className="tm-input tm-input--select" onChange = {(event) => {this.setState({taskPriority: event.target.value})}}>
+                                <option value="Critical">
+                                    Critical
+                                </option>
+                                <option value="High">
+                                    High
+                                </option>
+                                <option value="Medium">
+                                    Medium
+                                </option>
+                                <option value="Minor">
+                                    Minor
+                                </option>
+                                <option value="Low">
+                                    Low
+                                </option>
+                            </select>    
+                        </div>
+                        <div className="tac mt2">
+                            <button type="submit" className="tm-btn tm-btn--primary mt">Create</button>    
+                        </div>
+                    </form>
+                </div>
             </div>
         );
     }
