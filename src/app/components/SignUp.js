@@ -3,6 +3,7 @@ import Popup from './tools/Popup.js';
 import { Link, withRouter, } from 'react-router-dom';
 import * as routes from './tools/routes';
 import { auth } from './firebase';
+import { db } from './firebase/firebase.js';
 
 const INITIAL_STATE = {
     username: '',
@@ -37,12 +38,16 @@ class SignUp extends React.Component {
         auth.doCreateUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
                 this.setState(() => ({ ...INITIAL_STATE }));
+                const uid = authUser.uid;
                 history.push(routes.SIGN_IN);
+                db.ref('users/' + authUser.uid + '/').set({
+                    info: {email, username, uid},
+                    tasks: {}
+                });
             })
             .catch(error => {
                 this.setState(byPropKey('error', error));
             });
-            debugger;
 
         event.preventDefault();    
     }

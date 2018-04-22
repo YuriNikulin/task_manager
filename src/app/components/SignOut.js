@@ -3,12 +3,12 @@ import React from 'react';
 import { auth } from './firebase';
 
 
-export default class SignOut extends React.Component {
-    render() {
-        return (
-            <a className="tm__signout" onClick={auth.doSignOut}>
-                Sign out
-            </a>
-        )
-    }
+const SignOut = (props) => {
+    return (
+        <a className={"tm__signout " + props.className} onClick={auth.doSignOut}>
+            Sign out
+        </a>
+    )
 }
+
+export default SignOut;

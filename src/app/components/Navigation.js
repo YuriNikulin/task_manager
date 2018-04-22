@@ -1,19 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import SignOut from './SignOut';
 
 import AuthUserContext from './AuthUserContext';
 
 import * as routes from './tools/routes';
 
-const Navigation = () =>
-    
-    <AuthUserContext.Consumer>
-        { authUser => authUser
-            ? <NavigationAuth />
-            : <NavigationNonAuth />
-        }
-    </AuthUserContext.Consumer>    
+const Navigation = (props) => {
+    const {history} = props;
+    const settings = {};
+
+    return (
+        <AuthUserContext.Consumer>
+            { authUser => authUser
+                ? <NavigationAuth />
+                : <NavigationNonAuth />
+            }
+        </AuthUserContext.Consumer>
+    ) 
+}
     
 
 const NavigationNonAuth = () =>
@@ -22,10 +27,8 @@ const NavigationNonAuth = () =>
 
 
 const NavigationAuth = () =>
-  <div>
-    <ul>
-    </ul>
-    <SignOut />
+  <div className="tm-navbar">
+    <SignOut className="tm-navbar__item" />      
   </div>
 
-export default Navigation;
+export default withRouter(Navigation);

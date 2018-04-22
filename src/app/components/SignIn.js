@@ -38,8 +38,6 @@ class SignIn extends React.Component {
                     ...INITIAL_STATE
                 }));
                 history.push(routes.HOME);
-                console.log(firebase.auth.currentUser);
-                
             })
             .catch(error => {
                 console.log(error);
