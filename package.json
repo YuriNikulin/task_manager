@@ -9,10 +9,13 @@
     "re-base": "^3.2.2",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+    "react-redux": "^5.0.7",
     "react-router": "^3.2.1",
     "react-router-dom": "^4.3.0-rc.2",
     "react-scripts": "1.1.4",
-    "react-transition-group": "^1.2.1"
+    "react-transition-group": "^1.2.1",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0"
   },
   "scripts": {
     "build-css": "node-sass-chokidar src/design/scss/main.scss -o src/",
