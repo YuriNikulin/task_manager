@@ -10,9 +10,8 @@ class CreateTask extends React.Component {
             taskDescription: '',
             estimatedTime: '',
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         const {taskName, taskDescription, taskPriority, estimatedTime} = this.state;
         const taskStatus = 'Open';
         const currentUser = firebase.auth.currentUser;
