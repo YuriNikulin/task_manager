@@ -1,18 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Router, Route, hashHistory } from 'react-router';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import About from './app/components/About.js';
+import Track from './app/components/Track.js';
 
-import Rebase from 're-base';
-import firebase from 'firebase';
+import { syncHistoryWithStore } from 'react-router-redux';
 
-import App from './app/App.js';
-import registerServiceWorker from './registerServiceWorker';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-import './design/css/main.css';
+import App from './App';
 
-const root = document.getElementById('root');
+import store from './app/redux';
+
+const history = syncHistoryWithStore(hashHistory, store);
 
 ReactDOM.render(
-    <App />,
-    root
-)
-registerServiceWorker();
+  <Provider store={store}>
+    <Router history={history}>
+        <Route path="/" component={App} />
+        <Route path="/about" component={About} />
+        <Route path="/tracks/:id" component={Track} />
+    </Router>
+  </Provider>,
+  document.getElementById('root')
+);
