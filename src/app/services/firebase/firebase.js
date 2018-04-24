@@ -13,6 +13,10 @@ if (!firebase.apps.length) {
     firebase.initializeApp(config);
 } 
 
+firebase.onAuthStateChanged = () => {
+    console.log('something has happened!');
+}
+
 const auth = firebase.auth();
 // const db = firebase.database();
 

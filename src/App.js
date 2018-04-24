@@ -4,7 +4,8 @@ import { Link } from 'react-router';
 
 import Preloader from './app/components/Preloader.js';
 import getTracks from './app/redux/actions/track.js';
-
+import actionAuth from './app/redux/actions/auth.js';
+import LogIn from './app/components/LogIn.js';
 import { firebase } from './app/services/firebase';
 
 import Authorization from './app/components/Authorization.js';
@@ -15,12 +16,18 @@ class App extends React.Component {
         this.state = {
             'song': '',
             'search': '',
-            'isLoading': true
+            'isLoading': !this.props.auth.isLogged,
+            'isLogged': this.props.auth.isLogged
         }
+        console.log("STATE", this.state);
     }
 
     componentDidMount() {
-        Authorization();
+        console.log('APP HAS THESE PROPS', this.props);
+        this.props.onAuth();
+        setTimeout(() => {
+            console.log(this.props);
+        }, 10000)
     }
 
     handleInputChange = (event) => {
@@ -46,13 +53,10 @@ class App extends React.Component {
 
     render() {
         const items = this.props.items;
-        if (this.state.isLoading) {
+        if (!this.props.auth.isLogged) {
             return (
                 <div>
-                <Preloader />
-                <button onClick={this.logIn}>
-                    Log in
-                </button>
+                <LogIn />
                 </div>
             )
         }
@@ -127,6 +131,9 @@ export default connect(
         },
         onGetTracks: () => {
             dispatch(getTracks());
+        },
+        onAuth: () => {
+            dispatch(actionAuth());
         }
     })
 )(App);

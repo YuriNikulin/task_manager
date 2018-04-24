@@ -4,7 +4,9 @@ const initialState = {
 
 const filter = (state=initialState, action) => {
     switch (action.type) {
-        case 'AUTH_ACTION': return {
+        case 'AUTH_ACTION': 
+        console.log(state);
+        return {
             isLogged: action.payload
         };
         default: return state;
