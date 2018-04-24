@@ -7,6 +7,8 @@ import getTracks from './app/redux/actions/track.js';
 
 import { firebase } from './app/services/firebase';
 
+import Authorization from './app/components/Authorization.js';
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -18,7 +20,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        console.log('ownProps', this.props);
+        Authorization();
     }
 
     handleInputChange = (event) => {
@@ -60,12 +62,6 @@ class App extends React.Component {
             </div>
         )
 
-
-
-
-
-
-
         // return (
         //     <div>
         //         <div className="search">
@@ -99,6 +95,7 @@ class App extends React.Component {
 export default connect(
     (state, ownProps) => ({
         items: state.track.filter(item => item.name.includes(state.filter)),
+        auth: state.auth
     }),
     dispatch => ({
         onAddTrack: (data) => {
