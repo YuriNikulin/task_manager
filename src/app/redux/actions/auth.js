@@ -12,12 +12,14 @@ let mockApiData = [
 ];
 
 const Auth = () => dispatch => {
-    const isLogged = firebase.auth.currentUser !== null;
-    console.log(firebase.auth.currentUser !== null);
-    dispatch({
-        type: 'AUTH_ACTION',
-        payload: isLogged
-    });
+    setTimeout(() => {
+        const isLogged = firebase.auth.currentUser !== null;
+        dispatch({
+            type: 'AUTH_ACTION',
+            payload: isLogged
+        });
+    })
+    
 }
 
 export default Auth;

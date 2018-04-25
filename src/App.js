@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { Link, browserHistory, hashHistory } from 'react-router';
 
 import Preloader from './app/components/Preloader.js';
 import getTracks from './app/redux/actions/track.js';
@@ -8,7 +8,14 @@ import actionAuth from './app/redux/actions/auth.js';
 import LogIn from './app/components/LogIn.js';
 import { firebase } from './app/services/firebase';
 
+import { Redirect } from 'react-router';
+
 import Authorization from './app/components/Authorization.js';
+import { syncHistoryWithStore } from 'react-router-redux';
+import store from './app/redux';
+import Home from './app/components/Home.js';
+
+import { FirebaseComp } from './app/services/firebase/firebase.js';
 
 class App extends React.Component {
     constructor(props) {
@@ -16,18 +23,22 @@ class App extends React.Component {
         this.state = {
             'song': '',
             'search': '',
-            'isLoading': !this.props.auth.isLogged,
+            'isLoading': !this.props.isLogged,
             'isLogged': this.props.auth.isLogged
         }
-        console.log("STATE", this.state);
     }
 
     componentDidMount() {
-        console.log('APP HAS THESE PROPS', this.props);
         this.props.onAuth();
-        setTimeout(() => {
-            console.log(this.props);
-        }, 10000)
+        this.setState({
+            'isLoading': !this.props.isLogged
+        })
+    }
+
+    componentDidUpdate() {
+        if (!this.props.auth.isLogged) {
+           this.props.router.push('/login');
+        }
     }
 
     handleInputChange = (event) => {
@@ -53,45 +64,13 @@ class App extends React.Component {
 
     render() {
         const items = this.props.items;
-        if (!this.props.auth.isLogged) {
-            return (
-                <div>
-                <LogIn />
-                </div>
-            )
-        }
+        const isLoading = !this.props.auth.isLogged;
         return (
             <div>
-                <h1>Hello</h1>
+                <FirebaseComp func={this.props.onAuth}/>
+                {isLoading ? <Preloader /> : <Home />}
             </div>
         )
-
-        // return (
-        //     <div>
-        //         <div className="search">
-        //             <input type="search" style={{marginBottom: 20}} onChange={this.handleInputChange} id="search" value={this.state.search} />
-        //             <button onClick={this.handleFind}>Find</button>
-        //         </div>
-        //         <input type="text" onChange={this.handleInputChange} id="song" value={this.state.song}/>
-        //         <button onClick={this.handleSubmit}>Add</button>
-        //         <div>
-        //             <button onClick={this.props.onGetTracks}>
-        //                 Get tracks
-        //             </button>
-        //         </div>
-        //         <ul>
-        //             {items.map((item, index) => {
-        //                 return (
-        //                     <li key={item.id}>
-        //                         <Link to={"/tracks/" + item.id}>
-        //                             {item.name}
-        //                         </Link>
-        //                     </li>
-        //                 )
-        //             })}      
-        //         </ul>
-        //     </div>
-        // )
     }
     
 }
@@ -99,7 +78,8 @@ class App extends React.Component {
 export default connect(
     (state, ownProps) => ({
         items: state.track.filter(item => item.name.includes(state.filter)),
-        auth: state.auth
+        auth: state.auth,
+        isLogged: state.auth.isLogged
     }),
     dispatch => ({
         onAddTrack: (data) => {

@@ -2,12 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { auth } from '../services/firebase';
 import actionAuth from '../redux/actions/auth.js';
+import LogOut from './LogOut.js';
+import { Link, browserHistory, hashHistory } from 'react-router';
 
 class LogIn extends React.Component  {
-    state = {
-        username: '',
-        password: ''
-    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            password: ''
+        }
+    }
+
+    componentDidUpdate() {
+        if (this.props.isLogged) {
+            this.props.router.push('/');
+        }
+    }
 
     handleChange = (event) => {
         this.setState({
@@ -37,7 +49,7 @@ class LogIn extends React.Component  {
                     <input type="text" value={this.state.username} onChange={this.handleChange} id="username" placeholder="username" />
                     <input type="text" value={this.state.password} onChange={this.handleChange} id="password" placeholder="password" />
                     <button type="submit" onClick={this.handleSubmit}>Log in</button>
-                    <button type="" onClick={this.handleLogOff}>Log off</button>
+                    <Link to="/register">Create a new account</Link>
                 </form>
             </div>
         )
@@ -46,7 +58,8 @@ class LogIn extends React.Component  {
 
 export default connect(
     (state, ownProps) => ({
-        state: state
+        state: state,
+        isLogged: state.auth.isLogged
     }),
     dispatch => ({
         onAuth: () => {
