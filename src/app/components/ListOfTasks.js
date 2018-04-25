@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { db } from './firebase/firebase.js';
-import { firebase } from './firebase/';
+import { db } from '../services/firebase/firebase.js';
+import { firebase } from '../services/firebase/';
+
+import { Link } from 'react-router';
 
 class ListOfTasks extends React.Component {
     constructor(props) {
@@ -13,6 +15,10 @@ class ListOfTasks extends React.Component {
     }
 
     componentDidMount() {
+        const user = firebase.auth.currentUser;
+        if (!user) {
+            return 0;
+        }
         const userId = firebase.auth.currentUser.uid;
         var tasksList = [];
         let tasksObj = db.ref('/users/' + userId + '/tasks').once('value').then((snapshot) => {
@@ -64,7 +70,9 @@ class ListOfTasks extends React.Component {
                             <tr key={item.taskId} className="tm-tasks-item">
                                 <td>
                                     <span className="tm-tasks-item__name">
-                                        {item.taskName}
+                                        <Link to={"/task" + item.taskId}>
+                                            {item.taskName}
+                                        </Link>    
                                     </span>
                                 </td>
                                 <td>

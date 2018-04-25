@@ -52,7 +52,7 @@ class LogIn extends React.Component  {
                         <input type="text" className="tm-input" value={this.state.email} onChange={this.handleChange} id="email" placeholder="Email" />
                     </div>
                     <div className="tm-input-container">    
-                        <input type="text" className="tm-input" value={this.state.password} onChange={this.handleChange} id="password" placeholder="Password" />
+                        <input type="password" className="tm-input" value={this.state.password} onChange={this.handleChange} id="password" placeholder="Password" />
                     </div>    
                     <button type="submit" className="tm-btn tm-btn--primary mr" onClick={this.handleSubmit}>Log in</button>
                     <Link className="tm-btn tm-btn--primary" to="/register">Create a new account</Link>

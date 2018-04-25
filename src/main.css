@@ -370,6 +370,16 @@ a {
       width: calc(100% - 280px);
       vertical-align: middle; }
 
+.tm-table {
+  border-collapse: collapse; }
+  .tm-table thead {
+    text-transform: uppercase;
+    text-align: center; }
+  .tm-table td {
+    border: 1px solid #E8E8E8;
+    padding: 10px;
+    min-width: 200px; }
+
 .tm-btn {
   display: inline-block;
   min-width: 100px;

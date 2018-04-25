@@ -17,6 +17,7 @@ import Register from './Register.js';
 import ProtectedRoute from './ProtectedRoute.js';
 import CreateTask from './CreateTask.js';
 import Toolbar from './Toolbar.js';
+import ListOfTasks from './ListOfTasks.js';
 
 import store from '../redux';
 import { FirebaseComp } from '../services/firebase/firebase.js';
@@ -72,7 +73,7 @@ class Home extends React.Component {
             <div>
                 <FirebaseComp func={this.props.onAuth}/>
                 <Toolbar />
-                HOMEPAGE
+                <ListOfTasks />
             </div>
         )
     }

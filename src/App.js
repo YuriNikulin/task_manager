@@ -10,6 +10,7 @@ import { firebase } from './app/services/firebase';
 import Authorization from './app/components/Authorization.js';
 import { syncHistoryWithStore } from 'react-router-redux';
 import Home from './app/components/Home.js';
+import Task from './app/components/Task.js';
 
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import Register from './app/components/Register.js';
@@ -27,6 +28,7 @@ class App extends React.Component {
                 <Router history={history}>
                     <Route path="/" component={Home} />
                     <Route path="/createtask" component={CreateTask} />
+                    <Route path="/task:id" component={Task} />
                     <Route path="/login" component={LogIn} />
                 </Router>
             </div> 

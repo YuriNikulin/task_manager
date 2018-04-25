@@ -17,9 +17,11 @@ class CreateTask extends React.Component {
     }
 
     handleSubmit(event) {
+        debugger;
         const {taskName, taskDescription, taskPriority, estimatedTime} = this.state;
         const taskStatus = 'Open';
         const currentUser = firebase.auth.currentUser;
+        console.log(taskCreationDate);
         console.log(currentUser);
         this.setState({
             taskName: '',
