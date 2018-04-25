@@ -1,27 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link, browserHistory, hashHistory } from 'react-router';
 
-import Preloader from './Preloader.js';
-import getTracks from '../redux/actions/track.js';
-import actionAuth from '../redux/actions/auth.js';
-import LogIn from './LogIn.js';
-import { firebase } from '../services/firebase';
+import Preloader from './app/components/Preloader.js';
+import getTracks from './app/redux/actions/track.js';
+import actionAuth from './app/redux/actions/auth.js';
+import LogIn from './app/components/LogIn.js';
+import { firebase } from './app/services/firebase';
 
 import { Redirect } from 'react-router';
 
-import Authorization from './Authorization.js';
+import Authorization from './app/components/Authorization.js';
 import { syncHistoryWithStore } from 'react-router-redux';
+import store from './app/redux';
+import Home from './app/components/Home.js';
 
-import { Router, Route,  hashHistory } from 'react-router';
-import Register from './Register.js';
-import ProtectedRoute from './ProtectedRoute.js';
-import CreateTask from './CreateTask.js';
-import Toolbar from './Toolbar.js';
+import { FirebaseComp } from './app/services/firebase/firebase.js';
 
-import store from '../redux';
-import { FirebaseComp } from '../services/firebase/firebase.js';
-
-class Home extends React.Component {
+class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -67,15 +63,20 @@ class Home extends React.Component {
     handleFind = (event) => {
         this.props.onFindTrack(this.state.search);
     }
+
     render() {
-        return(
+        const items = this.props.items;
+        const isLoading = this.state.isLoading;
+        console.log('props', this.props);
+        console.log('state', this.state);
+        return (
             <div>
                 <FirebaseComp func={this.props.onAuth}/>
-                <Toolbar />
-                HOMEPAGE
+                {isLoading ? <Preloader /> : <Home />}
             </div>
         )
     }
+    
 }
 
 export default connect(
@@ -119,4 +120,4 @@ export default connect(
             dispatch(actionAuth());
         }
     })
-)(Home);
+)(App);

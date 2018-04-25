@@ -13,10 +13,14 @@ let mockApiData = [
 
 const Auth = () => dispatch => {
     setTimeout(() => {
-        const isLogged = firebase.auth.currentUser !== null;
+        const currentUser = firebase.auth.currentUser;
+        const isLogged = currentUser !== null;
         dispatch({
             type: 'AUTH_ACTION',
-            payload: isLogged
+            payload: {
+                isLogged: isLogged,
+                currentUser: currentUser
+            }
         });
     })
     

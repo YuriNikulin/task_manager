@@ -31,22 +31,23 @@ class FirebaseComp extends React.Component {
 
     componentDidMount() {
         firebase.auth().onAuthStateChanged(() => {
+            console.log('changed');
             this.props.func();
         })
     }
 
     render() {
         return (
-            <div>test</div>
+            null
         )
     }
 }
-// const db = firebase.database();
+const db = firebase.database();
 
 export {
     auth,
     FirebaseComp,
-    // db
+    db
 }
 
 

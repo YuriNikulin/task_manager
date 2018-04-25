@@ -8,9 +8,7 @@ class LogOut extends React.Component {
 
     render() {
         return (
-            <div>
-                <button onClick={this.handleClick}>Log out</button>
-            </div>
+            <a className={this.props.className} onClick={this.handleClick}>Log out</a>
         )
     }
 }
