@@ -17,12 +17,18 @@ class CreateTask extends React.Component {
     }
 
     handleSubmit(event) {
-        debugger;
         const {taskName, taskDescription, taskPriority, estimatedTime} = this.state;
         const taskStatus = 'Open';
         const currentUser = firebase.auth.currentUser;
-        console.log(taskCreationDate);
-        console.log(currentUser);
+
+        firebase.database().ref('/.info/serverTimeOffset')
+          .once('value')
+          .then(function stv(data) {
+            console.log(data.val() + Date.now());
+          }, function (err) {
+            return err;
+          });
+        
         this.setState({
             taskName: '',
             taskDescription: '',
@@ -37,6 +43,7 @@ class CreateTask extends React.Component {
 
     componentDidMount() {
         this.props.onAuth();
+        console.log(firebase);
     }
 
     componentDidUpdate() {
