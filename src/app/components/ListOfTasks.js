@@ -5,45 +5,98 @@ import { firebase } from '../services/firebase/';
 
 import { Link } from 'react-router';
 
+import { connect } from 'react-redux';
+
+import actionAuthAlternate from '../redux/actions/authAlternate.js';
+import actionFetchTasks from '../redux/actions/fetchTasks.js';
+import tasksReducer from '../redux/reducers/';
+import { FirebaseComp } from '../services/firebase/firebase.js';
+
 class ListOfTasks extends React.Component {
     constructor(props) {
+        // debugger;
         super(props);
         this.state = {
             tasksList: {},
-            tasksArrow: []
+            tasksArray: [],
+            isLoaded: false
         };
     }
 
-    componentDidMount() {
-        const user = firebase.auth.currentUser;
+    componentDidUpdate(prevProps, prevState) {
+        // console.log(this.props);
+        // debugger;
+        // if (!this.areTasksListsDifferent(prevProps.tasksList, this.state.tasksList)) {
+        //     return;
+        // }
+        if (this.state.isLoaded) {
+            return;
+        }
+        this.maybeFetchTasks();
+    }
+
+    maybeFetchTasks = () => {
+        const user = this.props.currentUser;
+
+        console.log('maybe');
         if (!user) {
             return 0;
         }
-        const userId = firebase.auth.currentUser.uid;
+        const userId = user.uid;
+
         var tasksList = [];
         let tasksObj = db.ref('/users/' + userId + '/tasks').once('value').then((snapshot) => {
-            this.setState({
-                tasksList: (snapshot.val()) 
-            });
-            this.generateArrayOfTasks();
+
+            let tasksList = (snapshot.val());
+            
+            this.generateArrayOfTasks(tasksList);
         });
     }
 
-    generateArrayOfTasks() {
-        const tasksArrow = [];
-        for (var i in this.state.tasksList) {
-            tasksArrow.push(this.state.tasksList[i]);
+    componentDidMount() {
+        this.maybeFetchTasks();
+    }
+
+    generateArrayOfTasks(tasksList) {
+        const tasksArray = [];
+
+        for (var i in tasksList) {
+            tasksArray.push(tasksList[i]);
         }
-        this.setState({
-            tasksArrow
-        });
+        if (tasksArray.length) {
+            this.setState({
+                isLoaded: true
+            })
+        }
+        this.props.dispatch(actionFetchTasks(tasksArray));
+        // this.setState({
+        //     tasksArray
+        // });
+    }
+
+    areTasksListsDifferent(obj1, obj2) {
+
+        if (Object.keys(obj1).length != Object.keys(obj2).length) {
+            return true;
+        }
+
+        for (let i in obj1) {
+            if (obj1[i] != obj2[i]) return true;
+        }
+
+        return false;
     }
 
     render() {
-        const tasksList = this.state.tasksArrow;
-        console.log(tasksList);
+        let tasksList = [];
+        if (this.props.tasksList && this.props.tasksList.length) {
+            console.log(this.props);
+            tasksList = this.props.tasksList;
+        }
+
         return (
             <div className="tm-tasks">
+                <FirebaseComp func={actionAuthAlternate}/>
                 <table className="tm-table tm-tasks-table">
                     <thead>
                         <tr>
@@ -95,4 +148,19 @@ class ListOfTasks extends React.Component {
     }
 }
 
-export default ListOfTasks;
+const mapStateToProps = (state) => {
+    return ({
+        currentUser: state.auth.currentUser,
+        tasksList: state.tasks.tasksList
+    })
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return ({
+        onAuth: () => {
+            // dispatch(actionAuth());
+        }
+    })
+}
+
+export default connect(mapStateToProps)(ListOfTasks);

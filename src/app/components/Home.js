@@ -34,7 +34,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        this.props.onAuth();
+        // this.props.onAuth();
     }
 
     componentDidUpdate() {
@@ -43,7 +43,8 @@ class Home extends React.Component {
                 isLoading: false
             });
         }
-        if (!this.props.auth.isLogged && this.props.auth.currentUser === null) {
+        console.log(this.props.auth.currentUser);
+        if (this.props.auth.currentUser === null) {
            this.props.router.push('/login');
         }
     }

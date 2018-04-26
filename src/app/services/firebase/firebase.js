@@ -18,7 +18,7 @@ if (!firebase.apps.length) {
 }
 
 const afterChange = (props) => {
-    console.log(props);
+
 }
 
 const auth = firebase.auth();
@@ -30,9 +30,10 @@ class FirebaseComp extends React.Component {
     } 
 
     componentDidMount() {
-        firebase.auth().onAuthStateChanged(() => {
+        firebase.auth().onAuthStateChanged((data) => {
+            console.log(data);
             console.log('changed');
-            this.props.func();
+            this.props.func(data);
         })
     }
 
