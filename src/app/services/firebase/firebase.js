@@ -33,6 +33,7 @@ class FirebaseComp extends React.Component {
         firebase.auth().onAuthStateChanged((data) => {
             console.log(data);
             console.log('changed');
+            console.log(this.props);
             this.props.func(data);
         })
     }

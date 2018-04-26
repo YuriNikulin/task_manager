@@ -385,12 +385,18 @@ a {
   min-width: 100px;
   border: none;
   cursor: pointer;
-  padding: 10px 18px; }
+  padding: 10px 18px;
+  text-align: center; }
   .tm-btn--primary {
     background-color: #0D90DB;
     color: #fff; }
     .tm-btn--primary:hover {
       background-color: #119ff1; }
+  .tm-btn--warning {
+    background-color: #D41111;
+    color: #fff; }
+    .tm-btn--warning:hover {
+      background-color: #ec1313; }
   .tm-btn--disabled, .tm-btn--disabled:hover {
     background-color: #707F88;
     cursor: auto; }

@@ -118,6 +118,7 @@ a {
     border: none;
     cursor: pointer;
     padding: 10px 18px;
+    text-align: center;
 
     &--primary {
         background-color: $primary;
@@ -125,6 +126,15 @@ a {
 
         &:hover {
             background-color: lighten($primary, 5%);
+        }
+    }
+
+    &--warning {
+        background-color: $warning;
+        color: #fff;
+
+        &:hover {
+            background-color: lighten($warning, 5%);
         }
     }
 

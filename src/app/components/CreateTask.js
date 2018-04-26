@@ -146,9 +146,9 @@ class CreateTask extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-        return {
-                isLogged: state.auth.isLogged
-        }
+    return {
+        isLogged: state.auth.isLogged
+    }
 }
 
 export default connect(

@@ -37,8 +37,6 @@ class ListOfTasks extends React.Component {
 
     maybeFetchTasks = () => {
         const user = this.props.currentUser;
-
-        console.log('maybe');
         if (!user) {
             return 0;
         }
@@ -63,7 +61,7 @@ class ListOfTasks extends React.Component {
         for (var i in tasksList) {
             tasksArray.push(tasksList[i]);
         }
-        if (tasksArray.length) {
+        if (tasksArray.length || this.props.currentUser) {
             this.setState({
                 isLoaded: true
             })
