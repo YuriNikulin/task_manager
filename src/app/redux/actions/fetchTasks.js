@@ -12,7 +12,6 @@ import { firebase, auth } from '../../services/firebase';
 // }
 
 const FetchTasks = (data) => {
-    console.log('her');
     return (
         {
             'type': 'FETCH_TASKS',

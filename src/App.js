@@ -27,6 +27,7 @@ class App extends React.Component {
             <div className="tm-container">
                 <Router history={history}>
                     <Route path="/" component={Home} />
+                    <Route path="/register" component={Register} />
                     <Route path="/createtask" component={CreateTask} />
                     <Route path="/task:id" component={Task} />
                     <Route path="/login" component={LogIn} />

@@ -28,12 +28,7 @@ class LogIn extends React.Component  {
         })
     }
 
-    handleTest = () => {
-        console.log('poprobuem');
-    }
-
     handleSubmit = (event) => {
-        console.log(this.props);
         event.preventDefault();
         auth.doSignInWithEmailAndPassword(this.state.email, this.state.password, this.props.onAuth);
     }

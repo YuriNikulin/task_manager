@@ -1,0 +1,106 @@
+.tm-task {
+    @media (max-width: $container-width + $gutter * 2) {
+        padding-left: $gutter;
+        padding-right: $gutter;
+    }
+
+    &-input {
+        padding: 3px 10px;
+        resize: none;
+        border: none;
+        background: #fff;
+    }
+
+    &__label {
+        display: block;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    &__title {
+        font-size: 24px;
+        padding-left: 0;
+        color: #000;
+        display: block;
+        width: 100%;
+    }
+
+    &-date {
+        display: block;
+    }
+
+    &-header {
+        &-right {
+            padding-top: $gutter;
+        }
+    }
+
+    &-info {
+        &-item {
+            text-align: center;
+            margin-bottom: $gutter;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+            
+        }
+    }
+
+    &-estimated {
+        &-item {
+            text-align: center;
+            margin-bottom: $gutter;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+            
+        }
+    }
+
+    &-description {
+        text-align: center;
+
+        .tm-task__label {
+            margin-right: 10px;
+        }
+
+        &__input {
+            min-height: 70px;
+            width: 100%;
+            
+        }
+
+        .tm-task__label,
+        &__input {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    &-container {
+        @include clearfix();
+        padding: $gutter 0;
+        border-bottom: 1px solid darken($base, 5%);
+
+        &:first-child {
+            padding-top: 0;
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+[disabled].tm-task-input {
+    background: none;
+    border: none;
+}
+
+[type='number'].tm-task-input {
+    text-align: center;
+}
