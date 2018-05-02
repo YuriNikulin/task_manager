@@ -5,7 +5,9 @@ export const doCreateUserWithEmailAndPassword = (email, password) =>
 
 export const doSignInWithEmailAndPassword = (email, password, onSign) =>
     auth.signInWithEmailAndPassword(email, password).then(() => {
-        onSign();
+        if (typeof(onSign) === 'function') {
+            onSign();
+        }
     });
 
 export const doSignOut = () => {

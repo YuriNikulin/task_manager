@@ -13,6 +13,7 @@ class Register extends React.Component {
             username: '',
             password: '',
             password2: '',
+            error: false
         }
     }
 
@@ -23,6 +24,20 @@ class Register extends React.Component {
     }
 
     handleSubmit = (event) => {
+        if (this.state.password != this.state.password2) {
+            this.setState({
+                error: 'Passwords don\'t match'
+            })
+            return;
+        }
+
+        if (!this.state.password || !this.state.email || !this.state.username) {
+            this.setState({
+                error: 'All the fields are required'
+            });
+            return;
+        }
+        
         const {
             email, username
         } = this.state;
@@ -37,6 +52,9 @@ class Register extends React.Component {
             })
             .catch(error => {
                 console.log(error);
+                this.setState({
+                    error: error.message
+                })
             });
 
         event.preventDefault();    
@@ -61,6 +79,9 @@ class Register extends React.Component {
                     </div>    
                     <button className="tm-btn tm-btn--primary mr " type="submit" onClick={this.handleSubmit}>Register</button>
                     <Link className="tm-btn tm-btn--text" to="/login">I already have an account</Link>
+                    {this.state.error && 
+                        <p className="tm__error">{this.state.error}</p>
+                    }
                 </form>
             </Popup>
         )

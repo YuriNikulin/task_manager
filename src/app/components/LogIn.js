@@ -12,13 +12,8 @@ class LogIn extends React.Component  {
         super(props);
         this.state = {
             email: '',
-            password: ''
-        }
-    }
-
-    componentDidUpdate() {
-        if (this.props.isLogged) {
-            this.props.router.push('/');
+            password: '',
+            error: false
         }
     }
 
@@ -30,12 +25,14 @@ class LogIn extends React.Component  {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        auth.doSignInWithEmailAndPassword(this.state.email, this.state.password, this.props.onAuth);
-    }
-
-    handleLogOff = (event) => {
-        event.preventDefault();
-        auth.doSignOut();
+        auth.doSignInWithEmailAndPassword(this.state.email, this.state.password, this.props.onAuth).then(() => {
+            this.props.router.push('/');
+        }, (error) => {
+            console.log(error);
+            this.setState({
+                error: error.message
+            })
+        });
     }
 
     render() {
@@ -51,20 +48,13 @@ class LogIn extends React.Component  {
                     </div>    
                     <button type="submit" className="tm-btn tm-btn--primary mr" onClick={this.handleSubmit}>Log in</button>
                     <Link className="tm-btn tm-btn--primary" to="/register">Create a new account</Link>
+                    {this.state.error && 
+                        <p className="tm__error">{this.state.error}</p>
+                    }
                 </form>
             </Popup>
         )
     }
 }
 
-export default connect(
-    (state, ownProps) => ({
-        state: state,
-        isLogged: state.auth.isLogged
-    }),
-    dispatch => ({
-        onAuth: () => {
-            dispatch(actionAuth());
-        }
-    })
-)(LogIn);
+export default connect()(LogIn);

@@ -380,6 +380,9 @@ a {
     padding: 10px;
     min-width: 200px; }
 
+.tm__error {
+  color: #D41111; }
+
 .tm-btn {
   display: inline-block;
   min-width: 100px;
@@ -401,12 +404,19 @@ a {
     background-color: #707F88;
     cursor: auto; }
 
+.tm-preloader img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 150px; }
+
 .tm-popup {
   position: absolute;
   left: 50%;
   top: 50%;
   z-index: 1000;
-  transition: 0.2s;
+  transition: 0.7s;
   background: #fff;
   width: 100%;
   max-width: 600px;
@@ -539,3 +549,21 @@ a {
 
 [type='number'].tm-task-input {
   text-align: center; }
+
+.fade-enter {
+  opacity: 0.01;
+  margin-bottom: -10px;
+  transition: 0.7s; }
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: 0.7s;
+  margin-bottom: 0; }
+
+.fade-leave {
+  opacity: 1;
+  transition: 0.7s; }
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+  transition: 0.7s; }

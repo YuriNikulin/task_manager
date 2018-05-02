@@ -19,6 +19,9 @@ import Register from './app/components/Register.js';
 import ProtectedRoute from './app/components/ProtectedRoute.js';
 import CreateTask from './app/components/CreateTask.js';
 
+import Transition from 'react-transition-group/Transition';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import store from './app/redux';
 import { FirebaseComp } from './app/services/firebase/firebase.js';
 
@@ -38,7 +41,7 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        
+
     }
 
     componentDidUpdate() {
@@ -57,16 +60,22 @@ class App extends React.Component {
         return(
             <div>
                 <FirebaseComp />
-                {!this.state.isLoaded 
-                    ? 
-                    <Preloader />
-                    :
-                    <div className="tm-container">
-                        <Router history={history}>
-                            {routes}
-                        </Router>
-                    </div>
-                }
+                <ReactCSSTransitionGroup 
+                    transitionName="fade"
+                    transitionEnterTimeout={300}
+                    transitionLeaveTimeout={300}
+                >
+                    {!this.state.isLoaded 
+                        ? 
+                            <Preloader key="preloader" />
+                        :
+                            <div key="content" className="tm-container">
+                                <Router history={history}>
+                                    {routes}
+                                </Router>
+                            </div>
+                    }
+                </ReactCSSTransitionGroup> 
             </div> 
         )
     }

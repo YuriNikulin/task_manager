@@ -7,6 +7,9 @@ import { Link } from 'react-router';
 
 import { connect } from 'react-redux';
 
+import Transition from 'react-transition-group/Transition';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+
 import actionAuthAlternate from '../redux/actions/authAlternate.js';
 import actionFetchTasks from '../redux/actions/fetchTasks.js';
 import tasksReducer from '../redux/reducers/';
@@ -94,8 +97,7 @@ class ListOfTasks extends React.Component {
 
         return (
             <div className="tm-tasks">
-                <FirebaseComp func={actionAuthAlternate}/>
-                <table className="tm-table tm-tasks-table">
+                <table key="table" className="tm-table tm-tasks-table">
                     <thead>
                         <tr>
                             <td>
@@ -116,6 +118,7 @@ class ListOfTasks extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
+                    
                     {tasksList.map((item) => {
                         return (
                             <tr key={item.taskId} className="tm-tasks-item">
@@ -139,6 +142,7 @@ class ListOfTasks extends React.Component {
                             </tr>
                         )
                     })}
+                    
                     </tbody>
                 </table>
             </div>
