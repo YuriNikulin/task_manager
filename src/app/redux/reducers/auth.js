@@ -6,8 +6,7 @@ const initialState = {
 const auth = (state=initialState, action) => {
     switch (action.type) {
         case 'AUTH_ACTION':
-        // debugger;
-        if (true)
+            console.log('hoba');
             return {
                 isLogged: action.payload.isLogged,
                 currentUser: action.payload.currentUser,

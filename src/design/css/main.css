@@ -401,6 +401,13 @@ a {
     background-color: #707F88;
     cursor: auto; }
 
+.tm-preloader img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 150px; }
+
 .tm-popup {
   position: absolute;
   left: 50%;

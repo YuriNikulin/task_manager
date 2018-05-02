@@ -49,7 +49,7 @@ class Task extends React.Component {
                 ...task,
                 isLoaded: true
             });
-            console.log(this.state);
+
         });
     }
 
@@ -57,7 +57,7 @@ class Task extends React.Component {
         this.props.dispatch(actionAuthAlternate());
 
     toggleChangingMode = () => {
-        console.log(this.state);
+
         this.setState((prevState, currentState) => {
             return {
                 isChanging: !prevState.isChanging
@@ -106,7 +106,6 @@ class Task extends React.Component {
     render() {
         return (
             <div>
-                <FirebaseComp func={this.onAuth}/>
                 <Toolbar />
                 <div className="tm-task">
                     <form>

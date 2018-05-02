@@ -2,6 +2,7 @@ import * as firebase from 'firebase';
 import { connect } from 'react-redux';
 import actionAuth from '../../redux/actions/auth.js';
 import React from 'react';
+import store from '../../redux';
 // import FirebaseComp from './FirebaseComp.js';
 
 const config = {
@@ -31,10 +32,13 @@ class FirebaseComp extends React.Component {
 
     componentDidMount() {
         firebase.auth().onAuthStateChanged((data) => {
-            console.log(data);
-            console.log('changed');
-            console.log(this.props);
-            this.props.func(data);
+            store.dispatch({
+                'type': 'AUTH_ACTION',
+                'payload': {
+                    'isLogged': !(data === null),
+                    'currentUser': data
+                }
+            })
         })
     }
 
@@ -44,6 +48,7 @@ class FirebaseComp extends React.Component {
         )
     }
 }
+
 const db = firebase.database();
 
 export {
@@ -51,6 +56,5 @@ export {
     FirebaseComp,
     db
 }
-
 
 export default FirebaseComp;

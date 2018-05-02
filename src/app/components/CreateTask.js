@@ -51,20 +51,8 @@ class CreateTask extends React.Component {
         })
     }
 
-    componentDidMount() {
-        this.props.onAuth();
-    }
-
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.auth.currentUser !== this.props.auth.currentUser) {
-            this.setState({
-                currentUser: this.props.auth.currentUser,
-                isLoading: false
-            })
-        }
-        if (this.state.currentUser === null && !this.state.isLoading) {
-             this.props.router.push('/login');
-        }
+       
     }
 
     render() {
@@ -72,7 +60,6 @@ class CreateTask extends React.Component {
         return(
             <div>
                 <Toolbar />
-                <FirebaseComp func={this.props.onAuth} />
                 <div className="tm-create">
                     <div className="tm-create-content">
                         <form onSubmit={this.handleSubmit}>
@@ -151,15 +138,17 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(
-        (state, ownProps) => ({
-            items: state.track.filter(item => item.name.includes(state.filter)),
-            auth: state.auth,
-            isLogged: state.auth.isLogged
-        }),
-        dispatch => ({
-            onAuth: () => {
-                dispatch(actionAuth());
-            }
-        })
-)(CreateTask);
+export default CreateTask;
+
+// export default connect(
+//         (state, ownProps) => ({
+//             items: state.track.filter(item => item.name.includes(state.filter)),
+//             auth: state.auth,
+//             isLogged: state.auth.isLogged
+//         }),
+//         dispatch => ({
+//             onAuth: () => {
+//                 dispatch(actionAuth());
+//             }
+//         })
+// )(CreateTask);

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Preloader from './Preloader.js';
 import getTracks from '../redux/actions/track.js';
 import actionAuth from '../redux/actions/auth.js';
 import LogIn from './LogIn.js';
@@ -33,46 +32,13 @@ class Home extends React.Component {
         }
     }
 
-    componentDidMount() {
-        // this.props.onAuth();
-    }
-
     componentDidUpdate() {
-        if (this.state.isLoading && this.props.isLogged) {
-            this.setState({
-                isLoading: false
-            });
-        }
-        console.log(this.props.auth.currentUser);
-        if (this.props.auth.currentUser === null) {
-           this.props.router.push('/login');
-        }
+
     }
 
-    handleInputChange = (event) => {
-        this.setState({
-            [event.target.id]: event.target.value
-        });
-    }
-
-    handleSubmit = () => {
-        this.props.onAddTrack(this.state.song);
-        this.setState({'song': ''})
-    }
-
-    handleRemove = (event) => {
-        event.preventDefault();
-        const elemId = parseInt(event.target.parentNode.id);
-        this.props.onRemoveTrack(elemId);
-    }
-
-    handleFind = (event) => {
-        this.props.onFindTrack(this.state.search);
-    }
     render() {
         return(
             <div>
-                <FirebaseComp func={this.props.onAuth}/>
                 <Toolbar />
                 <ListOfTasks />
             </div>
@@ -80,45 +46,15 @@ class Home extends React.Component {
     }
 }
 
-export default connect(
-    (state, ownProps) => ({
-        items: state.track.filter(item => item.name.includes(state.filter)),
-        auth: state.auth,
-        isLogged: state.auth.isLogged
-    }),
-    dispatch => ({
-        onAddTrack: (data) => {
-            dispatch(
-                {
-                    type: "ADD_TRACK",
-                    payload: {
-                        name: data,
-                        id: Date.now().toString() 
-                    }
-                }
-            )
-        },
-        onRemoveTrack: (trackId) => {
-            dispatch(
-                {
-                    type: 'REMOVE_TRACK',
-                    payload: trackId
-                }
-            )
-        },
-        onFindTrack: (name) => {
-            dispatch(
-                {
-                    type: "FIND_TRACK", 
-                    payload: name
-                }
-            )
-        },
-        onGetTracks: () => {
-            dispatch(getTracks());
-        },
-        onAuth: () => {
-            dispatch(actionAuth());
-        }
-    })
-)(Home);
+export default Home;
+
+// export default connect(
+//     (state, ownProps) => ({
+
+//     }),
+//     dispatch => ({
+//         onAuth: () => {
+//             dispatch(actionAuth());
+//         }
+//     })
+// )(Home);

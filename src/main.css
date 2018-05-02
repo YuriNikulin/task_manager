@@ -467,7 +467,7 @@ a {
     .tm-tasks-item:last-child {
       border-bottom: none; }
 
-@media (max-width: 1200px) {
+@media (max-width: 1220px) {
   .tm-task {
     padding-left: 10px;
     padding-right: 10px; } }

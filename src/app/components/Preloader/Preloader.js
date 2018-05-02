@@ -1,9 +1,12 @@
 import React from 'react';
+import preloader from './preloader.gif';
+
+console.log(preloader);
 
 const Preloader = () => {
     return (
         <div className="tm-preloader">
-            <h2>PRELOADER</h2>
+            <img src={preloader} />
         </div>
     )
 }
