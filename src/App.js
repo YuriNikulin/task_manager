@@ -63,11 +63,7 @@ class App extends React.Component {
                     :
                     <div className="tm-container">
                         <Router history={history}>
-                            <Route path="/" component={Home} />
-                            <Route path="/register" component={Register} />
-                            <Route path="/createtask" component={CreateTask} />
-                            <Route path="/task:id" component={Task} />
-                            <Route path="/login" component={LogIn} />
+                            {routes}
                         </Router>
                     </div>
                 }
@@ -75,6 +71,16 @@ class App extends React.Component {
         )
     }
 }
+
+const routes = (
+    <div>
+        <Route path="/" component={Home} />
+        <Route path="/register" component={Register} />
+        <Route path="/createtask" component={CreateTask} />
+        <Route path="/task:id" component={Task} />
+        <Route path="/login" component={LogIn} />
+    </div>    
+)
 
 const mapStateToProps = (state) => {
     return {
