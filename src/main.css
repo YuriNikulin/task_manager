@@ -334,7 +334,8 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center; }
 
 .tm-container {
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
   max-width: 1200px; }
 
 a {
@@ -416,7 +417,7 @@ a {
   left: 50%;
   top: 50%;
   z-index: 1000;
-  transition: 0.7s;
+  transition: 0.3s;
   background: #fff;
   width: 100%;
   max-width: 600px;
@@ -477,11 +478,6 @@ a {
     .tm-tasks-item:last-child {
       border-bottom: none; }
 
-@media (max-width: 1220px) {
-  .tm-task {
-    padding-left: 10px;
-    padding-right: 10px; } }
-
 .tm-task-input {
   padding: 3px 10px;
   resize: none;
@@ -533,6 +529,8 @@ a {
 
 .tm-task-container {
   padding: 10px 0;
+  margin-bottom: 10px;
+  background: #fff;
   border-bottom: 1px solid #dbdbdb; }
   .tm-task-container:after {
     content: '';
@@ -552,18 +550,20 @@ a {
 
 .fade-enter {
   opacity: 0.01;
-  margin-bottom: -10px;
-  transition: 0.7s; }
+  margin-top: -10px;
+  transition: 0.3s; }
 
 .fade-enter.fade-enter-active {
   opacity: 1;
-  transition: 0.7s;
-  margin-bottom: 0; }
+  transition: 0.3s;
+  margin-top: 0; }
 
 .fade-leave {
   opacity: 1;
-  transition: 0.7s; }
+  transition: 0.3s;
+  margin-top: 0; }
 
 .fade-leave.fade-leave-active {
   opacity: 0.01;
-  transition: 0.7s; }
+  transition: 0.3s;
+  margin-top: -10px; }

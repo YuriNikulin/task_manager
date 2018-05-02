@@ -104,6 +104,10 @@ a {
     thead {
         text-transform: uppercase;
         text-align: center;
+
+        td {
+            border-top: none;
+        }
     }
 
     td {

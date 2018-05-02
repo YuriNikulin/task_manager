@@ -376,6 +376,8 @@ a {
   .tm-table thead {
     text-transform: uppercase;
     text-align: center; }
+    .tm-table thead td {
+      border-top: none; }
   .tm-table td {
     border: 1px solid #E8E8E8;
     padding: 10px;
@@ -478,15 +480,11 @@ a {
     .tm-tasks-item:last-child {
       border-bottom: none; }
 
-@media (max-width: 1220px) {
-  .tm-task {
-    padding-left: 10px;
-    padding-right: 10px; } }
-
 .tm-task-input {
   padding: 3px 10px;
   resize: none;
   border: none;
+  border-bottom: 1px solid #000;
   background: #fff; }
 
 .tm-task__label {
@@ -533,7 +531,9 @@ a {
     vertical-align: middle; }
 
 .tm-task-container {
-  padding: 10px 0;
+  padding: 10px;
+  margin-bottom: 5px;
+  background: #fff;
   border-bottom: 1px solid #dbdbdb; }
   .tm-task-container:after {
     content: '';
