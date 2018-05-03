@@ -3,8 +3,7 @@
     &-input {
         padding: 3px 10px;
         resize: none;
-        border: none;
-        border-bottom: 1px solid #000;
+        border: 1px solid $base;
         background: #fff;
     }
 
@@ -18,10 +17,11 @@
 
     &__title {
         font-size: 24px;
-        padding-left: 0;
+        padding-right: 5px;
         color: #000;
         display: block;
         width: 100%;
+        transition: $anim_duration padding;
     }
 
     &-date {
@@ -85,10 +85,6 @@
         background: #fff;
         border-bottom: 1px solid darken($base, 5%);
 
-        &:first-child {
-            padding-top: 0;
-        }
-
         &:last-child {
             border-bottom: none;
         }
@@ -98,6 +94,10 @@
 [disabled].tm-task-input {
     background: none;
     border: none;
+
+    &.tm-task__title {
+        padding-left: 0;
+    }
 }
 
 [type='number'].tm-task-input {

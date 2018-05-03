@@ -31,8 +31,9 @@ class CreateTask extends React.Component {
             .then((data) => {
                 taskCreationDate = new Date(data.val() + Date.now()).toLocaleString();
                 const taskId = db.ref('users/' + currentUser.uid + '/tasks/').push().key;
+                const remainingTime = estimatedTime;
                 let updates = {};
-                updates['/users/' + currentUser.uid + '/tasks/' + taskId] = {taskId, taskName, taskDescription, taskPriority, estimatedTime, taskStatus, taskCreationDate};
+                updates['/users/' + currentUser.uid + '/tasks/' + taskId] = {taskId, taskName, taskDescription, taskPriority, estimatedTime, remainingTime, taskStatus, taskCreationDate};
                 db.ref().update(updates);
         })
 

@@ -376,6 +376,8 @@ a {
   .tm-table thead {
     text-transform: uppercase;
     text-align: center; }
+    .tm-table thead td {
+      border-top: none; }
   .tm-table td {
     border: 1px solid #E8E8E8;
     padding: 10px;
@@ -482,6 +484,7 @@ a {
   padding: 3px 10px;
   resize: none;
   border: none;
+  border-bottom: 1px solid #000;
   background: #fff; }
 
 .tm-task__label {
@@ -528,8 +531,8 @@ a {
     vertical-align: middle; }
 
 .tm-task-container {
-  padding: 10px 0;
-  margin-bottom: 10px;
+  padding: 10px;
+  margin-bottom: 5px;
   background: #fff;
   border-bottom: 1px solid #dbdbdb; }
   .tm-task-container:after {

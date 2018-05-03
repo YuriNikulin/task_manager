@@ -1,12 +1,62 @@
 .tm-tasks {
-    background-color: #fff;
-
+    &-table {
+        background: #fff;
+    }
+    
     &-item {
         padding: $gutter;
         border-bottom: 1px solid $base;
 
         &:last-child {
             border-bottom: none;
+        }
+    }
+
+    &__link {
+        color: #000;
+        font-weight: bold;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.tm-grid {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    @include grid();
+
+    &-item {
+        background: #fff;
+        width: 20%;
+        margin-right: $gutter / 2;
+        margin-left: $gutter / 2;
+        margin-bottom: $gutter;
+        color: #000;
+
+        &-container {
+            padding: 5px $gutter;
+        }
+
+        &:hover {
+            box-shadow: 0px 0px 10px $tr;
+        }
+
+        &-name {
+            border-bottom: 1px solid $base;
+            padding: $gutter;
+        }
+
+        &__name {
+            font-size: 18px;
+        }
+
+        &__status,
+        &__priority {
+            font-weight: bold;
+            padding-left: 5px;
         }
     }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { db } from '../services/firebase/firebase.js';
-import { firebase } from '../services/firebase/';
+import { db } from '../../services/firebase/firebase.js';
+import { firebase } from '../../services/firebase/';
 
 import { Link } from 'react-router';
 
@@ -10,10 +10,13 @@ import { connect } from 'react-redux';
 import Transition from 'react-transition-group/Transition';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
-import actionAuthAlternate from '../redux/actions/authAlternate.js';
-import actionFetchTasks from '../redux/actions/fetchTasks.js';
-import tasksReducer from '../redux/reducers/';
-import { FirebaseComp } from '../services/firebase/firebase.js';
+import actionAuthAlternate from '../../redux/actions/authAlternate.js';
+import actionFetchTasks from '../../redux/actions/fetchTasks.js';
+import tasksReducer from '../../redux/reducers/';
+import { FirebaseComp } from '../../services/firebase/firebase.js';
+
+import TasksList from './TasksList.js';
+import TasksGrid from './TasksGrid.js';
 
 class ListOfTasks extends React.Component {
     constructor(props) {
@@ -97,54 +100,7 @@ class ListOfTasks extends React.Component {
 
         return (
             <div className="tm-tasks">
-                <table key="table" className="tm-table tm-tasks-table">
-                    <thead>
-                        <tr>
-                            <td>
-                                <span>
-                                    Name
-                                </span>
-                            </td>
-                            <td>
-                                <span>
-                                    Status
-                                </span>
-                            </td>
-                            <td>
-                                <span>
-                                    Priority
-                                </span>
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    
-                    {tasksList.map((item) => {
-                        return (
-                            <tr key={item.taskId} className="tm-tasks-item">
-                                <td>
-                                    <span className="tm-tasks-item__name">
-                                        <Link to={"/task" + item.taskId}>
-                                            {item.taskName}
-                                        </Link>    
-                                    </span>
-                                </td>
-                                <td>
-                                    <span className="tm-tasks-item__status">
-                                        {item.taskStatus}
-                                    </span>
-                                </td>
-                                <td>
-                                    <span>
-                                        {item.taskPriority}
-                                    </span>
-                                </td>
-                            </tr>
-                        )
-                    })}
-                    
-                    </tbody>
-                </table>
+                <TasksList tasksList={tasksList} />
             </div>
         )
     }
