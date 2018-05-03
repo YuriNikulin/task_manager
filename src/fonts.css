@@ -1,8 +1,0 @@
-@font-face {
-    font-family: 'sans';
-    src: url('./fonts/SourceSansPro-Regular.woff2') format('woff2'),
-        url('./fonts/SourceSansPro-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
