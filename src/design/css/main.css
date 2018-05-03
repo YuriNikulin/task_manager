@@ -336,6 +336,8 @@ h1, h2, h3, h4, h5, h6 {
 .tm-container {
   margin-left: auto;
   margin-right: auto;
+  padding-left: 10px;
+  padding-right: 10px;
   max-width: 1200px; }
 
 a {
@@ -373,6 +375,8 @@ a {
 
 .tm-table {
   border-collapse: collapse; }
+  .tm-table-container {
+    overflow: auto; }
   .tm-table thead {
     text-transform: uppercase;
     text-align: center; }
@@ -499,22 +503,22 @@ a {
   background: #fff;
   padding: 10px; }
 
-.tm-tasks {
-  overflow: auto; }
-  .tm-tasks-table {
-    background: #fff;
-    width: 100%;
-    min-width: 900px; }
-  .tm-tasks-item {
-    padding: 10px;
-    border-bottom: 1px solid #E8E8E8; }
-    .tm-tasks-item:last-child {
-      border-bottom: none; }
-  .tm-tasks__link {
-    color: #000;
-    font-weight: bold; }
-    .tm-tasks__link:hover {
-      text-decoration: underline; }
+.tm-tasks-table {
+  background: #fff;
+  width: 100%;
+  min-width: 900px; }
+
+.tm-tasks-item {
+  padding: 10px;
+  border-bottom: 1px solid #E8E8E8; }
+  .tm-tasks-item:last-child {
+    border-bottom: none; }
+
+.tm-tasks__link {
+  color: #000;
+  font-weight: bold; }
+  .tm-tasks__link:hover {
+    text-decoration: underline; }
 
 .tm-grid {
   display: flex;

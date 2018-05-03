@@ -22,7 +22,6 @@ import Preloader from '../Preloader/Preloader.js';
 
 class ListOfTasks extends React.Component {
     constructor(props) {
-        // debugger;
         super(props);
         this.state = {
             tasksList: {},
@@ -32,11 +31,6 @@ class ListOfTasks extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        // console.log(this.props);
-        // debugger;
-        // if (!this.areTasksListsDifferent(prevProps.tasksList, this.state.tasksList)) {
-        //     return;
-        // }
         if (this.state.isLoaded) {
             return;
         }
@@ -75,9 +69,6 @@ class ListOfTasks extends React.Component {
             })
         }
         this.props.dispatch(actionFetchTasks(tasksArray));
-        // this.setState({
-        //     tasksArray
-        // });
     }
 
     areTasksListsDifferent(obj1, obj2) {
@@ -93,10 +84,30 @@ class ListOfTasks extends React.Component {
         return false;
     }
 
+    sortTasks = (items, filters) => {
+        let sortedItems = [];
+        let toPush;
+        for (let i = 0; i < items.length; i++) {
+            toPush = true;
+            for (let j = 0; j < filters.length; j++) {
+                if (items[i][filters[j].key] == filters[j].value) {
+                    sortedItems.push(items[i]);
+                    break;
+                }
+            }
+        }
+        console.log(sortedItems);
+        return sortedItems;
+    }
+
     render() {
         let tasksList = [];
         if (this.props.tasksList && this.props.tasksList.length) {
             tasksList = this.props.tasksList;
+        }
+
+        if (this.props.tasksFilter.length) {
+            tasksList = this.sortTasks(tasksList, this.props.tasksFilter);
         }
 
         let TasksView;
@@ -131,7 +142,8 @@ const mapStateToProps = (state) => {
     return ({
         currentUser: state.auth.currentUser,
         tasksList: state.tasks.tasksList,
-        tasksView: state.tasks.tasksView
+        tasksView: state.tasks.tasksView,
+        tasksFilter: state.tasks.tasksFilter
     })
 }
 
