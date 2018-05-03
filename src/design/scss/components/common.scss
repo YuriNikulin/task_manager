@@ -115,6 +115,10 @@ a {
         padding: $gutter;
         min-width: 200px;
 
+        @media (max-width: $lg) {
+            min-width: 0;
+        } 
+
         &:first-child {
             border-left: none;
         }

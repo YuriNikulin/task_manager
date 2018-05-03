@@ -382,6 +382,9 @@ a {
     border: 1px solid #E8E8E8;
     padding: 10px;
     min-width: 200px; }
+    @media (max-width: 1024px) {
+      .tm-table td {
+        min-width: 0; } }
     .tm-table td:first-child {
       border-left: none; }
     .tm-table td:last-child {
@@ -400,7 +403,7 @@ a {
     display: none;
     z-index: 10;
     background: #fff;
-    min-width: 100%;
+    min-width: 150px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
   .tm-select__item {
     display: block;
@@ -626,12 +629,27 @@ a {
 
 .tm-filter {
   background: #fff;
-  height: 40px;
+  height: 37px;
   transition: 0.3s;
   opacity: 1; }
+  .tm-filter-select {
+    height: 100%;
+    padding: 0 18px; }
+  .tm-filter-item {
+    display: inline-block;
+    max-width: 50%;
+    height: 100%; }
+    .tm-filter-item .tm-select__title {
+      line-height: 37px;
+      text-transform: uppercase;
+      max-width: 100%;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
   .tm-filter-container {
-    padding-bottom: 10px;
-    height: 50px; }
+    padding-bottom: 37px;
+    height: 47px; }
 
 .fade-enter {
   opacity: 0.01;
@@ -662,12 +680,12 @@ a {
 
 .filter-enter.filter-enter-active {
   transition: 0.3s;
-  height: 50px;
+  height: 47px;
   padding-bottom: 10px; }
 
 .filter-leave {
   transition: 0.3s;
-  height: 40px;
+  height: 37px;
   padding-bottom: 10px; }
 
 .filter-leave.filter-leave-active {

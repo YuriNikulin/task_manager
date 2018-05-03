@@ -11,11 +11,17 @@
 
     &-item {
         display: inline-block;
+        max-width: 50%;
         height: 100%;
         
         .tm-select__title {
             line-height: $filter_height;
             text-transform: uppercase;
+            max-width: 100%;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
 
@@ -23,4 +29,8 @@
         padding-bottom: $filter_height;
         height: $filter_height + $gutter;
     }
+}
+
+[data-filter-selected='true'].tm-select__item {
+    font-weight: bold;
 }

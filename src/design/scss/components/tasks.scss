@@ -1,6 +1,10 @@
 .tm-tasks {
+    overflow: auto;
+    
     &-table {
         background: #fff;
+        width: 100%;
+        min-width: 900px;
     }
 
     &-item {
