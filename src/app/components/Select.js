@@ -25,10 +25,12 @@ class Select extends React.Component {
             })
         }, 100)
 
-        let children = this.content.childNodes;
-        for (var i = 0; i < children.length; i++) {
-            if (event.target == children[i]) {
-                return;
+        if (!this.props.closeOnSelect) {
+            let children = this.content.childNodes;
+            for (var i = 0; i < children.length; i++) {
+                if (event.target == children[i]) {
+                    return;
+                }
             }
         }
 

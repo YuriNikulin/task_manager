@@ -100,8 +100,8 @@ class ListOfTasks extends React.Component {
         let TasksView;
 
         switch (this.props.tasksView) {
-            case 'LIST': TasksView = TasksList; break;
-            case 'GRID': TasksView = TasksGrid; break;
+            case 'viewList': TasksView = TasksList; break;
+            case 'viewGrid': TasksView = TasksGrid; break;
             default: TasksView = TasksList
         }
 
