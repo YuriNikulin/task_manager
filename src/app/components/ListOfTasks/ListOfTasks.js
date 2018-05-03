@@ -94,13 +94,20 @@ class ListOfTasks extends React.Component {
     render() {
         let tasksList = [];
         if (this.props.tasksList && this.props.tasksList.length) {
-            console.log(this.props);
             tasksList = this.props.tasksList;
+        }
+
+        let TasksView;
+
+        switch (this.props.tasksView) {
+            case 'LIST': TasksView = TasksList; break;
+            case 'GRID': TasksView = TasksGrid; break;
+            default: TasksView = TasksList
         }
 
         return (
             <div className="tm-tasks">
-                <TasksList tasksList={tasksList} />
+                <TasksView tasksList={tasksList}/>
             </div>
         )
     }
@@ -109,7 +116,8 @@ class ListOfTasks extends React.Component {
 const mapStateToProps = (state) => {
     return ({
         currentUser: state.auth.currentUser,
-        tasksList: state.tasks.tasksList
+        tasksList: state.tasks.tasksList,
+        tasksView: state.tasks.tasksView
     })
 }
 

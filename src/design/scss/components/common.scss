@@ -121,6 +121,35 @@ a {
     color: $warning;
 }
 
+.tm-select {
+    position: relative;
+    cursor: pointer;
+
+    &-content {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: none;
+        z-index: $z--sm;
+        background: #fff;
+        min-width: 100%;
+        box-shadow: 0px 0px 10px $tr;
+    }
+
+    &__item {
+        display: block;
+        padding: 10px;
+
+        &:hover, &:active {
+            background: lighten($base, 7%);
+        }
+    }
+
+    &.shown .tm-select-content {
+        display: block;
+    }
+}
+
 .tm-btn {
     display: inline-block;
     min-width: 100px;

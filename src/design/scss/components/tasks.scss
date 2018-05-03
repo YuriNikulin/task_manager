@@ -2,7 +2,7 @@
     &-table {
         background: #fff;
     }
-    
+
     &-item {
         padding: $gutter;
         border-bottom: 1px solid $base;
@@ -24,17 +24,32 @@
 
 .tm-grid {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-direction: row;
+    flex-wrap: wrap;
     @include grid();
 
     &-item {
         background: #fff;
-        width: 20%;
+        width: calc(20% - #{$gutter});
         margin-right: $gutter / 2;
         margin-left: $gutter / 2;
         margin-bottom: $gutter;
         color: #000;
+
+        @media (max-width: $lg) {
+            width: calc(25% - #{$gutter});
+        }
+
+        @media (max-width: $md) {
+            width: calc(50% - #{$gutter});
+        }
+
+        @media (max-width: $xs) {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
 
         &-container {
             padding: 5px $gutter;

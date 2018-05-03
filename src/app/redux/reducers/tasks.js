@@ -1,5 +1,6 @@
 const initialState = {
     tasksList: {},
+    tasksView: 'LIST'
 };
 
 const tasks = (state=initialState, action) => {
@@ -8,6 +9,10 @@ const tasks = (state=initialState, action) => {
             return ({
                 tasksList: action.payload,
             });
+        case 'CHANGE_VIEW': 
+            return ({
+                tasksView: action.payload
+            })
         default: return state;
     }
 }

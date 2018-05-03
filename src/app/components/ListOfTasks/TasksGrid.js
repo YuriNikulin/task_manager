@@ -9,9 +9,9 @@ const TasksGrid = (props) => {
                     <Link key={item.taskId} to={"/task" + item.taskId} className="tm-grid-item">
                         <div className="tm-grid-item-container tm-grid-item-name">
                             <span className="tm-grid-item__name">
-                                <a className="tm-tasks__link">
+                                <span className="tm-tasks__link">
                                     {item.taskName}
-                                </a>    
+                                </span>    
                             </span>
                         </div>
                         <div className="tm-grid-item-container tm-grid-item-status">

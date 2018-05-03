@@ -472,19 +472,52 @@ a {
   background: #fff;
   padding: 10px; }
 
-.tm-tasks {
-  background-color: #fff; }
-  .tm-tasks-item {
-    padding: 10px;
-    border-bottom: 1px solid #E8E8E8; }
-    .tm-tasks-item:last-child {
-      border-bottom: none; }
+.tm-tasks-table {
+  background: #fff; }
+
+.tm-tasks-item {
+  padding: 10px;
+  border-bottom: 1px solid #E8E8E8; }
+  .tm-tasks-item:last-child {
+    border-bottom: none; }
+
+.tm-tasks__link {
+  color: #000;
+  font-weight: bold; }
+  .tm-tasks__link:hover {
+    text-decoration: underline; }
+
+.tm-grid {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-left: -5px;
+  margin-right: -5px; }
+  .tm-grid-item {
+    background: #fff;
+    width: calc(20% - 10px);
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    color: #000; }
+    .tm-grid-item-container {
+      padding: 5px 10px; }
+    .tm-grid-item:hover {
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
+    .tm-grid-item-name {
+      border-bottom: 1px solid #E8E8E8;
+      padding: 10px; }
+    .tm-grid-item__name {
+      font-size: 18px; }
+    .tm-grid-item__status, .tm-grid-item__priority {
+      font-weight: bold;
+      padding-left: 5px; }
 
 .tm-task-input {
   padding: 3px 10px;
   resize: none;
-  border: none;
-  border-bottom: 1px solid #000;
+  border: 1px solid #E8E8E8;
   background: #fff; }
 
 .tm-task__label {
@@ -496,10 +529,11 @@ a {
 
 .tm-task__title {
   font-size: 24px;
-  padding-left: 0;
+  padding-right: 5px;
   color: #000;
   display: block;
-  width: 100%; }
+  width: 100%;
+  transition: 0.3s padding; }
 
 .tm-task-date {
   display: block; }
@@ -539,14 +573,14 @@ a {
     content: '';
     display: block;
     clear: both; }
-  .tm-task-container:first-child {
-    padding-top: 0; }
   .tm-task-container:last-child {
     border-bottom: none; }
 
 [disabled].tm-task-input {
   background: none;
   border: none; }
+  [disabled].tm-task-input.tm-task__title {
+    padding-left: 0; }
 
 [type='number'].tm-task-input {
   text-align: center; }
