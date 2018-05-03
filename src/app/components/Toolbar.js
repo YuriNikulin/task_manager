@@ -32,7 +32,7 @@ class Toolbar extends React.Component {
                     <DashboardButton className="tm-toolbar__item" />
                     <CreateTaskButton className="tm-toolbar__item" />
                     <ViewSwitcher className="tm-toolbar__item" />
-                    <FilterButton onClick={this.handleFilterButtonClick}className="tm-toolbar__item" />
+                    <FilterButton onClick={this.handleFilterButtonClick} className={"tm-toolbar__item " + (this.state.showFilter ? 'active' : '')} />
                     <LogOut className="tm-toolbar__item" />
                 </div>
                 <ReactCSSTransitionGroup 

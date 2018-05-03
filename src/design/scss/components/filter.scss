@@ -4,6 +4,21 @@
     transition: $anim_duration;
     opacity: 1;
 
+    &-select {
+        height: 100%;
+        padding: 0 18px;
+    }
+
+    &-item {
+        display: inline-block;
+        height: 100%;
+        
+        .tm-select__title {
+            line-height: $filter_height;
+            text-transform: uppercase;
+        }
+    }
+
     &-container {
         padding-bottom: $filter_height;
         height: $filter_height + $gutter;
