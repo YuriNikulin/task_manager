@@ -98,6 +98,7 @@ class Filter extends React.Component {
                     {this.state.showSearch && 
                         <div className='tm-search-container'>
                             <input type="text" />
+                            <i className="icon-search"></i>
                         </div>
                     }
                 </div>

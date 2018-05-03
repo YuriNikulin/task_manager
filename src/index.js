@@ -5,6 +5,7 @@ import './design/css/main.css';
 import App from './App';
 import store from './app/redux';
 import './design/fonts/fonts.css';
+import './design/fonts/icons.css';
 
 ReactDOM.render(
   <Provider store={store}>
