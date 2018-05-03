@@ -119,7 +119,7 @@ a {
     td {
         border: 1px solid $base;
         padding: $gutter;
-        min-width: 200px;
+        min-width: 160px;
 
         @media (max-width: $lg) {
             min-width: 0;

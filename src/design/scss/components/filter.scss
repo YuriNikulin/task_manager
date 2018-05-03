@@ -3,6 +3,7 @@
     height: $filter_height;
     transition: $anim_duration;
     opacity: 1;
+    position: relative;
 
     &-select {
         height: 100%;
@@ -11,8 +12,9 @@
 
     &-item {
         display: inline-block;
-        max-width: 50%;
+        max-width: 33.33333%;
         height: 100%;
+        cursor: pointer;
         
         .tm-select__title {
             line-height: $filter_height;
@@ -26,7 +28,7 @@
     }
 
     &-container {
-        padding-bottom: $filter_height;
+        padding-bottom: $gutter;
         height: $filter_height + $gutter;
     }
 }

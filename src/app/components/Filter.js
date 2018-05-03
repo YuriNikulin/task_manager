@@ -8,6 +8,9 @@ import actionRemoveFilter from '../redux/actions/removeFilter.js';
 class Filter extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showSearch: false
+        }
     }
 
     handleClick = (event) => {
@@ -31,6 +34,14 @@ class Filter extends React.Component {
         this.props.dispatch(actionApplyFilter(newFilter));
     }
 
+    handleSearchButtonClick = () => {
+        this.setState((prevState) => {
+            return {
+                showSearch: !prevState.showSearch
+            }
+        })
+    }
+
     render() {
         let activeFilters = this.props.filter;
         let statusTitle = 'Status: ';
@@ -47,6 +58,13 @@ class Filter extends React.Component {
         return(
             <div className="tm-filter-container">
                 <div className="tm-filter">
+                    <div onClick={this.handleSearchButtonClick} className="tm-filter-item">
+                        <div className="tm-filter-select">
+                            <span className="tm-select__title">
+                                Search
+                            </span>
+                        </div>
+                    </div>
                     <div className="tm-filter-item">
                         <Select className="tm-filter-select" title={statusTitle}>
                         {taskProperties.statuses.map((item) => {
@@ -77,6 +95,11 @@ class Filter extends React.Component {
                         })}
                         </Select>
                     </div>
+                    {this.state.showSearch && 
+                        <div className='tm-search-container'>
+                            <input type="text" />
+                        </div>
+                    }
                 </div>
             </div>
         )
