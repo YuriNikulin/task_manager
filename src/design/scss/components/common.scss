@@ -114,6 +114,14 @@ a {
         border: 1px solid $base;
         padding: $gutter;
         min-width: 200px;
+
+        &:first-child {
+            border-left: none;
+        }
+
+        &:last-child {
+            border-right: none;
+        }
     }
 }
 

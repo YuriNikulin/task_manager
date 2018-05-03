@@ -1,0 +1,11 @@
+.tm-filter {
+    background: #fff;
+    height: $filter_height;
+    transition: $anim_duration;
+    opacity: 1;
+
+    &-container {
+        padding-bottom: $filter_height;
+        height: $filter_height + $gutter;
+    }
+}

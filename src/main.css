@@ -382,9 +382,33 @@ a {
     border: 1px solid #E8E8E8;
     padding: 10px;
     min-width: 200px; }
+    .tm-table td:first-child {
+      border-left: none; }
+    .tm-table td:last-child {
+      border-right: none; }
 
 .tm__error {
   color: #D41111; }
+
+.tm-select {
+  position: relative;
+  cursor: pointer; }
+  .tm-select-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: none;
+    z-index: 10;
+    background: #fff;
+    min-width: 100%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); }
+  .tm-select__item {
+    display: block;
+    padding: 10px; }
+    .tm-select__item:hover, .tm-select__item:active {
+      background: #fafafa; }
+  .tm-select.shown .tm-select-content {
+    display: block; }
 
 .tm-btn {
   display: inline-block;
@@ -412,7 +436,7 @@ a {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  max-width: 150px; }
+  max-width: 80px; }
 
 .tm-popup {
   position: absolute;
@@ -494,6 +518,10 @@ a {
   flex-wrap: wrap;
   margin-left: -5px;
   margin-right: -5px; }
+  @media (max-width: 620px) {
+    .tm-grid {
+      margin-left: 0;
+      margin-right: 0; } }
   .tm-grid-item {
     background: #fff;
     width: calc(20% - 10px);
@@ -501,6 +529,17 @@ a {
     margin-left: 5px;
     margin-bottom: 10px;
     color: #000; }
+    @media (max-width: 1200px) {
+      .tm-grid-item {
+        width: calc(25% - 10px); } }
+    @media (max-width: 1024px) {
+      .tm-grid-item {
+        width: calc(50% - 10px); } }
+    @media (max-width: 620px) {
+      .tm-grid-item {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0; } }
     .tm-grid-item-container {
       padding: 5px 10px; }
     .tm-grid-item:hover {
@@ -585,6 +624,15 @@ a {
 [type='number'].tm-task-input {
   text-align: center; }
 
+.tm-filter {
+  background: #fff;
+  height: 40px;
+  transition: 0.3s;
+  opacity: 1; }
+  .tm-filter-container {
+    padding-bottom: 10px;
+    height: 50px; }
+
 .fade-enter {
   opacity: 0.01;
   margin-top: -10px;
@@ -604,3 +652,28 @@ a {
   opacity: 0.01;
   transition: 0.3s;
   margin-top: -10px; }
+
+.filter-enter {
+  transition: 0.3s;
+  height: 0;
+  padding-bottom: 0; }
+  .filter-enter .tm-filter {
+    opacity: 0; }
+
+.filter-enter.filter-enter-active {
+  transition: 0.3s;
+  height: 50px;
+  padding-bottom: 10px; }
+
+.filter-leave {
+  transition: 0.3s;
+  height: 40px;
+  padding-bottom: 10px; }
+
+.filter-leave.filter-leave-active {
+  transition: 0.3s;
+  height: 0;
+  padding-bottom: 0; }
+  .filter-leave.filter-leave-active .tm-filter {
+    opacity: 0;
+    height: 0; }

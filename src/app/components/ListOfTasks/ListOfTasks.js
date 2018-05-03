@@ -18,6 +18,8 @@ import { FirebaseComp } from '../../services/firebase/firebase.js';
 import TasksList from './TasksList.js';
 import TasksGrid from './TasksGrid.js';
 
+import Preloader from '../Preloader/Preloader.js';
+
 class ListOfTasks extends React.Component {
     constructor(props) {
         // debugger;
@@ -106,8 +108,20 @@ class ListOfTasks extends React.Component {
         }
 
         return (
-            <div className="tm-tasks">
-                <TasksView tasksList={tasksList}/>
+            <div>
+                <ReactCSSTransitionGroup 
+                    transitionName="fade"
+                    transitionEnterTimeout={300}
+                    transitionLeaveTimeout={300}
+                >
+                    {this.state.isLoaded ? 
+                        <div key="tasksList"className="tm-tasks">
+                            <TasksView tasksList={tasksList}/>
+                        </div>
+                        :
+                        <Preloader key="preloader"/>
+                    }
+                </ReactCSSTransitionGroup>     
             </div>
         )
     }
