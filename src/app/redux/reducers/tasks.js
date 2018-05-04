@@ -36,9 +36,16 @@ const tasks = (state=initialState, action) => {
                 tasksFilter: []
             });
         case 'APPLY_SORT':
+            let type = 'asc';
+            if (state.tasksSort.key && (state.tasksSort.key == action.data)) {
+                type = (state.tasksSort.type == 'asc' ? 'desc' : 'asc');
+            }
             return ({
                 ...state,
-                tasksSort: action.data
+                tasksSort: {
+                    key: action.data,
+                    type: type
+                }
             })    
         default: return state;
     }

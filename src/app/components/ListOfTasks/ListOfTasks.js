@@ -106,15 +106,15 @@ class ListOfTasks extends React.Component {
             } 
         }
 
-        console.log(sortedItems);
         return sortedItems;
     }
 
     sortTasks = () => {
         let tasks = this.props.tasksList
-        let sortKey = this.props.tasksSort;
+        let sortKey = this.props.tasksSort.key;
+        let sortType = this.props.tasksSort.type;
 
-        if (!Object.keys(sortKey).length) {
+        if (!sortKey) {
             return tasks;
         }
 
@@ -123,14 +123,23 @@ class ListOfTasks extends React.Component {
                 return (Date.parse(a[sortKey]) > Date.parse(b[sortKey]));
             })
 
-            return tasks;
+            if (sortType == 'asc') {
+                return tasks;
+            } else {
+                return tasks.reverse();
+            }
         }
 
         tasks.sort((a, b) => {
-            return (a[sortKey] > b[sortKey])
+            return (a[sortKey] > b[sortKey]);
         })
 
-        return tasks;
+        if (sortType == 'asc') {
+            return tasks;
+        } else {
+            return tasks.reverse();
+        }
+        
     }
 
     render() {

@@ -647,7 +647,7 @@ input:focus {
 .tm-filter {
   background: #fff;
   height: 37px;
-  transition: 0.3s;
+  transition: 200ms;
   opacity: 1;
   position: relative; }
   .tm-filter-select {
