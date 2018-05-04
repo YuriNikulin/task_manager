@@ -444,12 +444,20 @@ input:focus {
     background-color: #707F88;
     cursor: auto; }
 
-.tm-preloader img {
+.tm-preloader {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 80px; }
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%; }
+  .tm-preloader--underlay {
+    background-color: rgba(0, 0, 0, 0.1); }
+  .tm-preloader img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80px; }
 
 .tm-popup {
   position: absolute;
@@ -687,13 +695,11 @@ input:focus {
 
 .fade-leave {
   opacity: 1;
-  transition: 0.3s;
-  margin-top: 0; }
+  transition: 0.3s; }
 
 .fade-leave.fade-leave-active {
   opacity: 0.01;
-  transition: 0.3s;
-  margin-top: -10px; }
+  transition: 0.3s; }
 
 .notification-enter {
   opacity: 0.01;

@@ -1,15 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory, Redirect } from 'react-router';
 
-const TestRoute = () => {
-    console.log('test');
-    return (
-        <div>
-            hi
-        </div>
-    )
-}
+const ProtectedRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    true
+      ? <Component {...props} />
+      : <Redirect to='/login' />
+  )} />
+)
 
 const mapStateToProps = (state) => {
     return ({
@@ -17,4 +16,4 @@ const mapStateToProps = (state) => {
     })
 }
 
-export default TestRoute;
+export default ProtectedRoute;

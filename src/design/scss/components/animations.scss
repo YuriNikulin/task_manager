@@ -13,13 +13,13 @@
 .fade-leave {
   opacity: 1;
   transition: $anim-duration;
-  margin-top: 0;
+  
 }
 
 .fade-leave.fade-leave-active {
   opacity: 0.01;
   transition: $anim-duration;
-  margin-top: -10px;
+  
 }
 
 .notification-enter {

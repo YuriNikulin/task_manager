@@ -3,9 +3,9 @@ import preloader from './preloader.gif';
 
 console.log(preloader);
 
-const Preloader = () => {
+const Preloader = (props) => {
     return (
-        <div className="tm-preloader">
+        <div className={"tm-preloader " + (props.underlay && ' tm-preloader--underlay')}>
             <img src={preloader} />
         </div>
     )

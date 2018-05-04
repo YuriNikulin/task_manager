@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import store from '../redux';
 import { syncHistoryWithStore } from 'react-router-redux';
+const history = syncHistoryWithStore(hashHistory, store);
 
 class LogOut extends React.Component {
     constructor(props) {
@@ -12,8 +13,12 @@ class LogOut extends React.Component {
 
     handleClick = () => {
         auth.doSignOut();
-        const history = syncHistoryWithStore(hashHistory, store);
-        history.push('/login');
+    }
+
+    componentDidUpdate() {
+        if (!this.props.auth.isLogged) {
+            history.push('/login');
+        }
     }
 
     render() {
@@ -25,7 +30,8 @@ class LogOut extends React.Component {
 
 const mapStateToProps = (state) => {
     return ({
-        'routing': state.routing
+        'routing': state.routing,
+        'auth': state.auth
     })
 }
 

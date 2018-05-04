@@ -25,11 +25,6 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import store from './app/redux';
 import { FirebaseComp } from './app/services/firebase/firebase.js';
 
-const testFunc = () => {
-    console.log('test');
-    return;
-}
-
 const history = syncHistoryWithStore(hashHistory, store);
 
 class App extends React.Component {
@@ -41,13 +36,17 @@ class App extends React.Component {
     }
 
     componentDidMount() {
+        history.listen(this.checkAuthOnTransitions);
+    }
 
+    checkAuthOnTransitions = () => {
+        if (!this.props.auth.isLogged && history.getCurrentLocation().pathname != '/login') {
+            history.push('/login');
+        }
     }
 
     componentDidUpdate() {
-        if (!this.props.auth.isLogged) {
-            history.push('/login');
-        }
+
     }
 
     componentWillReceiveProps() {
@@ -93,7 +92,7 @@ const routes = (
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth
+        auth: state.auth,
     }
 }
 

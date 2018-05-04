@@ -5,6 +5,7 @@ import actionAuth from '../redux/actions/auth.js';
 import LogOut from './LogOut.js';
 import { Link, browserHistory, hashHistory } from 'react-router';
 import Popup from './Popup.js';
+import Preloader from './Preloader/Preloader.js';
 
 class LogIn extends React.Component  {
 
@@ -13,7 +14,8 @@ class LogIn extends React.Component  {
         this.state = {
             email: '',
             password: '',
-            error: false
+            error: false,
+            isLoading: false
         }
     }
 
@@ -26,7 +28,9 @@ class LogIn extends React.Component  {
     handleSubmit = (event) => {
         event.preventDefault();
         auth.doSignInWithEmailAndPassword(this.state.email, this.state.password, this.props.onAuth).then(() => {
-            this.props.router.push('/');
+            this.setState({
+                isLoading: true
+            })
         }, (error) => {
             console.log(error);
             this.setState({
@@ -35,10 +39,16 @@ class LogIn extends React.Component  {
         });
     }
 
+    componentDidUpdate() {
+        if (this.props.auth.isLogged) {
+            this.props.router.push('/');
+        }
+    }
+
     render() {
         return(
             <Popup>
-                <h2 className="tm__title tm-popup__title"> Sign in </h2>
+                <h2 className="tm__title tm-popup__title"> Sign in </h2> 
                 <form>
                     <div className="tm-input-container">
                         <input type="text" className="tm-input" value={this.state.email} onChange={this.handleChange} id="email" placeholder="Email" />
@@ -51,10 +61,17 @@ class LogIn extends React.Component  {
                     {this.state.error && 
                         <p className="tm__error">{this.state.error}</p>
                     }
+                    {this.state.isLoading && <Preloader underlay={true} />}
                 </form>
             </Popup>
         )
     }
 }
 
-export default connect()(LogIn);
+const mapStateToProps = (store) => {
+    return ({
+        auth: store.auth
+    })
+}
+
+export default connect(mapStateToProps)(LogIn);
