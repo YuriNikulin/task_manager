@@ -47,14 +47,3 @@ class Home extends React.Component {
 }
 
 export default Home;
-
-// export default connect(
-//     (state, ownProps) => ({
-
-//     }),
-//     dispatch => ({
-//         onAuth: () => {
-//             dispatch(actionAuth());
-//         }
-//     })
-// )(Home);

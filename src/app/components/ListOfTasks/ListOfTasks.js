@@ -190,12 +190,4 @@ const mapStateToProps = (state) => {
     })
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return ({
-        onAuth: () => {
-            // dispatch(actionAuth());
-        }
-    })
-}
-
 export default connect(mapStateToProps)(ListOfTasks);

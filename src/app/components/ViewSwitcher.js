@@ -19,6 +19,9 @@ class ViewSwitcher extends React.Component {
                 <a onClick={this.handleClick} className="tm-view__item tm-select__item" id="viewGrid">
                     Grid
                 </a>
+                <a onClick={this.handleClick} className="tm-view__item tm-select__item" id="viewScrum">
+                    Scrum
+                </a>
             </Select>
         )
     }
