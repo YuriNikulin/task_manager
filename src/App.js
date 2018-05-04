@@ -40,13 +40,16 @@ class App extends React.Component {
     }
 
     checkAuthOnTransitions = () => {
-        if (!this.props.auth.isLogged && history.getCurrentLocation().pathname != '/login') {
+        const curLocation = history.getCurrentLocation().pathname;
+        if (!this.props.auth.isLogged && curLocation != '/login' && curLocation != '/register') {
             history.push('/login');
         }
     }
 
     componentDidUpdate() {
-
+        if (!this.props.auth.isLogged) {
+            history.push('/login');
+        }
     }
 
     componentWillReceiveProps() {
