@@ -22,6 +22,33 @@
   margin-top: -10px;
 }
 
+.notification-enter {
+  opacity: 0.01;
+  transform: translate(0, 50px) scale(0.5, 0.5);
+  transition: $anim-duration;
+}
+
+.notification-enter.notification-enter-active {
+  opacity: 1;
+  transform: translate(0, 0) scale(1, 1);
+  transition: $anim-duration;
+  margin-top: 0;
+}
+
+.notification-leave {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: $anim-duration;
+  margin-top: 0;
+}
+
+.notification-leave.notification-leave-active {
+  opacity: 0.01;
+  transform: translate(0, 50px);
+  transition: $anim-duration;
+  margin-top: -10px;
+}
+
 .filter-enter {
   transition: $anim-duration;
   height: 0;

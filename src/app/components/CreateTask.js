@@ -5,6 +5,8 @@ import Toolbar from './Toolbar.js';
 import { connect } from 'react-redux';
 import actionAuth from '../redux/actions/auth.js';
 import { FirebaseComp } from '../services/firebase/firebase.js';
+import Notification from './Notification.js';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class CreateTask extends React.Component {
     constructor(props) {
@@ -15,7 +17,9 @@ class CreateTask extends React.Component {
                 taskPriority: 'Low',
                 estimatedTime: '',
                 currentUser: undefined,
-                isLoading: true
+                isLoading: true,
+                error: false,
+                createdTask: ''
             }
             this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -23,6 +27,19 @@ class CreateTask extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         let {taskName, taskDescription, taskPriority, estimatedTime} = this.state;
+        if (!taskName) {
+            this.setState({
+                error: 'Task name can not be empty'
+            });
+            return;
+        }
+        if (!estimatedTime) {
+            this.setState({
+                error: 'Estimated time can not be empty'
+            })
+            return;
+        }
+
         estimatedTime = parseFloat(estimatedTime);
         const taskStatus = 'Open';
         const currentUser = firebase.auth.currentUser;
@@ -35,14 +52,15 @@ class CreateTask extends React.Component {
                 const remainingTime = estimatedTime;
                 let updates = {};
                 updates['/users/' + currentUser.uid + '/tasks/' + taskId] = {taskId, taskName, taskDescription, taskPriority, estimatedTime, remainingTime, taskStatus, taskCreationDate};
-                db.ref().update(updates);
+                db.ref().update(updates).then(() => {
+                    this.setState({
+                        taskName: '',
+                        taskDescription: '',
+                        estimatedTime: '',
+                        createdTask: taskName
+                    });
+                });
         })
-
-        this.setState({
-            taskName: '',
-            taskDescription: '',
-            estimatedTime: ''
-        });
     }
 
     getServerTime = () => {
@@ -51,6 +69,12 @@ class CreateTask extends React.Component {
             .then((data) => {
                 return (data.val() + Date.now());
         })
+    }
+
+    closeNotification = () => {
+        this.setState({
+            createdTask: ''
+        });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -123,12 +147,24 @@ class CreateTask extends React.Component {
                                             </option>
                                     </select>        
                             </div>
+                            {this.state.error && 
+                                <p className="tm__error">{this.state.error}</p>
+                            }
                             <div className="tac mt2">
                                     <button type="submit" className="tm-btn tm-btn--primary mt">Create</button>        
                             </div>
                         </form>
                     </div>
                 </div>
+                <ReactCSSTransitionGroup 
+                    transitionName="notification"
+                    transitionEnterTimeout={300}
+                    transitionLeaveTimeout={300}
+                >
+                    {this.state.createdTask && 
+                        <Notification key="notifiction" duration={3000} closeNotification={this.closeNotification} text={'Task ' + this.state.createdTask + ' has been created'} />
+                    }
+                </ReactCSSTransitionGroup> 
             </div>        
         );
     }
@@ -141,16 +177,3 @@ const mapStateToProps = (state) => {
 }
 
 export default CreateTask;
-
-// export default connect(
-//         (state, ownProps) => ({
-//             items: state.track.filter(item => item.name.includes(state.filter)),
-//             auth: state.auth,
-//             isLogged: state.auth.isLogged
-//         }),
-//         dispatch => ({
-//             onAuth: () => {
-//                 dispatch(actionAuth());
-//             }
-//         })
-// )(CreateTask);
