@@ -17,6 +17,7 @@ import { FirebaseComp } from '../../services/firebase/firebase.js';
 
 import TasksList from './TasksList.js';
 import TasksGrid from './TasksGrid.js';
+import TasksScrum from './TasksScrum.js';
 
 import Preloader from '../Preloader/Preloader.js';
 
@@ -157,6 +158,7 @@ class ListOfTasks extends React.Component {
         switch (this.props.tasksView) {
             case 'viewList': TasksView = TasksList; break;
             case 'viewGrid': TasksView = TasksGrid; break;
+            case 'viewScrum': TasksView = TasksScrum; break;
             default: TasksView = TasksList
         }
 
