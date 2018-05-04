@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import actionApplyFilter from '../redux/actions/applyFilter.js';
 import actionRemoveFilter from '../redux/actions/removeFilter.js';
 import Search from './Search.js';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Filter extends React.Component {
     constructor(props) {
@@ -43,6 +44,12 @@ class Filter extends React.Component {
         })
     }
 
+    closeSearch = () => {
+        this.setState({
+            showSearch: false
+        })
+    }
+
     render() {
         let activeFilters = this.props.filter;
         let statusTitle = 'Status: ';
@@ -59,7 +66,7 @@ class Filter extends React.Component {
         return(
             <div className="tm-filter-container">
                 <div className="tm-filter">
-                    <div onClick={this.handleSearchButtonClick} className="tm-filter-item">
+                    <div onClick={this.handleSearchButtonClick} className="tm-filter-item tm-filter-item--search">
                         <div className="tm-filter-select">
                             <span className="tm-select__title">
                                 Search
@@ -97,7 +104,7 @@ class Filter extends React.Component {
                         </Select>
                     </div>
                     {this.state.showSearch && 
-                        <Search />
+                        <Search closeHandler={this.closeSearch} />
                     }
                 </div>
             </div>

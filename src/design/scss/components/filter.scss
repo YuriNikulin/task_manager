@@ -12,9 +12,13 @@
 
     &-item {
         display: inline-block;
-        max-width: 33.33333%;
+        max-width: calc(50% - #{$filter_search_button_size});
         height: 100%;
         cursor: pointer;
+
+        &--search {
+            width: $filter_search_button_size;
+        }
         
         .tm-select__title {
             line-height: $filter_height;

@@ -61,6 +61,10 @@ a {
     text-decoration: none;
 }
 
+input:focus {
+    outline: none;
+}
+
 .tm__title {
     text-transform: uppercase;
 }
