@@ -1,18 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import Rebase from 're-base';
-import firebase from 'firebase';
-
-import App from './app/App.js';
-import registerServiceWorker from './registerServiceWorker';
-
+import { Provider } from 'react-redux';
 import './design/css/main.css';
-
-const root = document.getElementById('root');
+import App from './App';
+import store from './app/redux';
+import './design/fonts/fonts.css';
+import './design/fonts/icons.css';
 
 ReactDOM.render(
-    <App />,
-    root
-)
-registerServiceWorker();
+  <Provider store={store}>
+    <App />  
+  </Provider>,
+  document.getElementById('root')
+);

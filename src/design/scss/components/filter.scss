@@ -1,0 +1,42 @@
+.tm-filter {
+    background: #fff;
+    height: $filter_height;
+    transition: 200ms;
+    opacity: 1;
+    position: relative;
+
+    &-select {
+        height: 100%;
+        padding: 0 18px;
+    }
+
+    &-item {
+        display: inline-block;
+        max-width: calc(50% - #{$filter_search_button_size});
+        height: 100%;
+        cursor: pointer;
+
+        &--search {
+            width: $filter_search_button_size;
+        }
+        
+        .tm-select__title {
+            line-height: $filter_height;
+            text-transform: uppercase;
+            max-width: 100%;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    &-container {
+        padding-bottom: $gutter;
+        height: $filter_height + $gutter;
+    }
+}
+
+[data-filter-selected='true'].tm-select__item {
+    font-weight: bold;
+}

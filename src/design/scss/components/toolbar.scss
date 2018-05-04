@@ -11,5 +11,14 @@
         &:hover, &.active {
             background: lighten($base, 7%);
         }
+
+        &--em {
+            background: $warning;
+            color: #fff;
+
+            &:hover {
+                background-color: lighten($warning, 10%);
+            }
+        }
     }
 }

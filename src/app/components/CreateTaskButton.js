@@ -1,12 +1,10 @@
 import React from 'react';
-import { NavLink, withRouter, } from 'react-router-dom';
-
-import * as routes from './tools/routes';
+import { Link, browserHistory, hashHistory } from 'react-router';
 
 const CreateTaskButton = (props) => {
     return (
-        <NavLink exact to="/createtask"className={"tm__create " + props.className}>Create a task</NavLink>
+        <Link activeClassName="active" to="/createtask" className={"tm__create " + props.className}>Create a task</Link>
     )
 }
 
-export default withRouter(CreateTaskButton);
+export default CreateTaskButton;

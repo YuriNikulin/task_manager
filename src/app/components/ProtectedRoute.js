@@ -1,18 +1,19 @@
 import React from 'react';
-import * as routes from './tools/routes';
-import {
-    BrowserRouter as Router,
-    Route, withRouter, Redirect
-} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Router, Route, IndexRoute, hashHistory, Redirect } from 'react-router';
 
-const ProtectedRoute = ({component: Component, ...rest}) => {
-    return (
-        <Route {...rest} render={(props) => (
-            rest.currentUser !== null
-              ? <Component {...props} />
-              : <Redirect to='/signin' />
-          )} />
-    )
+const ProtectedRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    true
+      ? <Component {...props} />
+      : <Redirect to='/login' />
+  )} />
+)
+
+const mapStateToProps = (state) => {
+    return ({
+        'currentUser': state.auth
+    })
 }
 
-export default withRouter(ProtectedRoute);
+export default ProtectedRoute;
