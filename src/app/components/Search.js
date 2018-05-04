@@ -26,7 +26,10 @@ class Search extends React.Component {
         return (
             <div className='tm-search-container'>
                 <input onChange={this.handleChange} className='tm-search__input' placeholder="Search..." type="text" />
-                <i className="icon-search"></i>
+                <i className="tm-search__magnifier tm-search__button icon-search"></i>
+                <a className="tm-search__close tm-search__button">
+                    <i className="icon-cross"></i>
+                </a>
             </div>
         )
     }
