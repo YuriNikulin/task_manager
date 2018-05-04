@@ -39,7 +39,7 @@ class Home extends React.Component {
     render() {
         return(
             <div>
-                <Toolbar />
+                <Toolbar listOfTasks={true}/>
                 <ListOfTasks />
             </div>
         )

@@ -31,10 +31,10 @@ class Toolbar extends React.Component {
             <div className="tm-toolbar-container">
                 <div className="tm-toolbar">
                     <DashboardButton className="tm-toolbar__item" />
-                    <CreateTaskButton className="tm-toolbar__item" />
-                    <ViewSwitcher className="tm-toolbar__item" />
-                    <FilterButton onClick={this.handleFilterButtonClick} className={"tm-toolbar__item " + (this.state.showFilter ? 'active' : '')} />
-                    <SortButton className="tm-toolbar__item"/>
+                    <CreateTaskButton className="tm-toolbar__item" /> 
+                    {this.props.listOfTasks && <ViewSwitcher className="tm-toolbar__item" />}
+                    {this.props.listOfTasks && <FilterButton onClick={this.handleFilterButtonClick} className={"tm-toolbar__item " + (this.state.showFilter ? 'active' : '')} />}
+                    {this.props.listOfTasks && <SortButton className="tm-toolbar__item"/>}
                     <LogOut className="tm-toolbar__item flr" />
                 </div>
                 <ReactCSSTransitionGroup 

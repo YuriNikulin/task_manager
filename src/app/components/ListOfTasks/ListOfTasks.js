@@ -152,8 +152,6 @@ class ListOfTasks extends React.Component {
             tasksList = this.filterTasks(tasksList, this.props.tasksFilter);
         }
 
-        console.log(tasksList);
-
         let TasksView;
 
         switch (this.props.tasksView) {

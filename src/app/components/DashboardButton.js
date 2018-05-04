@@ -3,7 +3,7 @@ import { Link, browserHistory, hashHistory } from 'react-router';
 
 const DashboardButton = (props) => {
     return (
-        <Link to="/" className={"tm__dasboard " + props.className}>Dashboard</Link>
+        <Link activeClassName="active" to="/" className={"tm__dasboard " + props.className}>Dashboard</Link>
     )
 } 
 

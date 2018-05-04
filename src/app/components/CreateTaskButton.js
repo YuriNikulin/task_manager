@@ -3,7 +3,7 @@ import { Link, browserHistory, hashHistory } from 'react-router';
 
 const CreateTaskButton = (props) => {
     return (
-        <Link to="/createtask" className={"tm__create " + props.className}>Create a task</Link>
+        <Link activeClassName="active" to="/createtask" className={"tm__create " + props.className}>Create a task</Link>
     )
 }
 
