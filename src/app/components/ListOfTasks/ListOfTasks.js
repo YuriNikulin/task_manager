@@ -84,7 +84,7 @@ class ListOfTasks extends React.Component {
         return false;
     }
 
-    sortTasks = (items, filters) => {
+    filterTasks = (items, filters) => {
         let sortedItems = [];
         let toPush;
         if (filters.length == 1 && filters[0].key == 'taskName') {
@@ -110,14 +110,30 @@ class ListOfTasks extends React.Component {
         return sortedItems;
     }
 
+    sortTasks = () => {
+        let tasks = this.props.tasksList
+        let sortKey = this.props.tasksSort;
+
+        if (!Object.keys(sortKey).length) {
+            return tasks;
+        }
+
+        tasks.sort((a, b) => {
+            console.log(sortKey);
+            return (a[sortKey] > b[sortKey])
+        })
+
+        return tasks;
+    }
+
     render() {
         let tasksList = [];
         if (this.props.tasksList && this.props.tasksList.length) {
-            tasksList = this.props.tasksList;
+            tasksList = this.sortTasks();
         }
 
         if (this.props.tasksFilter.length) {
-            tasksList = this.sortTasks(tasksList, this.props.tasksFilter);
+            tasksList = this.filterTasks(tasksList, this.props.tasksFilter);
         }
 
         let TasksView;
@@ -153,7 +169,8 @@ const mapStateToProps = (state) => {
         currentUser: state.auth.currentUser,
         tasksList: state.tasks.tasksList,
         tasksView: state.tasks.tasksView,
-        tasksFilter: state.tasks.tasksFilter
+        tasksFilter: state.tasks.tasksFilter,
+        tasksSort: state.tasks.tasksSort
     })
 }
 

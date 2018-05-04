@@ -1,42 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { taskProperties } from '../../constants/taskProperties.js';
 
 const TasksList = (props) => {
+    console.log(taskProperties);
     return (
         <div className="tm-table-container">
             <table className="tm-table tm-tasks-table">
                 <thead>
                     <tr>
-                        <td>
-                            <span>
-                                Name
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                Status
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                Priority
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                Estimated
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                Remaining
-                            </span>
-                        </td>
-                        <td>
-                            <span>
-                                Created
-                            </span>
-                        </td>
+                        {taskProperties.map((item) => 
+                            <td key={item.key}>
+                                <span>
+                                    {item.keyPrint}
+                                </span>
+                            </td>
+                        )}
                     </tr>
                 </thead>
                 <tbody>

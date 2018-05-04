@@ -6,6 +6,7 @@ import ViewSwitcher from './ViewSwitcher.js';
 import FilterButton from './FilterButton.js';
 import LogOut from './LogOut.js';
 import Filter from './Filter.js';
+import SortButton from './SortButton.js';
 
 import Transition from 'react-transition-group/Transition';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -33,7 +34,8 @@ class Toolbar extends React.Component {
                     <CreateTaskButton className="tm-toolbar__item" />
                     <ViewSwitcher className="tm-toolbar__item" />
                     <FilterButton onClick={this.handleFilterButtonClick} className={"tm-toolbar__item " + (this.state.showFilter ? 'active' : '')} />
-                    <LogOut className="tm-toolbar__item" />
+                    <SortButton className="tm-toolbar__item"/>
+                    <LogOut className="tm-toolbar__item flr" />
                 </div>
                 <ReactCSSTransitionGroup 
                     transitionName="filter"

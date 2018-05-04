@@ -330,6 +330,9 @@ h1, h2, h3, h4, h5, h6 {
   .mb2 {
     margin-bottom: 20px; }
 
+.flr {
+  float: right; }
+
 .tac {
   text-align: center; }
 
@@ -501,6 +504,11 @@ input:focus {
     color: #000; }
     .tm-toolbar__item:hover, .tm-toolbar__item.active {
       background: #fafafa; }
+    .tm-toolbar__item--em {
+      background: #D41111;
+      color: #fff; }
+      .tm-toolbar__item--em:hover {
+        background-color: #ee2a2a; }
 
 .tm-create {
   background: #fff;

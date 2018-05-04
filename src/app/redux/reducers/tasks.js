@@ -1,7 +1,8 @@
 const initialState = {
     tasksList: {},
     tasksView: 'viewList',
-    tasksFilter: []
+    tasksFilter: [],
+    tasksSort: {}
 };
 
 const tasks = (state=initialState, action) => {
@@ -33,7 +34,12 @@ const tasks = (state=initialState, action) => {
             return ({
                 ...state,
                 tasksFilter: []
-            })     
+            });
+        case 'APPLY_SORT':
+            return ({
+                ...state,
+                tasksSort: action.data
+            })    
         default: return state;
     }
 }
