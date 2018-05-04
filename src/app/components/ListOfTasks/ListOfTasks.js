@@ -87,15 +87,25 @@ class ListOfTasks extends React.Component {
     sortTasks = (items, filters) => {
         let sortedItems = [];
         let toPush;
-        for (let i = 0; i < items.length; i++) {
-            toPush = true;
-            for (let j = 0; j < filters.length; j++) {
-                if (items[i][filters[j].key] == filters[j].value) {
+        if (filters.length == 1 && filters[0].key == 'taskName') {
+            let searchPhrase = filters[0].value;
+            for (let i = 0; i < items.length; i++) {
+                
+                if (items[i].taskName.toLowerCase().includes(searchPhrase.toLowerCase())) {
                     sortedItems.push(items[i]);
-                    break;
                 }
             }
+        } else {
+           for (let i = 0; i < items.length; i++) {
+                for (let j = 0; j < filters.length; j++) {
+                    if (items[i][filters[j].key] == filters[j].value) {
+                        sortedItems.push(items[i]);
+                        break;
+                    }
+                }
+            } 
         }
+
         console.log(sortedItems);
         return sortedItems;
     }

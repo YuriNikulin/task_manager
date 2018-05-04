@@ -4,6 +4,7 @@ import * as taskProperties from '../constants/taskProperties';
 import { connect } from 'react-redux';
 import actionApplyFilter from '../redux/actions/applyFilter.js';
 import actionRemoveFilter from '../redux/actions/removeFilter.js';
+import Search from './Search.js';
 
 class Filter extends React.Component {
     constructor(props) {
@@ -96,10 +97,7 @@ class Filter extends React.Component {
                         </Select>
                     </div>
                     {this.state.showSearch && 
-                        <div className='tm-search-container'>
-                            <input type="text" />
-                            <i className="icon-search"></i>
-                        </div>
+                        <Search />
                     }
                 </div>
             </div>
