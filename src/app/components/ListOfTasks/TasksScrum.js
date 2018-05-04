@@ -5,9 +5,8 @@ class TasksScrum extends React.Component {
         super(props);
     }
     render() {
-        return (
-            <div className="tm-scrum">
-                
+        return(
+            <div className="dnd">
             </div>
         )
     }

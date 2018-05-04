@@ -1,8 +1,6 @@
 import React from 'react';
 import preloader from './preloader.gif';
 
-console.log(preloader);
-
 const Preloader = (props) => {
     return (
         <div className={"tm-preloader " + (props.underlay && ' tm-preloader--underlay')}>
