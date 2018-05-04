@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import { taskProperties } from '../../constants/taskProperties.js';
 
 const TasksList = (props) => {
-    console.log(taskProperties);
     return (
         <div className="tm-table-container">
             <table className="tm-table tm-tasks-table">
@@ -52,7 +51,7 @@ const TasksList = (props) => {
                             </td>
                             <td>
                                 <span>
-                                    {item.taskCreationDate}
+                                    {new Date(item.taskCreationDate).toLocaleString()}
                                 </span>
                             </td>
                         </tr>

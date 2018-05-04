@@ -6,6 +6,8 @@ import { FirebaseComp } from '../services/firebase/firebase.js';
 import actionAuthAlternate from '../redux/actions/authAlternate.js';
 import * as taskProperties from '../constants/taskProperties';
 import Toolbar from './Toolbar.js';
+import Preloader from './Preloader/Preloader.js';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Task extends React.Component {
     constructor(props) {
@@ -107,88 +109,99 @@ class Task extends React.Component {
         return (
             <div>
                 <Toolbar />
-                <div className="tm-task">
-                    <form>
-                        <div className="tm-task-header tm-task-container">
-                            <input disabled={!this.state.isChanging} type="text" onChange={this.handleChange} value={this.state.taskName} id="taskName" className="tm-task-input tm-task__title" />
-                            <span className="tm-task-date">
-                                Created&nbsp; 
-                                <span className="tm-task-date__date">
-                                    {this.state.taskCreationDate}
-                                </span>
-                            </span>
-                            <div className="tm-task-header-right">
-                                <a onClick={this.toggleChangingMode} className="tm-btn--primary tm-btn tm-task-header__button mr">
-                                    {this.state.isChanging ? 'Cancel' : 'Edit'}
-                                </a>
-                                <a onClick = {this.handleRemove} className="tm-btn--warning tm-btn tm-task-header__button">
-                                    Delete task
-                                </a>
-                            </div>
-                        </div>
-                        <div className="tm-task-info tm-task-container">
-                            <div className="tm-task-info-item tm-task-status">
-                                <label className="tm-task__label">
-                                    Status
-                                </label>
-                                <select disabled={!this.state.isChanging} onChange={this.handleChange} value={this.state.taskStatus} id="taskStatus" className="tm-task-select">
-                                    {taskProperties.statuses.map((item) => 
-                                        <option key={item} value={item}>
-                                            {item}
-                                        </option>    
-                                    )}
-                                </select>
-                            </div>
+                <ReactCSSTransitionGroup 
+                    transitionName="fade"
+                    transitionEnterTimeout={300}
+                    transitionLeaveTimeout={300}
+                >
+                    {this.state.isLoaded 
+                        ? 
+                        <div key="task" className="tm-task">
+                            <form>
+                                <div className="tm-task-header tm-task-container">
+                                    <input disabled={!this.state.isChanging} type="text" onChange={this.handleChange} value={this.state.taskName} id="taskName" className="tm-task-input tm-task__title" />
+                                    <span className="tm-task-date">
+                                        Created&nbsp; 
+                                        <span className="tm-task-date__date">
+                                            {new Date(this.state.taskCreationDate).toLocaleString()}
+                                        </span>
+                                    </span>
+                                    <div className="tm-task-header-right">
+                                        <a onClick={this.toggleChangingMode} className="tm-btn--primary tm-btn tm-task-header__button mr">
+                                            {this.state.isChanging ? 'Cancel' : 'Edit'}
+                                        </a>
+                                        <a onClick = {this.handleRemove} className="tm-btn--warning tm-btn tm-task-header__button">
+                                            Delete task
+                                        </a>
+                                    </div>
+                                </div>
+                                <div className="tm-task-info tm-task-container">
+                                    <div className="tm-task-info-item tm-task-status">
+                                        <label className="tm-task__label">
+                                            Status
+                                        </label>
+                                        <select disabled={!this.state.isChanging} onChange={this.handleChange} value={this.state.taskStatus} id="taskStatus" className="tm-task-select">
+                                            {taskProperties.statuses.map((item) => 
+                                                <option key={item} value={item}>
+                                                    {item}
+                                                </option>    
+                                            )}
+                                        </select>
+                                    </div>
 
-                            <div className="tm-task-info-item tm-task-status">
-                                <label className="tm-task__label">
-                                    Priority
-                                </label>
-                                <select disabled={!this.state.isChanging} onChange={this.handleChange} value={this.state.taskPriority} id="taskPriority" className="tm-task-select">
-                                    {taskProperties.priorities.map((item) => 
-                                    <option key={item} value={item}>
-                                            {item}
-                                    </option>    
-                                    )}
-                                </select>
-                            </div>
-                        </div>
-                        <div className='tm-task-estimated tm-task-container'>
-                            <div className="tm-task-estimated-item">
-                                <label className="tm-task__label">
-                                    Estimated time
-                                </label>
-                                <input disabled={!this.state.isChanging} onChange={this.handleChange} type="number" id="estimatedTime" value={this.state.estimatedTime} className="tm-task-input tm-task-estimated__input" />
-                            </div>
-                            <div className="tm-task-estimated-item">
-                                <label className="tm-task__label">
-                                    Log time
-                                </label>
-                                <input disabled={!this.state.isChanging} onChange={this.handleChange} type="number" id="loggedTime" value={this.state.loggedTime} className="tm-task-input tm-task-estimated__input" />
-                            </div>
-                            <div className="tm-task-estimated-item">
-                                <label className="tm-task__label">
-                                    Remaining time
-                                </label>    
-                                <input disabled={true} type="number" value={this.state.remainingTime} className="tm-task-input tm-task-estimated__input" />
-                            </div>
-                        </div>
-                        <div className="tm-task-description tm-task-container">
-                            <div className="tm-task-description-item">
-                                <label className="tm-task__label">
-                                    Task description
-                                </label>    
-                                <textarea disabled={!this.state.isChanging} id="taskDescription" onChange={this.handleChange} className="tm-task-input tm-task-description__input" value={this.state.taskDescription}>
-                                </textarea>
-                            </div>
-                        </div>
-                        <div className="tm-task-footer tm-task-container">
-                            <a onClick={this.handleSave} className="tm-btn tm-btn--primary">
-                                Save changes
-                            </a>
-                        </div>
-                    </form>
-                </div> 
+                                    <div className="tm-task-info-item tm-task-status">
+                                        <label className="tm-task__label">
+                                            Priority
+                                        </label>
+                                        <select disabled={!this.state.isChanging} onChange={this.handleChange} value={this.state.taskPriority} id="taskPriority" className="tm-task-select">
+                                            {taskProperties.priorities.map((item) => 
+                                            <option key={item} value={item}>
+                                                    {item}
+                                            </option>    
+                                            )}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className='tm-task-estimated tm-task-container'>
+                                    <div className="tm-task-estimated-item">
+                                        <label className="tm-task__label">
+                                            Estimated time
+                                        </label>
+                                        <input disabled={!this.state.isChanging} onChange={this.handleChange} type="number" id="estimatedTime" value={this.state.estimatedTime} className="tm-task-input tm-task-estimated__input" />
+                                    </div>
+                                    <div className="tm-task-estimated-item">
+                                        <label className="tm-task__label">
+                                            Log time
+                                        </label>
+                                        <input disabled={!this.state.isChanging} onChange={this.handleChange} type="number" id="loggedTime" value={this.state.loggedTime} className="tm-task-input tm-task-estimated__input" />
+                                    </div>
+                                    <div className="tm-task-estimated-item">
+                                        <label className="tm-task__label">
+                                            Remaining time
+                                        </label>    
+                                        <input disabled={true} type="number" value={this.state.remainingTime} className="tm-task-input tm-task-estimated__input" />
+                                    </div>
+                                </div>
+                                <div className="tm-task-description tm-task-container">
+                                    <div className="tm-task-description-item">
+                                        <label className="tm-task__label">
+                                            Task description
+                                        </label>    
+                                        <textarea disabled={!this.state.isChanging} id="taskDescription" onChange={this.handleChange} className="tm-task-input tm-task-description__input" value={this.state.taskDescription}>
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <div className="tm-task-footer tm-task-container">
+                                    <a onClick={this.handleSave} className="tm-btn tm-btn--primary">
+                                        Save changes
+                                    </a>
+                                </div>
+                            </form>
+                        </div> 
+                        :
+                        <Preloader key="preloader" />
+                    }
+                </ReactCSSTransitionGroup>  
             </div>
         )
     }

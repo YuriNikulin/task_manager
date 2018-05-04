@@ -118,8 +118,15 @@ class ListOfTasks extends React.Component {
             return tasks;
         }
 
+        if (sortKey == 'taskCreationDate') {
+            tasks.sort((a, b) => {
+                return (Date.parse(a[sortKey]) > Date.parse(b[sortKey]));
+            })
+
+            return tasks;
+        }
+
         tasks.sort((a, b) => {
-            console.log(sortKey);
             return (a[sortKey] > b[sortKey])
         })
 
@@ -135,6 +142,8 @@ class ListOfTasks extends React.Component {
         if (this.props.tasksFilter.length) {
             tasksList = this.filterTasks(tasksList, this.props.tasksFilter);
         }
+
+        console.log(tasksList);
 
         let TasksView;
 

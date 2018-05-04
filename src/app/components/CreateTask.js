@@ -22,14 +22,15 @@ class CreateTask extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const {taskName, taskDescription, taskPriority, estimatedTime} = this.state;
+        let {taskName, taskDescription, taskPriority, estimatedTime} = this.state;
+        estimatedTime = parseFloat(estimatedTime);
         const taskStatus = 'Open';
         const currentUser = firebase.auth.currentUser;
         let taskCreationDate = 0;
         db.ref('/.info/serverTimeOffset')
             .once('value')
             .then((data) => {
-                taskCreationDate = new Date(data.val() + Date.now()).toLocaleString();
+                taskCreationDate = new Date(data.val() + Date.now());
                 const taskId = db.ref('users/' + currentUser.uid + '/tasks/').push().key;
                 const remainingTime = estimatedTime;
                 let updates = {};
