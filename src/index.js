@@ -6,10 +6,12 @@ import App from './App';
 import store from './app/redux';
 import './design/fonts/fonts.css';
 import './design/fonts/icons.css';
-
-ReactDOM.render(
-  <Provider store={store}>
-    <App />  
-  </Provider>,
-  document.getElementById('root')
+import Board from './app/components/dnd/Board.js';
+import {observe} from './app/components/dnd/Game.js';
+let rootEl = document.querySelector('#root');
+observe(knightPosition =>
+  ReactDOM.render(
+    <Board knightPosition={knightPosition} />,
+    rootEl
+  )
 );
