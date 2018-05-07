@@ -7,6 +7,8 @@ import actionAuth from '../redux/actions/auth.js';
 import { FirebaseComp } from '../services/firebase/firebase.js';
 import Notification from './Notification.js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { priorities } from '../constants/taskProperties.js';
+console.log(priorities);
 
 class CreateTask extends React.Component {
     constructor(props) {
@@ -130,21 +132,13 @@ class CreateTask extends React.Component {
                                             Choose an initial priority for the task
                                     </label>
                                     <select className="tm-input tm-input--select" value={this.state.taskPriority} onChange = {(event) => {this.setState({taskPriority: event.target.value})}}>
-                                            <option value="Critical">
-                                                    Critical
-                                            </option>
-                                            <option value="High">
-                                                    High
-                                            </option>
-                                            <option value="Medium">
-                                                    Medium
-                                            </option>
-                                            <option value="Minor">
-                                                    Minor
-                                            </option>
-                                            <option value="Low">
-                                                    Low
-                                            </option>
+                                            {priorities.map((item) => {
+                                                return (
+                                                    <option value={item}>
+                                                        {item}
+                                                    </option>
+                                                )
+                                            })}
                                     </select>        
                             </div>
                             {this.state.error && 
