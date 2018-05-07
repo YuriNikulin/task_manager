@@ -1,6 +1,6 @@
 const initialState = {
     tasksList: {},
-    tasksView: 'viewScrum',
+    tasksView: 'viewList',
     tasksFilter: [],
     tasksSort: {}
 };

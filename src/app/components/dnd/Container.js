@@ -1,6 +1,4 @@
 import React from 'react';
-import {observe} from './Game.js';
-import Board from './Board.js';
 import GridLayout from 'react-grid-layout';
 import { statuses } from '../../constants/taskProperties.js';
 import scrumProperties from '../../constants/scrumProperties.js';
