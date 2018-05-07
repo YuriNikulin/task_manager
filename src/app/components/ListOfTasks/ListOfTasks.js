@@ -20,6 +20,7 @@ import TasksGrid from './TasksGrid.js';
 import TasksScrum from './TasksScrum.js';
 
 import Preloader from '../Preloader/Preloader.js';
+import Notification from '../Notification.js';
 
 class ListOfTasks extends React.Component {
     constructor(props) {
@@ -27,7 +28,8 @@ class ListOfTasks extends React.Component {
         this.state = {
             tasksList: {},
             tasksArray: [],
-            isLoaded: false
+            isLoaded: false,
+            notification: false
         };
     }
 
@@ -36,6 +38,18 @@ class ListOfTasks extends React.Component {
             return;
         }
         this.maybeFetchTasks();
+    }
+
+    setNotification = (text) => {
+        this.setState({
+            notification: text
+        })
+    }
+
+    closeNotification = () => {
+        this.setState({
+            notification: false
+        })
     }
 
     maybeFetchTasks = () => {
@@ -171,10 +185,19 @@ class ListOfTasks extends React.Component {
                 >
                     {this.state.isLoaded ? 
                         <div key="tasksList"className="tm-tasks">
-                            <TasksView tasksList={tasksList}/>
+                            <TasksView setNotification={this.setNotification} updateList={this.maybeFetchTasks} tasksList={tasksList}/>
                         </div>
                         :
                         <Preloader key="preloader"/>
+                    }
+                </ReactCSSTransitionGroup>
+                <ReactCSSTransitionGroup 
+                    transitionName="notification"
+                    transitionEnterTimeout={300}
+                    transitionLeaveTimeout={300}
+                >
+                    {this.state.notification && 
+                        <Notification key="notifiction" duration={3000} closeNotification={this.closeNotification} text={this.state.notification} />
                     }
                 </ReactCSSTransitionGroup>     
             </div>

@@ -4,7 +4,8 @@ import Board from './Board.js';
 import GridLayout from 'react-grid-layout';
 import { statuses } from '../../constants/taskProperties.js';
 import scrumProperties from '../../constants/scrumProperties.js';
-console.log(scrumProperties);
+import { db } from '../../services/firebase/firebase.js';
+import { connect } from 'react-redux';
 
 class Container extends React.Component {
     constructor(props) {
@@ -12,16 +13,30 @@ class Container extends React.Component {
     }
 
     handleDragStop = (layout, oldPos, newPos) => {
-        console.log(oldPos, newPos);
-    }
+        if (oldPos.x == newPos.x) return;
+        let newStatus = this.statusesKeys[newPos.x];
 
-    handeLayoutChange = (layout) => {
-        console.log(layout);
+        let task = this.props.tasksList.find((item) => {
+            return (item.taskId == newPos.i)
+        });
+
+        let taskId = task.taskId;
+        let updates = {};
+        let userId = this.props.currentUser.uid;
+        updates['/users/' + userId + '/tasks/' + taskId + '/taskStatus'] = newStatus;
+        db.ref().update(updates).then(() => {
+            this.props.setNotification(task.taskName + ' is now ' + newStatus);
+            this.props.updateList();
+        });
     }
 
     generateLayout = () => {
-        let statusesObj = {};
-        let statusesKeys = {};
+        this.statusesObj = {};
+        this.statusesKeys = {};
+
+        let statusesObj = this.statusesObj;
+        let statusesKeys = this.statusesKeys;
+
         statuses.map((item, index) => {
             statusesObj[item] = {
                 status: item,
@@ -37,21 +52,8 @@ class Container extends React.Component {
         layoutObj.layoutMarkup = [];
         items.map((item, index) =>  {
             statusesObj[item.taskStatus].items.push(item);
-            // layoutObj.layoutDescr.push({
-            //     i: item.taskId,
-            //     x: index,
-            //     y: 0,
-            //     w: 1,
-            //     h: 1
-            // });
-            // layoutObj.layoutMarkup.push(
-            //     <div key={item.taskId}>
-            //         {item.taskName}
-            //     </div>
-            // )
         })
         for (let i in statusesObj) {
-            // console.log(statusesObj[i]);
             let currentStatus = statusesObj[i];
             layoutObj.layoutDescr.push({
                 i: currentStatus.index + currentStatus.status,
@@ -76,7 +78,7 @@ class Container extends React.Component {
                     x: currentStatus.index,
                     y: taskY,
                     w: 1,
-                    h: 1,
+                    h: 2,
                 });
 
                 layoutObj.layoutMarkup.push(
@@ -88,20 +90,19 @@ class Container extends React.Component {
                 taskY++;
             }
         }
-        console.log(layoutObj);
         return layoutObj;
     }
 
     render() {
         let layoutObj = this.generateLayout();
-        console.log(scrumProperties);
 
         return (
-            <GridLayout className="tm-scrum-container"
+            <GridLayout 
+                className="tm-scrum"
                 onDragStop={this.handleDragStop}
                 onLayoutChange={this.handleLayoutChange}
                 layout={layoutObj.layoutDescr}
-                cols={8}
+                cols={statuses.length}
                 containerPadding={scrumProperties.scrumContainerPadding}
                 margin={scrumProperties.scrumGutter}
                 rowHeight={scrumProperties.scrumItemHeight}
@@ -113,4 +114,10 @@ class Container extends React.Component {
       }
 }
 
-export default Container;
+const mapStateToProps = (store) => {
+    return ({
+        currentUser: store.auth.currentUser
+    })
+}
+
+export default connect(mapStateToProps)(Container);

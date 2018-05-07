@@ -15,7 +15,7 @@ class TasksScrum extends React.Component {
     }
     render() {
         return(
-           <Container tasksList={this.props.tasksList}/>
+           <Container setNotification={this.props.setNotification} updateList={this.props.updateList} tasksList={this.props.tasksList}/>
         )
     }
 }
