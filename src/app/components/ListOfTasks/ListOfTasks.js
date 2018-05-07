@@ -21,6 +21,7 @@ import TasksScrum from './TasksScrum.js';
 
 import Preloader from '../Preloader/Preloader.js';
 import Notification from '../Notification.js';
+import PropTypes from 'prop-types';
 
 class ListOfTasks extends React.Component {
     constructor(props) {
@@ -34,6 +35,7 @@ class ListOfTasks extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        console.log(this.props);
         if (this.state.isLoaded) {
             return;
         }
@@ -203,6 +205,13 @@ class ListOfTasks extends React.Component {
             </div>
         )
     }
+}
+
+ListOfTasks.propTypes = {
+    currentUser: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.object
+        ])
 }
 
 const mapStateToProps = (state) => {
