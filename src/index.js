@@ -6,8 +6,8 @@ import App from './App';
 import store from './app/redux';
 import './design/fonts/fonts.css';
 import './design/fonts/icons.css';
-import './node_modules/react-grid-layout/css/styles.cs';
-import './node_modules/react-resizable/css/styles.css';
+import '../node_modules/react-grid-layout/css/styles.css';
+import '../node_modules/react-resizable/css/styles.css';
 import Board from './app/components/dnd/Board.js';
 import {observe} from './app/components/dnd/Game.js';
 

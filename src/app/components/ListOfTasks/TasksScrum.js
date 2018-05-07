@@ -10,11 +10,12 @@ class TasksScrum extends React.Component {
     constructor(props) {
         super(props);
     }
+    componentDidUpdate() {
+
+    }
     render() {
         return(
-            <div className="dnd">
-               test
-            </div>
+           <Container tasksList={this.props.tasksList}/>
         )
     }
 }

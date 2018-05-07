@@ -797,5 +797,13 @@ input:focus {
   color: #fff;
   padding: 10px 18px; }
 
-.dnd {
-  height: 750px; }
+.tm-scrum-status {
+  text-transform: uppercase;
+  text-align: center;
+  background-color: #0D90DB;
+  color: #fff;
+  padding: 5px 8px; }
+
+.tm-scrum-task {
+  background-color: #fff;
+  padding: 5px 8px; }
