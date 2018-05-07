@@ -1,4 +1,6 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import Container from '../dnd/Container.js';
 
 class TasksScrum extends React.Component {
     constructor(props) {
@@ -6,10 +8,10 @@ class TasksScrum extends React.Component {
     }
     render() {
         return(
-            <div className="dnd">
-            </div>
+           <Container setNotification={this.props.setNotification} updateList={this.props.updateList} tasksList={this.props.tasksList}/>
         )
     }
 }
+
 
 export default TasksScrum;

@@ -27,14 +27,16 @@ class LogIn extends React.Component  {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        this.setState({
+            isLoading: true
+        })
         auth.doSignInWithEmailAndPassword(this.state.email, this.state.password, this.props.onAuth).then(() => {
-            this.setState({
-                isLoading: true
-            })
+
         }, (error) => {
             console.log(error);
             this.setState({
-                error: error.message
+                error: error.message,
+                isLoading: false
             })
         });
     }

@@ -6,10 +6,13 @@ import App from './App';
 import store from './app/redux';
 import './design/fonts/fonts.css';
 import './design/fonts/icons.css';
+import '../node_modules/react-grid-layout/css/styles.css';
+import '../node_modules/react-resizable/css/styles.css';
 
+let rootEl = document.querySelector('#root');
 ReactDOM.render(
-  <Provider store={store}>
-    <App />  
-  </Provider>,
-  document.getElementById('root')
-);
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    rootEl
+)
