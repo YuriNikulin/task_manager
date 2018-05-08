@@ -3,6 +3,9 @@ import {ThemeContext, themes} from './context/ThemeContext.js';
 import ThemedButton from './ThemedButton.js';
 import ThemedButtonGroup from './ThemedButtonGroup.js';
 import ComponentWithWith from './context/ComponentWithWith.js';
+import ComponentGoesInPortal from './ComponentGoesInPortal.js';
+import ComponentWillCauseAnError from './ComponentWillCauseAnError.js';
+import Popup from './Popup.js';
 
 class Advanced extends React.Component {
     constructor(props) {
@@ -20,6 +23,11 @@ class Advanced extends React.Component {
                 : themes.dark,
         }));
     }
+    componentDidCatch = (error, info) => {
+        console.log(info);
+        console.log('error! ' + error);
+        console.log('info ' + info); 
+    }
     render() {
         return(
             <div className="advanced">
@@ -31,6 +39,15 @@ class Advanced extends React.Component {
 
                     </ThemedButtonGroup>
                     <ComponentWithWith foo='bar'/>
+                    <ComponentGoesInPortal>
+                        <Popup>
+                            <ComponentWithWith />
+                            <ThemedButton>
+                                I can toggle theme out of portal!
+                            </ThemedButton>
+                        </Popup>        
+                    </ComponentGoesInPortal>
+                    <ComponentWillCauseAnError />
                 </ThemeContext.Provider>
             </div>
         )   

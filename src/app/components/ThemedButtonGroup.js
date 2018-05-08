@@ -11,9 +11,9 @@ const ThemedButtonGroup = (props) => {
         )
     }
     return (
-        <div>
-            {buttons}
-        </div>
+        <React.Fragment>
+        {buttons}
+        </React.Fragment>
     )
 }
 
