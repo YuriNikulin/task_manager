@@ -19,6 +19,8 @@ import ListOfTasks from './ListOfTasks/ListOfTasks.js';
 import store from '../redux';
 import { FirebaseComp } from '../services/firebase/firebase.js';
 
+import { Advanced } from './Advanced.js';
+
 class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -39,6 +41,7 @@ class Home extends React.Component {
             <div>
                 <Toolbar listOfTasks={true}/>
                 <ListOfTasks />
+                <Advanced />
             </div>
         )
     }
