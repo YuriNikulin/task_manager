@@ -6,6 +6,9 @@ import ComponentWithWith from './context/ComponentWithWith.js';
 import ComponentGoesInPortal from './ComponentGoesInPortal.js';
 import ComponentWillCauseAnError from './ComponentWillCauseAnError.js';
 import Popup from './Popup.js';
+import Hoc from './hoc/Hoc.js';
+import Refs from './Refs/Refs.js';
+import RenderProps from './RenderProps/RenderProps.js';
 
 class Advanced extends React.Component {
     constructor(props) {
@@ -47,7 +50,9 @@ class Advanced extends React.Component {
                             </ThemedButton>
                         </Popup>        
                     </ComponentGoesInPortal>
-                    <ComponentWillCauseAnError />
+                    <Hoc />
+                    <Refs />
+                    <RenderProps />
                 </ThemeContext.Provider>
             </div>
         )   
