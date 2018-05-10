@@ -5,10 +5,9 @@ import Toolbar from './Toolbar.js';
 import { connect } from 'react-redux';
 import actionAuth from '../redux/actions/auth.js';
 import { FirebaseComp } from '../services/firebase/firebase.js';
-import Notification from './Notification.js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { priorities } from '../constants/taskProperties.js';
-console.log(priorities);
+import actionPushNotification from '../redux/actions/pushNotification.js';
 
 class CreateTask extends React.Component {
     constructor(props) {
@@ -55,6 +54,10 @@ class CreateTask extends React.Component {
                 let updates = {};
                 updates['/users/' + currentUser.uid + '/tasks/' + taskId] = {taskId, taskName, taskDescription, taskPriority, estimatedTime, remainingTime, taskStatus, taskCreationDate};
                 db.ref().update(updates).then(() => {
+                    this.props.dispatch(actionPushNotification({
+                        text: `Task ${this.state.taskName} has been created`,
+                        duration: 2000
+                    }));
                     this.setState({
                         taskName: '',
                         taskDescription: '',
@@ -71,12 +74,6 @@ class CreateTask extends React.Component {
             .then((data) => {
                 return (data.val() + Date.now());
         })
-    }
-
-    closeNotification = () => {
-        this.setState({
-            createdTask: ''
-        });
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -145,29 +142,14 @@ class CreateTask extends React.Component {
                                 <p className="tm__error">{this.state.error}</p>
                             }
                             <div className="tac mt2">
-                                    <button type="submit" className="tm-btn tm-btn--primary mt">Create</button>        
+                                <button type="submit" className="tm-btn tm-btn--primary mt">Create</button>        
                             </div>
                         </form>
                     </div>
                 </div>
-                <ReactCSSTransitionGroup 
-                    transitionName="notification"
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={300}
-                >
-                    {this.state.createdTask && 
-                        <Notification key="notifiction" duration={3000} closeNotification={this.closeNotification} text={'Task ' + this.state.createdTask + ' has been created'} />
-                    }
-                </ReactCSSTransitionGroup> 
             </div>        
         );
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        isLogged: state.auth.isLogged
-    }
-}
-
-export default CreateTask;
+export default connect()(CreateTask);

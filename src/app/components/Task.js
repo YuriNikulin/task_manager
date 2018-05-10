@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { db } from '../services/firebase/firebase.js';
 import { firebase } from '../services/firebase';
 import { FirebaseComp } from '../services/firebase/firebase.js';
+import { browserHistory as history } from 'react-router';
 import actionAuthAlternate from '../redux/actions/authAlternate.js';
 import * as taskProperties from '../constants/taskProperties';
 import Toolbar from './Toolbar.js';
 import Preloader from './Preloader/Preloader.js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Notification from './Notification.js';
+import actionPushNotification from '../redux/actions/pushNotification.js';
 
 
 class Task extends React.Component {
@@ -24,7 +25,6 @@ class Task extends React.Component {
             loggedTime: '',
             remainingTime: '', 
             taskStatus: '',
-            notification: ''
         }
     }
 
@@ -40,7 +40,6 @@ class Task extends React.Component {
     maybeFetchTask = () => {
         const user = this.props.currentUser;
         if (!user) return
-        this.props;
 
         const userId = user.uid;
         db.ref('/users/' + userId + '/tasks/' + this.props.params.id).once('value').then((snapshot) => {
@@ -71,11 +70,15 @@ class Task extends React.Component {
     handleRemove = () => {
         const user = this.props.currentUser;
         const userId = user.uid;
+        console.log(this.state);
         db.ref('/users/' + user.uid + '/tasks/' + this.props.params.id).set(null).then(() => {
-            this.setState({
-                notification: 'The task has been deleted'
-            })
-            // this.props.router.push('/');
+
+            this.props.dispatch(actionPushNotification({
+                text: `Task ${this.state.taskName} has been removed`, 
+                duration: 3000
+            }));
+
+            history.push('/');
         });
     }
 
@@ -99,8 +102,8 @@ class Task extends React.Component {
                 isChanging: false,
                 isLoaded: false,
                 loggedTime: '',
-                notification: 'The task has been updated'
             });
+            this.props.dispatch(actionPushNotification({text: 'The task has been updated', duration: 3000}));
             this.maybeFetchTask();
         });
         
@@ -109,12 +112,6 @@ class Task extends React.Component {
     handleChange = (event) => {
         this.setState({
             [event.target.id]: event.target.value
-        })
-    }
-
-    closeNotification = () => {
-        this.setState({
-            notification: ''
         })
     }
 
@@ -212,16 +209,6 @@ class Task extends React.Component {
                                     </div>
                                 </form>
                             </div> 
-
-                            <ReactCSSTransitionGroup 
-                                transitionName="notification"
-                                transitionEnterTimeout={300}
-                                transitionLeaveTimeout={300}
-                            >
-                                {this.state.notification && 
-                                    <Notification key="notifiction" duration={3000} closeNotification={this.closeNotification} text={this.state.notification} />
-                                }
-                            </ReactCSSTransitionGroup> 
                         </div>
 
                         :

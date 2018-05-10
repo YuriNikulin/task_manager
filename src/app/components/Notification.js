@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import actionRemoveNotification from '../redux/actions/removeNotification.js';
 
 class Notification extends React.Component {
     constructor(props) {
@@ -6,13 +8,13 @@ class Notification extends React.Component {
     }
     componentDidMount() {
         setTimeout(() => {
-            this.props.closeNotification();
+            this.props.dispatch(actionRemoveNotification());
         }, this.props.duration || 5000)
     }
     render() {
         return (
             <div className="tm-notification">
-                <div className="tm-notification-conent">
+                <div className="tm-notification-content">
                     {this.props.text}
                     {this.props.children &&
                         this.props.children
@@ -23,4 +25,4 @@ class Notification extends React.Component {
     }
 }
 
-export default Notification;
+export default connect()(Notification);

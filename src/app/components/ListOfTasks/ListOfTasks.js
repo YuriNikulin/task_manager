@@ -40,18 +40,6 @@ class ListOfTasks extends React.Component {
         this.maybeFetchTasks();
     }
 
-    setNotification = (text) => {
-        this.setState({
-            notification: text
-        })
-    }
-
-    closeNotification = () => {
-        this.setState({
-            notification: false
-        })
-    }
-
     maybeFetchTasks = () => {
         const user = this.props.currentUser;
         if (!user) {
@@ -185,21 +173,12 @@ class ListOfTasks extends React.Component {
                 >
                     {this.state.isLoaded ? 
                         <div key="tasksList"className="tm-tasks">
-                            <TasksView setNotification={this.setNotification} updateList={this.maybeFetchTasks} tasksList={tasksList}/>
+                            <TasksView updateList={this.maybeFetchTasks} tasksList={tasksList}/>
                         </div>
                         :
                         <Preloader key="preloader"/>
                     }
-                </ReactCSSTransitionGroup>
-                <ReactCSSTransitionGroup 
-                    transitionName="notification"
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={300}
-                >
-                    {this.state.notification && 
-                        <Notification key="notifiction" duration={3000} closeNotification={this.closeNotification} text={this.state.notification} />
-                    }
-                </ReactCSSTransitionGroup>     
+                </ReactCSSTransitionGroup>   
             </div>
         )
     }

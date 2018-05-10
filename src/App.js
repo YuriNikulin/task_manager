@@ -6,6 +6,7 @@ import LogIn from './app/components/LogIn.js';
 import { firebase } from './app/services/firebase';
 
 import Preloader from './app/components/Preloader/Preloader.js';
+import Notification from './app/components/Notification.js';
 
 import { syncHistoryWithStore } from 'react-router-redux';
 import Home from './app/components/Home.js';
@@ -27,7 +28,8 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoaded: false
+            isLoaded: false,
+            notification: false
         }
     }
 
@@ -46,12 +48,22 @@ class App extends React.Component {
         if (!this.props.auth.isLogged) {
             history.push('/login');
         }
+        this.handleNotifications();
+    }
+
+    handleNotifications = () => {
+        let notification = this.props.notifications[0]
     }
 
     componentWillReceiveProps() {
         this.setState({
             isLoaded: true
         })
+
+    }
+
+    closeNotification = () => {
+
     }
 
     render() {
@@ -73,7 +85,21 @@ class App extends React.Component {
                                 </Router>
                             </div>
                     }
-                </ReactCSSTransitionGroup> 
+                </ReactCSSTransitionGroup>
+                <ReactCSSTransitionGroup 
+                    transitionName="notification"
+                    transitionEnterTimeout={300}
+                    transitionLeaveTimeout={300}
+                >
+                    {this.props.notifications.length && 
+                        this.props.notifications.map((item, index) => {
+                            return (
+                                <Notification key={item.text + index} duration={item.duration} text={item.text} />
+                            )
+                        })
+                        
+                    }
+                </ReactCSSTransitionGroup>  
             </div> 
         )
     }
@@ -92,6 +118,7 @@ const routes = (
 const mapStateToProps = (state) => {
     return {
         auth: state.auth,
+        notifications: state.notifications
     }
 }
 
