@@ -134,7 +134,7 @@ class CreateTask extends React.Component {
                                     <select className="tm-input tm-input--select" value={this.state.taskPriority} onChange = {(event) => {this.setState({taskPriority: event.target.value})}}>
                                             {priorities.map((item) => {
                                                 return (
-                                                    <option value={item}>
+                                                    <option key={item} value={item}>
                                                         {item}
                                                     </option>
                                                 )

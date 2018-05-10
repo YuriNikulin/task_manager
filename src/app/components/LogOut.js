@@ -15,12 +15,6 @@ class LogOut extends React.Component {
         auth.doSignOut();
     }
 
-    componentDidUpdate() {
-        if (!this.props.auth.isLogged) {
-            history.push('/login');
-        }
-    }
-
     render() {
         return (
             <a className={this.props.className} onClick={this.handleClick}>Log out</a>
@@ -28,11 +22,4 @@ class LogOut extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return ({
-        'routing': state.routing,
-        'auth': state.auth
-    })
-}
-
-export default connect(mapStateToProps)(LogOut);
+export default LogOut;

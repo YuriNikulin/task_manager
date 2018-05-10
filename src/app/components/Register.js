@@ -2,7 +2,7 @@ import React from 'react';
 import { auth } from '../services/firebase';
 import { db } from '../services/firebase/firebase.js'; 
 import { connect } from 'react-redux';
-import { Link, browserHistory, hashHistory } from 'react-router';
+import { Link, browserHistory as history } from 'react-router';
 import Popup from './Popup.js';
 
 class Register extends React.Component {
@@ -44,7 +44,7 @@ class Register extends React.Component {
         auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.password)
             .then(authUser => {
                 const uid = authUser.uid;
-                this.props.router.push('/login');
+                history.push('/login');
                 db.ref('users/' + authUser.uid + '/').set({
                     info: {email, username, uid},
                     tasks: {}

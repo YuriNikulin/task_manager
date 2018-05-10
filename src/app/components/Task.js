@@ -75,7 +75,7 @@ class Task extends React.Component {
             this.setState({
                 notification: 'The task has been deleted'
             })
-            this.props.router.push('/');
+            // this.props.router.push('/');
         });
     }
 

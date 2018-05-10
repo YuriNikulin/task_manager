@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { auth } from '../services/firebase';
 import actionAuth from '../redux/actions/auth.js';
 import LogOut from './LogOut.js';
-import { Link, browserHistory, hashHistory } from 'react-router';
+import { Link, browserHistory as history } from 'react-router';
 import Popup from './Popup.js';
 import Preloader from './Preloader/Preloader.js';
 
@@ -43,7 +43,7 @@ class LogIn extends React.Component  {
 
     componentDidUpdate() {
         if (this.props.auth.isLogged) {
-            this.props.router.push('/');
+            history.push('/');
         }
     }
 
