@@ -94,7 +94,7 @@ class App extends React.Component {
                     {this.props.notifications.length && 
                         this.props.notifications.map((item, index) => {
                             return (
-                                <Notification key={item.text + index} duration={item.duration} text={item.text} />
+                                <Notification key={item.id} id={item.id} duration={item.duration} text={item.text} />
                             )
                         })
                         

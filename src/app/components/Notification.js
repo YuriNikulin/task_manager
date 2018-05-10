@@ -8,7 +8,7 @@ class Notification extends React.Component {
     }
     componentDidMount() {
         setTimeout(() => {
-            this.props.dispatch(actionRemoveNotification());
+            this.props.dispatch(actionRemoveNotification(this.props.id));
         }, this.props.duration || 5000)
     }
     render() {

@@ -6,11 +6,12 @@ const notifications = (state=initialState, action) => {
             return ([
                 ...state, {
                     text: action.data.text,
-                    duration: action.data.duration
+                    duration: action.data.duration,
+                    id: Math.random()
                 },
             ]); 
         case 'REMOVE_NOTIFICATION':
-            return(state.slice(1));
+            return(state.filter(item => (item.id != action.data)));
         default: return state;
     }
 }
