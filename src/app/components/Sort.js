@@ -10,7 +10,6 @@ class Sort extends React.Component {
 
     handleClick = (event) => {
         let key = event.target.dataset.sortKey;
-        // console.log(event.target.dataset.sortKey);
         this.props.dispatch(actionSort(key));
     }
 

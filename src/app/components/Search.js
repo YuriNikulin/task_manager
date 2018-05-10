@@ -25,6 +25,10 @@ class Search extends React.Component {
         this.props.dispatch(actionApplyFilter(newFilter));
     }
 
+    componentDidUpdate() {
+        
+    }
+
     componentDidMount() {
         this.input.focus();
     }

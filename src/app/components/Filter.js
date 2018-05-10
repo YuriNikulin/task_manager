@@ -32,7 +32,6 @@ class Filter extends React.Component {
     }
 
     applyFilter = (newFilter) => {
-        console.log(newFilter);
         this.props.dispatch(actionApplyFilter(newFilter));
     }
 
@@ -61,8 +60,7 @@ class Filter extends React.Component {
                 priorityTitle += activeFilters[i].value + ' ';
             }
         }
-
-        console.log(statusTitle, priorityTitle);    
+  
         return(
             <div className="tm-filter-container">
                 <div className="tm-filter">

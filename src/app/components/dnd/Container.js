@@ -24,7 +24,6 @@ class Container extends React.Component {
         let userId = this.props.currentUser.uid;
         updates['/users/' + userId + '/tasks/' + taskId + '/taskStatus'] = newStatus;
         db.ref().update(updates).then(() => {
-            console.log(this.props);
             this.props.dispatch(actionPushNotification({
                 text: task.taskName + ' is now ' + newStatus,
                 duration: 3000

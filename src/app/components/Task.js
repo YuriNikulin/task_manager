@@ -70,7 +70,6 @@ class Task extends React.Component {
     handleRemove = () => {
         const user = this.props.currentUser;
         const userId = user.uid;
-        console.log(this.state);
         db.ref('/users/' + user.uid + '/tasks/' + this.props.params.id).set(null).then(() => {
 
             this.props.dispatch(actionPushNotification({
