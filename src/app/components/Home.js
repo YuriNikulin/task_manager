@@ -40,7 +40,7 @@ class Home extends React.Component {
         return(
             <div>
                 <Toolbar listOfTasks={true}/>
-                <ListOfTasks />
+                
                 <Advanced />
             </div>
         )

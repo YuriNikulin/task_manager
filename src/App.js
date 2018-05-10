@@ -57,13 +57,13 @@ class App extends React.Component {
     render() {
         return(
             <div>
-                <FirebaseComp />
+                
                 <ReactCSSTransitionGroup 
                     transitionName="fade"
                     transitionEnterTimeout={300}
                     transitionLeaveTimeout={300}
                 >
-                    {!this.state.isLoaded 
+                    {this.state.isLoaded 
                         ? 
                             <Preloader key="preloader" />
                         :

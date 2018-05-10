@@ -15,7 +15,8 @@ class Advanced extends React.Component {
         super(props);
         this.state = {
             theme: themes.dark,
-            toggleTheme: this.toggleTheme
+            toggleTheme: this.toggleTheme,
+            foo: 'bar'
         }
     }
     toggleTheme = () => {

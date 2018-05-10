@@ -4,7 +4,7 @@ import React from 'react';
 const ThemedButton = (props) => {
     return(
         <ThemeContext.Consumer>
-            {({theme, toggleTheme}) => {
+            {({theme, toggleTheme, foo}) => {
             return (
                 <div className="button">
                     <button {...props} onClick={toggleTheme} className={'btn--'+ theme.name + ' ' + props.className} style={{}}>
