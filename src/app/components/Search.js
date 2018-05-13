@@ -23,6 +23,11 @@ class Search extends React.Component {
             value: searchPhrase
         };
         this.props.dispatch(actionApplyFilter(newFilter));
+        setTimeout(() => {
+            this.input.blur();
+            this.input.focus();
+        }, 10)
+        
     }
 
     componentDidUpdate() {
