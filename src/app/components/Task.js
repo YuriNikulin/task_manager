@@ -43,13 +43,14 @@ class Task extends React.Component {
 
         const userId = user.uid;
         db.ref('/users/' + userId + '/tasks/' + this.props.params.id).once('value').then((snapshot) => {
-            let task = (snapshot.val());
-            if (!task) return;
-            if (!task.remainingTime) {
-                task.remainingTime = task.estimatedTime;
+            this.initState = (snapshot.val());
+
+            if (!this.initState) return;
+            if (!this.initState.remainingTime) {
+                this.initState.remainingTime = this.initState.estimatedTime;
             }
             this.setState({
-                ...task,
+                ...this.initState,
                 isLoaded: true
             });
 
@@ -60,10 +61,23 @@ class Task extends React.Component {
         this.props.dispatch(actionAuthAlternate());
 
     toggleChangingMode = () => {
-        this.setState((prevState, currentState) => {
-            return {
-                isChanging: !prevState.isChanging
-            }
+        if (!this.state.isChanging) {
+            this.enableChangingMode();
+        } else {
+            this.disableChangingMode();
+        }
+    }
+
+    enableChangingMode = () => {
+        this.setState({
+            isChanging: true
+        })
+    }
+
+    disableChangingMode = () => {
+        this.setState({
+            isChanging: false,
+            ...this.initState
         })
     }
 

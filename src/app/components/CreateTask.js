@@ -105,7 +105,7 @@ class CreateTask extends React.Component {
                                             Enter the estimated time (numeric value, in hours)
                                     </label>
                                     <input 
-                                            type="text"
+                                            type="number"
                                             placeholder="Estimated time (in hours)"
                                             className="tm-input"
                                             value={estimatedTime} 
