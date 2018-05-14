@@ -48,10 +48,12 @@ class Search extends React.Component {
         this.setState({
             isFocused: false
         })
+
     }
 
     close = () => {
         this.props.closeHandler();
+        this.props.dispatch(actionRemoveAllFilters());
     }
 
     handleKey = (event) => {
