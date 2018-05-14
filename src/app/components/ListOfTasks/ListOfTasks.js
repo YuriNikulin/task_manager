@@ -123,7 +123,7 @@ class ListOfTasks extends React.Component {
 
         if (sortKey == 'taskCreationDate') {
             tasks.sort((a, b) => {
-                return (Date.parse(a[sortKey]) > Date.parse(b[sortKey]));
+                return (Date.parse(a[sortKey]) > Date.parse(b[sortKey]) ? 1 : -1);
             })
 
             if (sortType == 'asc') {
@@ -134,7 +134,7 @@ class ListOfTasks extends React.Component {
         }
 
         tasks.sort((a, b) => {
-            return (a[sortKey] > b[sortKey]);
+            return (a[sortKey] > b[sortKey] ? 1 : -1);
         })
 
         if (sortType == 'asc') {
