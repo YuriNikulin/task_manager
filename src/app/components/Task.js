@@ -48,7 +48,7 @@ class Task extends React.Component {
             this.initState = (snapshot.val());
 
             if (!this.initState) return;
-            if (!this.initState.remainingTime) {
+            if (this.initState.remainingTime === '') {
                 this.initState.remainingTime = this.initState.estimatedTime;
             }
             this.setState({
@@ -98,26 +98,6 @@ class Task extends React.Component {
         });
     }
 
-    handleSave = () => {
-        let {taskName, taskDescription, taskPriority, estimatedTime, loggedTime, remainingTime, taskStatus, taskId, taskCreationDate} = this.state;
-        const user = this.props.currentUser;
-        const userId = user.uid;
-        let updates = {};
-        
-        updates['/users/' + user.uid + '/tasks/' + this.props.params.id] = {taskId, taskName, taskDescription, taskPriority, estimatedTime, remainingTime, taskStatus, taskCreationDate};
-        db.ref().update(updates).then(() => {
-            this.setState({
-                isChanging: false,
-                isLoaded: false,
-                loggedTime: '',
-            });
-
-            this.props.dispatch(actionPushNotification({text: 'The task has been updated', duration: 3000}));
-            this.maybeFetchTask();
-        });
-        
-    }
-
     handleChange = (event) => {
         this.setState({
             [event.target.id]: event.target.value
@@ -125,19 +105,16 @@ class Task extends React.Component {
     }
 
     handleSubmit = (event) => {
-        console.log(event);
         let {taskName, taskDescription, taskPriority, estimatedTime, loggedTime, remainingTime, taskStatus} = event;
         let {taskId, taskCreationDate} = this.state;
 
-        if (Number(estimatedTime) && Number(loggedTime)) {
-            if (Number(remainingTime)) {
-                remainingTime = remainingTime - loggedTime;
-            } else {
-                remainingTime = estimatedTime - loggedTime;
-            }
-            if (estimatedTime < remainingTime) remainingTime = estimatedTime - loggedTime;
-            if (remainingTime < 0) remainingTime = 0;
+        if (estimatedTime < remainingTime) remainingTime = estimatedTime;
+        
+        if (Number(loggedTime)) {
+            remainingTime = remainingTime - loggedTime;
         }
+
+        if (remainingTime < 0) remainingTime = 0;
 
         const user = this.props.currentUser;
         const userId = user.uid;
@@ -150,6 +127,7 @@ class Task extends React.Component {
                 isLoaded: false,
                 loggedTime: '',
             });
+            this.loggedTime.setValue('');
             this.props.dispatch(actionPushNotification({text: 'The task has been updated', duration: 3000}));
             this.maybeFetchTask();
         });
@@ -160,7 +138,6 @@ class Task extends React.Component {
     }
 
     render() {
-        console.log(this.state.loggedTime);
         return (
             <div>
                 <Toolbar />
@@ -281,7 +258,8 @@ class Task extends React.Component {
                                             </label>
                                             <Input 
                                                 name='loggedTime'
-                                                value={this.state.loggedTime} 
+                                                value={this.state.loggedTime}
+                                                ref={(elem) => this.loggedTime=elem}
                                                 validations="isNumeric"
                                                 validationError="Must be a number"
                                                 toShowError={true}
@@ -296,7 +274,7 @@ class Task extends React.Component {
                                                 Remaining time
                                             </label>    
                                             <Input  
-                                                value={this.state.remainingTime} 
+                                                value={this.state.remainingTime || '0'} 
                                                 name='remainingTime'
                                                 attributes={{
                                                     id: "remainingTime",
