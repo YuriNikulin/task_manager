@@ -4,6 +4,8 @@ import { db } from '../services/firebase/firebase.js';
 import { connect } from 'react-redux';
 import { Link, browserHistory as history } from 'react-router';
 import Popup from './Popup.js';
+import Input from './Input.js';
+import Formsy from 'formsy-react';
 
 class Register extends React.Component {
     constructor(props) {
@@ -13,7 +15,8 @@ class Register extends React.Component {
             username: '',
             password: '',
             password2: '',
-            error: false
+            error: false,
+            toShowError: false
         }
     }
 
@@ -24,27 +27,11 @@ class Register extends React.Component {
     }
 
     handleSubmit = (event) => {
-        event.preventDefault(); 
-        if (this.state.password != this.state.password2) {
-            this.setState({
-                error: 'Passwords don\'t match'
-            })
-            return;
-        }
-
-        if (!this.state.password || !this.state.email || !this.state.username) {
-            this.setState({
-                error: 'All the fields are required'
-            });
-            return;
-        }
-        
         const {
-            email, username
-        } = this.state;
-        auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.password)
+            email, username, password
+        } = event;
+        auth.doCreateUserWithEmailAndPassword(email, password)
             .then(authUser => {
-                 debugger;
                 const uid = authUser.uid;
                 history.push('/login');
                 db.ref('users/' + authUser.uid + '/').set({
@@ -59,33 +46,84 @@ class Register extends React.Component {
                     error: error.message
                 })
             });
+    }
 
-           
+    handleInvalidSubmit = (event) => {
+        console.log(event);
+        this.setState({
+            toShowError: true
+        })
     }
 
     render() {
         return(
             <Popup>
                 <h2 className="tm__title tm-popup__title">Create an account</h2>
-                <form>
+                <Formsy
+                    ref={(form) => this.form = form}
+                    onValidSubmit={this.handleSubmit} 
+                    onInvalidSubmit={this.handleInvalidSubmit}
+                >
                     <div className="tm-input-container">
-                        <input className="tm-input" type="email" value={this.state.email} onChange={this.handleChange} id="email" placeholder="Email" />
+                        <Input   
+                            type="email"
+                            name="email" 
+                            validations="isEmail"
+                            validationError="Bad formatted email"
+                            required
+                            toShowError={this.state.toShowError}
+                            attributes={{
+                                id: "email", 
+                                placeholder: "Email",
+                                className: "tm-input"
+                            }}/>
                     </div>
                     <div className="tm-input-container">    
-                        <input className="tm-input" type="text" value={this.state.username} onChange={this.handleChange} id="username" placeholder="Username" />
+                        <Input 
+                            type="text" 
+                            name="username"
+                            required
+                            toShowError={this.state.toShowError}
+                            attributes={{
+                                id: "username",
+                                placeholder: "Username",
+                                className: "tm-input"
+                            }} />
                     </div>
                     <div className="tm-input-container">    
-                        <input className="tm-input" type="password" value={this.state.password} onChange={this.handleChange} id="password" placeholder="Password" />
+                        <Input 
+                            type="password" 
+                            name="password"
+                            required
+                            toShowError={this.state.toShowError}
+                            attributes={{
+                                id: "password", 
+                                placeholder: "Password", 
+                                className: "tm-input",
+                                type: "password"
+                            }}/>
                     </div>
                     <div className="tm-input-container">    
-                        <input className="tm-input" type="password" value={this.state.password2} onChange={this.handleChange} id="password2" placeholder="Repeat password" />
+                        <Input 
+                            type="password" 
+                            name="password2"
+                            required
+                            validations="equalsField:password"
+                            validationError="Passwords don't match"
+                            toShowError={this.state.toShowError}
+                            attributes={{
+                                id: "password2", 
+                                placeholder: "Repeat password", 
+                                className: "tm-input",
+                                type: "password"
+                            }}/>
                     </div>    
-                    <button className="tm-btn tm-btn--primary mr " type="submit" onClick={this.handleSubmit}>Register</button>
+                    <button className="tm-btn tm-btn--primary mr " type="submit">Register</button>
                     <Link className="tm-btn tm-btn--text" to="/login">I already have an account</Link>
                     {this.state.error && 
                         <p className="tm__error">{this.state.error}</p>
                     }
-                </form>
+                </Formsy>
             </Popup>
         )
     }

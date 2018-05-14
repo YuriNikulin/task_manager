@@ -71,7 +71,6 @@ class LogIn extends React.Component  {
                 >
                     <div className="tm-input-container">
                         <Input 
-                            type="text"
                             name="email"
                             validations="isEmail"
                             validationError="Bad formatted email"
@@ -85,14 +84,14 @@ class LogIn extends React.Component  {
                     </div>
                     <div className="tm-input-container">    
                         <Input 
-                            type="password"
                             name="password"
                             required
                             toShowError={this.state.toShowError}
                             attributes={{
                                 className: "tm-input",  
                                 id: "password", 
-                                placeholder: "Password"
+                                placeholder: "Password",
+                                type: 'password'
                             }}/>
                     </div>    
                     <button type="submit" className="tm-btn tm-btn--primary mr">Log in</button>
