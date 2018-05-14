@@ -58,23 +58,10 @@ class CreateTask extends React.Component {
         })
     }
 
-    handleValid = () => {
-        
-    }
-
-    handleInvalid = () => {
-        
-    }
-
     handleInvalidSubmit = (data, foo, bar) => {
-        console.log('invalid', data);
         this.setState({
             error: true
         })
-    }
-
-    mapInputs() {
-
     }
 
     render() {
