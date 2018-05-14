@@ -168,6 +168,8 @@ input:focus {
 
 .tm__error {
     color: $warning;
+    display: block;
+    font-weight: bold;
 }
 
 .tm-select {

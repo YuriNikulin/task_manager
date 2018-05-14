@@ -412,7 +412,9 @@ input:focus {
       border-right: none; }
 
 .tm__error {
-  color: #D41111; }
+  color: #D41111;
+  display: block;
+  font-weight: bold; }
 
 .tm-select {
   position: relative;
@@ -629,6 +631,8 @@ input:focus {
 .tm-task-estimated-item {
   text-align: center;
   margin-bottom: 10px; }
+  .tm-task-estimated-item .tm-task-input {
+    text-align: center; }
   .tm-task-estimated-item:last-child {
     margin-bottom: 0; }
 

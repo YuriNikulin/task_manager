@@ -51,6 +51,10 @@
             text-align: center;
             margin-bottom: $gutter;
 
+            .tm-task-input {
+                text-align: center;
+            }
+
             &:last-child {
                 margin-bottom: 0;
             }

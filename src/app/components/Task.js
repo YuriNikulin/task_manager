@@ -10,6 +10,8 @@ import Toolbar from './Toolbar.js';
 import Preloader from './Preloader/Preloader.js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import actionPushNotification from '../redux/actions/pushNotification.js';
+import Input from './Input.js';
+import Formsy from 'formsy-react';
 
 
 class Task extends React.Component {
@@ -51,9 +53,9 @@ class Task extends React.Component {
             }
             this.setState({
                 ...this.initState,
-                isLoaded: true
+                isLoaded: true,
+                loggedTime: ''
             });
-
         });
     }
 
@@ -79,6 +81,7 @@ class Task extends React.Component {
             isChanging: false,
             ...this.initState
         })
+        this.form.reset();
     }
 
     handleRemove = () => {
@@ -100,15 +103,7 @@ class Task extends React.Component {
         const user = this.props.currentUser;
         const userId = user.uid;
         let updates = {};
-        if (Number(estimatedTime) && Number(loggedTime)) {
-            if (Number(remainingTime)) {
-                remainingTime = remainingTime - loggedTime;
-            } else {
-                remainingTime = estimatedTime - loggedTime;
-            }
-            if (remainingTime < 0) remainingTime = 0;
-        }
-
+        
         updates['/users/' + user.uid + '/tasks/' + this.props.params.id] = {taskId, taskName, taskDescription, taskPriority, estimatedTime, remainingTime, taskStatus, taskCreationDate};
         db.ref().update(updates).then(() => {
             this.setState({
@@ -116,6 +111,7 @@ class Task extends React.Component {
                 isLoaded: false,
                 loggedTime: '',
             });
+
             this.props.dispatch(actionPushNotification({text: 'The task has been updated', duration: 3000}));
             this.maybeFetchTask();
         });
@@ -128,7 +124,43 @@ class Task extends React.Component {
         })
     }
 
+    handleSubmit = (event) => {
+        console.log(event);
+        let {taskName, taskDescription, taskPriority, estimatedTime, loggedTime, remainingTime, taskStatus} = event;
+        let {taskId, taskCreationDate} = this.state;
+
+        if (Number(estimatedTime) && Number(loggedTime)) {
+            if (Number(remainingTime)) {
+                remainingTime = remainingTime - loggedTime;
+            } else {
+                remainingTime = estimatedTime - loggedTime;
+            }
+            if (estimatedTime < remainingTime) remainingTime = estimatedTime - loggedTime;
+            if (remainingTime < 0) remainingTime = 0;
+        }
+
+        const user = this.props.currentUser;
+        const userId = user.uid;
+        let updates = {};
+
+        updates['/users/' + user.uid + '/tasks/' + this.props.params.id] = {taskId, taskName, taskDescription, taskPriority, estimatedTime, remainingTime, taskStatus, taskCreationDate};
+        db.ref().update(updates).then(() => {
+            this.setState({
+                isChanging: false,
+                isLoaded: false,
+                loggedTime: '',
+            });
+            this.props.dispatch(actionPushNotification({text: 'The task has been updated', duration: 3000}));
+            this.maybeFetchTask();
+        });
+    }
+
+    handleInvalidSubmit = (event) => {
+        console.log('invalid', event);
+    }
+
     render() {
+        console.log(this.state.loggedTime);
         return (
             <div>
                 <Toolbar />
@@ -141,9 +173,31 @@ class Task extends React.Component {
                         ? 
                         <div>
                             <div key="task" className="tm-task">
-                                <form>
+                                <Formsy
+                                    ref={(form) => this.form = form}
+                                    onValid={this.handleValid}  
+                                    onInvalid={this.handleInvalid} 
+                                    onValidSubmit={this.handleSubmit} 
+                                    onInvalidSubmit={this.handleInvalidSubmit}>
                                     <div className="tm-task-header tm-task-container">
-                                        <input disabled={!this.state.isChanging} type="text" onChange={this.handleChange} value={this.state.taskName} id="taskName" className="tm-task-input tm-task__title" />
+                                        <Input 
+                                            name="taskName" 
+                                            type="text"
+                                            validations={{
+                                                matchRegexp: /\S+/
+                                            }}
+                                            validationError="Task name can not be empty"
+                                            onChange={this.handleChange}
+                                            required
+                                            value={this.state.taskName}
+                                            toShowError={true}
+                                            attributes={{
+                                                id: "taskName",
+                                                className: "tm-task-input tm-task__title",
+                                                disabled: !this.state.isChanging
+                                            }}
+                                        />
+                                            
                                         <span className="tm-task-date">
                                             Created&nbsp; 
                                             <span className="tm-task-date__date">
@@ -161,66 +215,121 @@ class Task extends React.Component {
                                     </div>
                                     <div className="tm-task-info tm-task-container">
                                         <div className="tm-task-info-item tm-task-status">
-                                            <label for='taskStatus' className="tm-task__label">
+                                            <label htmlFor='taskStatus' className="tm-task__label">
                                                 Status
                                             </label>
-                                            <select disabled={!this.state.isChanging} onChange={this.handleChange} value={this.state.taskStatus} id="taskStatus" className="tm-task-select">
+                                            <Input 
+                                                element='select'
+                                                name='taskStatus'
+                                                value={this.state.taskStatus} 
+                                                attributes={{
+                                                    id: "taskStatus", 
+                                                    className: "tm-task-select",
+                                                    disabled: !this.state.isChanging 
+                                                }}>
+
                                                 {taskProperties.statuses.map((item) => 
                                                     <option key={item} value={item}>
                                                         {item}
                                                     </option>    
                                                 )}
-                                            </select>
+                                            </Input>
                                         </div>
 
                                         <div className="tm-task-info-item tm-task-status">
-                                            <label for='taskPriority' className="tm-task__label">
+                                            <label htmlFor='taskPriority' className="tm-task__label">
                                                 Priority
                                             </label>
-                                            <select disabled={!this.state.isChanging} onChange={this.handleChange} value={this.state.taskPriority} id="taskPriority" className="tm-task-select">
+                                            <Input 
+                                                element='select'
+                                                name='taskPriority'
+                                                value={this.state.taskPriority} 
+                                                attributes={{
+                                                    id: "taskPriority", 
+                                                    className: "tm-task-select",
+                                                    disabled: !this.state.isChanging 
+                                                }}>
+
                                                 {taskProperties.priorities.map((item) => 
-                                                <option key={item} value={item}>
+                                                    <option key={item} value={item}>
                                                         {item}
-                                                </option>    
+                                                    </option>    
                                                 )}
-                                            </select>
+                                            </Input>
                                         </div>
                                     </div>
                                     <div className='tm-task-estimated tm-task-container'>
                                         <div className="tm-task-estimated-item">
-                                            <label for="estimatedTime" className="tm-task__label">
+                                            <label htmlFor="estimatedTime" className="tm-task__label">
                                                 Estimated time
                                             </label>
-                                            <input disabled={!this.state.isChanging} onChange={this.handleChange} type="number" id="estimatedTime" value={this.state.estimatedTime} className="tm-task-input tm-task-estimated__input" />
+                                            <Input 
+                                                name='estimatedTime'
+                                                value={this.state.estimatedTime}
+                                                validations="isNumeric"
+                                                validationError="Must be a number"
+                                                toShowError={true}
+                                                attributes={{
+                                                    className: "tm-task-input tm-task-estimated__input",
+                                                    id: "estimatedTime",
+                                                    disabled: !this.state.isChanging
+                                                }}/>
                                         </div>
                                         <div className="tm-task-estimated-item">
-                                            <label for="loggedTime" className="tm-task__label">
+                                            <label htmlFor="loggedTime" className="tm-task__label">
                                                 Log time
                                             </label>
-                                            <input disabled={!this.state.isChanging} onChange={this.handleChange} type="number" id="loggedTime" value={this.state.loggedTime} className="tm-task-input tm-task-estimated__input" />
+                                            <Input 
+                                                name='loggedTime'
+                                                value={this.state.loggedTime} 
+                                                validations="isNumeric"
+                                                validationError="Must be a number"
+                                                toShowError={true}
+                                                attributes={{
+                                                    id: "loggedTime",
+                                                    className: "tm-task-input tm-task-estimated__input",
+                                                    disabled: !this.state.isChanging
+                                                }}/>
                                         </div>
                                         <div className="tm-task-estimated-item">
-                                            <label for="remainingTime" className="tm-task__label">
+                                            <label htmlFor="remainingTime" className="tm-task__label">
                                                 Remaining time
                                             </label>    
-                                            <input disabled={true} type="number" value={this.state.remainingTime} id="remainingTime" className="tm-task-input tm-task-estimated__input" />
+                                            <Input  
+                                                value={this.state.remainingTime} 
+                                                name='remainingTime'
+                                                attributes={{
+                                                    id: "remainingTime",
+                                                    className: "tm-task-input tm-task-estimated__input",
+                                                    disabled: true
+                                                }}/>
                                         </div>
                                     </div>
                                     <div className="tm-task-description tm-task-container">
                                         <div className="tm-task-description-item">
-                                            <label for="taskDescription" className="tm-task__label">
+                                            <label htmlFor="taskDescription" className="tm-task__label">
                                                 Task description
                                             </label>    
-                                            <textarea disabled={!this.state.isChanging} id="taskDescription" onChange={this.handleChange} className="tm-task-input tm-task-description__input" value={this.state.taskDescription}>
-                                            </textarea>
+                                            <Input
+                                                value={this.state.taskDescription}
+                                                name='taskDescription'
+                                                element='textarea'
+                                                attributes={{
+                                                    id: "taskDescription",
+                                                    className: "tm-task-input tm-task-description__input", 
+                                                    disabled: !this.state.isChanging 
+                                                }}/>
                                         </div>
                                     </div>
                                     <div className="tm-task-footer tm-task-container">
-                                        <a onClick={this.handleSave} className="tm-btn tm-btn--primary">
+                                        <button 
+                                            type="submit"  
+                                            disabled={!this.state.isChanging} 
+                                            className={"tm-btn tm-btn--primary" + (!this.state.isChanging ? ' tm-btn--disabled' : '')}>
                                             Save changes
-                                        </a>
+                                        </button>
                                     </div>
-                                </form>
+                                </Formsy>
                             </div> 
                         </div>
 

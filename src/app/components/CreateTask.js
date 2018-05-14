@@ -41,11 +41,14 @@ class CreateTask extends React.Component {
                 updates['/users/' + currentUser.uid + '/tasks/' + taskId] = {taskId, taskName, taskDescription, taskPriority, estimatedTime, remainingTime, taskStatus, taskCreationDate};
                 db.ref().update(updates).then(() => {
                     this.props.dispatch(actionPushNotification({
-                        text: `Task ${this.state.taskName} has been created`,
+                        text: `Task ${event.taskName} has been created`,
                         duration: 2000
                     }));
 
                     this.form.reset();
+                    this.setState({
+                        error: false
+                    })
                 });
         })
     }
