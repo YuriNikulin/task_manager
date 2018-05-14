@@ -8,43 +8,29 @@ import { FirebaseComp } from '../services/firebase/firebase.js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { priorities } from '../constants/taskProperties.js';
 import actionPushNotification from '../redux/actions/pushNotification.js';
+import Input from './Input.js';
+import Formsy from 'formsy-react';
 
 class CreateTask extends React.Component {
     constructor(props) {
             super(props);
             this.state = {
-                taskName: '',
-                taskDescription: '',
-                taskPriority: 'Low',
-                estimatedTime: '',
                 currentUser: undefined,
                 isLoading: true,
                 error: false,
-                createdTask: ''
             }
             this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(event) {
-        event.preventDefault();
-        let {taskName, taskDescription, taskPriority, estimatedTime} = this.state;
-        if (!taskName) {
-            this.setState({
-                error: 'Task name can not be empty'
-            });
-            return;
-        }
-        if (!estimatedTime) {
-            this.setState({
-                error: 'Estimated time can not be empty'
-            })
-            return;
-        }
+        let {taskName, taskDescription, taskPriority, estimatedTime} = event;
 
         estimatedTime = parseFloat(estimatedTime);
+
         const taskStatus = 'Open';
         const currentUser = firebase.auth.currentUser;
         let taskCreationDate = 0;
+
         db.ref('/.info/serverTimeOffset')
             .once('value')
             .then((data) => {
@@ -58,12 +44,8 @@ class CreateTask extends React.Component {
                         text: `Task ${this.state.taskName} has been created`,
                         duration: 2000
                     }));
-                    this.setState({
-                        taskName: '',
-                        taskDescription: '',
-                        estimatedTime: '',
-                        createdTask: taskName
-                    });
+
+                    this.form.reset();
                 });
         })
     }
@@ -76,8 +58,23 @@ class CreateTask extends React.Component {
         })
     }
 
-    componentDidUpdate(prevProps, prevState) {
-       
+    handleValid = () => {
+        
+    }
+
+    handleInvalid = () => {
+        
+    }
+
+    handleInvalidSubmit = (data, foo, bar) => {
+        console.log('invalid', data);
+        this.setState({
+            error: true
+        })
+    }
+
+    mapInputs() {
+
     }
 
     render() {
@@ -87,70 +84,84 @@ class CreateTask extends React.Component {
                 <Toolbar />
                 <div className="tm-create">
                     <div className="tm-create-content">
-                        <form onSubmit={this.handleSubmit}>
-                            <div className="tm-input-container">
-                                    <label for='createTaskName' className="tm-input__label">
-                                            Name
-                                    </label>
-                                    <input 
-                                            type="text"
-                                            placeholder="Task name"
-                                            className="tm-input"
-                                            value={taskName}
-                                            id='createTaskName'
-                                            onChange = {(event) => {this.setState({taskName: event.target.value})}}/>
-                            </div>
+                        <Formsy 
+                            ref={(form) => this.form = form}
+                            onValid={this.handleValid}  
+                            onInvalid={this.handleInvalid} 
+                            onValidSubmit={this.handleSubmit} 
+                            onInvalidSubmit={this.handleInvalidSubmit}>
 
-                            <div className="tm-input-container">
-                                    <label for='createTaskEstimated' className="tm-input__label">
-                                            Estimated time
-                                    </label>
-                                    <input 
-                                            type="number"
-                                            placeholder="Estimated time (in hours)"
-                                            className="tm-input"
-                                            value={estimatedTime}
-                                            id='createTaskEstimated' 
-                                            onChange = {(event) => {this.setState({estimatedTime: event.target.value})}}/>
-                            </div> 
+                                <Input 
+                                    name="taskName"
+                                    validations="minLength:1"
+                                    validationError="Task name can not be empty"
+                                    element='input'
+                                    label='Name'
+                                    toShowError={this.state.error}
+                                    required
+                                    attributes={{
+                                        type: 'text',
+                                        id: "taskName",
+                                        placeholder: 'Name',
+                                        className: 'tm-input',
+                                    }}
+                                />
+                                <Input 
+                                    name="estimatedTime"
+                                    validations="isNumeric"
+                                    validationError="Must be a number"
+                                    element='input'
+                                    label='Estimated time'
+                                    toShowError={this.state.error}
+                                    required
+                                    attributes={{
+                                        type: 'text',
+                                        id: "estimatedTime",
+                                        placeholder: 'Estimated time (in hours)',
+                                        className: 'tm-input',
+                                    }}
+                                />
 
-                            <div className="tm-input-container">
-                                    <label for='createTaskDescription' className="tm-input__label">
-                                            Description
-                                    </label>
-                                    <textarea 
-                                            placeholder="Task description"
-                                            value={taskDescription}
-                                            className="tm-input tm-input--textarea"
-                                            id='createTaskDescription'
-                                            onChange = {(event) => {this.setState({taskDescription: event.target.value})}}>
-                                    </textarea>
-                            </div>        
+                                <Input 
+                                    name="taskDescription"
+                                    element='textarea'
+                                    label='Description'
+                                    value=''
+                                    toShowError={this.state.error}
+                                    attributes={{
+                                        id: "taskDescription",
+                                        placeholder: 'Task description',
+                                        className: 'tm-input tm-input--textarea',
+                                    }}
+                                />
 
-                            <div className="tm-input-container">
-                                    <label for='createTaskPriority' className="tm-input__label">
-                                            Initial priority
-                                    </label>
-                                    <select className="tm-input tm-input--select" 
-                                        id='createTaskPriority' 
-                                        value={this.state.taskPriority} 
-                                        onChange = {(event) => {this.setState({taskPriority: event.target.value})}}>
-                                            {priorities.map((item) => {
-                                                return (
-                                                    <option key={item} value={item}>
-                                                        {item}
-                                                    </option>
-                                                )
-                                            })}
-                                    </select>        
-                            </div>
+                                <Input
+                                    name="taskPriority"
+                                    element="select"
+                                    label="Initial priority"
+                                    value={priorities[0]}
+                                    toShowError={this.state.error}
+                                    attributes={{
+                                        id: "taskPriority",
+                                        className: 'tm-input tm-input--select'
+                                    }}
+                                >
+                                    {priorities.map((item) => {
+                                        return (
+                                            <option key={item} value={item}>
+                                                {item}
+                                            </option>
+                                        )
+                                    })}
+                                </Input>
+
                             {this.state.error && 
                                 <p className="tm__error">{this.state.error}</p>
                             }
                             <div className="tac mt2">
                                 <button type="submit" className="tm-btn tm-btn--primary mt">Create</button>        
                             </div>
-                        </form>
+                        </Formsy>
                     </div>
                 </div>
             </div>        

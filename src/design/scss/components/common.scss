@@ -91,18 +91,41 @@ input:focus {
 
     &-container {
         margin-bottom: $gutter;
+
+        &--required {
+            .tm-input__label {
+                &:after {
+                    content: '*';
+                    color: $warning;
+                    font-size: 20px;
+                }
+            }
+        }
+
+        &--error {
+            .tm-input {
+                border: 1px solid $warning;
+
+                &__label {
+                    color: $warning;
+                    font-style: italic;
+                    margin-top: -15px;
+                }
+            }
+        }
     }
 
     &__label {
-        width: 280px;
+        width: $input_label_width;
         padding-right: $gutter;
         display: inline-block;
         vertical-align: middle;
         text-align: right;
 
+        & + .tm-input-wrapper,
         & + .tm-input {
             display: inline-block;
-            width: calc(100% - 280px);
+            width: calc(100% - #{$input_label_width});
             vertical-align: middle;
         }
     }

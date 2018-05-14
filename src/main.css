@@ -369,14 +369,15 @@ input:focus {
   .tm-input-container {
     margin-bottom: 10px; }
   .tm-input__label {
-    width: 280px;
+    width: 200px;
     padding-right: 10px;
     display: inline-block;
     vertical-align: middle;
     text-align: right; }
+    .tm-input__label + .tm-input-wrapper,
     .tm-input__label + .tm-input {
       display: inline-block;
-      width: calc(100% - 280px);
+      width: calc(100% - 200px);
       vertical-align: middle; }
 
 .tm-table {
@@ -798,6 +799,9 @@ input:focus {
   color: #fff;
   padding: 10px 18px;
   width: 200px; }
+  .tm-notification-content {
+    overflow: hidden;
+    text-overflow: ellipsis; }
 
 .tm-scrum-status {
   text-transform: uppercase;
