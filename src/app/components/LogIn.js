@@ -6,6 +6,8 @@ import LogOut from './LogOut.js';
 import { Link, browserHistory as history } from 'react-router';
 import Popup from './Popup.js';
 import Preloader from './Preloader/Preloader.js';
+import Input from './Input.js';
+import Formsy from 'formsy-react';
 
 class LogIn extends React.Component  {
 
@@ -15,7 +17,8 @@ class LogIn extends React.Component  {
             email: '',
             password: '',
             error: false,
-            isLoading: false
+            isLoading: false,
+            toShowError: false
         }
     }
 
@@ -26,11 +29,10 @@ class LogIn extends React.Component  {
     }
 
     handleSubmit = (event) => {
-        event.preventDefault();
         this.setState({
             isLoading: true
         })
-        auth.doSignInWithEmailAndPassword(this.state.email, this.state.password, this.props.onAuth).then(() => {
+        auth.doSignInWithEmailAndPassword(event.email, event.password, this.props.onAuth).then(() => {
 
         }, (error) => {
             console.log(error);
@@ -47,24 +49,59 @@ class LogIn extends React.Component  {
         }
     }
 
+    onValidSubmit = (data) => {
+        console.log(data);
+    }
+
+    handleInvalidSubmit = (data) => {
+        console.log(data);
+        this.setState({
+            toShowError: true
+        })
+    }
+
     render() {
         return(
             <Popup>
                 <h2 className="tm__title tm-popup__title"> Sign in </h2> 
-                <form>
+                <Formsy
+                    ref={(form) => this.form = form}
+                    onValidSubmit={this.handleSubmit} 
+                    onInvalidSubmit={this.handleInvalidSubmit}
+                >
                     <div className="tm-input-container">
-                        <input type="text" className="tm-input" value={this.state.email} onChange={this.handleChange} id="email" placeholder="Email" />
+                        <Input 
+                            type="text"
+                            name="email"
+                            validations="isEmail"
+                            validationError="Bad formatted email"
+                            required
+                            toShowError={this.state.toShowError}
+                            attributes={{
+                                className: "tm-input",  
+                                id: "email",
+                                placeholder: "Email"
+                            }}/>
                     </div>
                     <div className="tm-input-container">    
-                        <input type="password" className="tm-input" value={this.state.password} onChange={this.handleChange} id="password" placeholder="Password" />
+                        <Input 
+                            type="password"
+                            name="password"
+                            required
+                            toShowError={this.state.toShowError}
+                            attributes={{
+                                className: "tm-input",  
+                                id: "password", 
+                                placeholder: "Password"
+                            }}/>
                     </div>    
-                    <button type="submit" className="tm-btn tm-btn--primary mr" onClick={this.handleSubmit}>Log in</button>
+                    <button type="submit" className="tm-btn tm-btn--primary mr">Log in</button>
                     <Link className="tm-btn tm-btn--primary" to="/register">Create a new account</Link>
                     {this.state.error && 
                         <p className="tm__error">{this.state.error}</p>
                     }
                     {this.state.isLoading && <Preloader underlay={true} />}
-                </form>
+                </Formsy>
             </Popup>
         )
     }

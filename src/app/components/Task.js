@@ -109,7 +109,7 @@ class Task extends React.Component {
         let {taskId, taskCreationDate} = this.state;
 
         if (estimatedTime < remainingTime) remainingTime = estimatedTime;
-        
+
         if (Number(loggedTime)) {
             remainingTime = remainingTime - loggedTime;
         }
@@ -160,9 +160,6 @@ class Task extends React.Component {
                                         <Input 
                                             name="taskName" 
                                             type="text"
-                                            validations={{
-                                                matchRegexp: /\S+/
-                                            }}
                                             validationError="Task name can not be empty"
                                             onChange={this.handleChange}
                                             required

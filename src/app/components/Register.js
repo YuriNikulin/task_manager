@@ -24,6 +24,7 @@ class Register extends React.Component {
     }
 
     handleSubmit = (event) => {
+        event.preventDefault(); 
         if (this.state.password != this.state.password2) {
             this.setState({
                 error: 'Passwords don\'t match'
@@ -43,6 +44,7 @@ class Register extends React.Component {
         } = this.state;
         auth.doCreateUserWithEmailAndPassword(this.state.email, this.state.password)
             .then(authUser => {
+                 debugger;
                 const uid = authUser.uid;
                 history.push('/login');
                 db.ref('users/' + authUser.uid + '/').set({
@@ -52,12 +54,13 @@ class Register extends React.Component {
             })
             .catch(error => {
                 console.log(error);
+
                 this.setState({
                     error: error.message
                 })
             });
 
-        event.preventDefault();    
+           
     }
 
     render() {
