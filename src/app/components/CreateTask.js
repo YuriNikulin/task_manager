@@ -89,46 +89,52 @@ class CreateTask extends React.Component {
                     <div className="tm-create-content">
                         <form onSubmit={this.handleSubmit}>
                             <div className="tm-input-container">
-                                    <label className="tm-input__label">
-                                            Enter the task name
+                                    <label for='createTaskName' className="tm-input__label">
+                                            Name
                                     </label>
                                     <input 
                                             type="text"
                                             placeholder="Task name"
                                             className="tm-input"
-                                            value={taskName} 
+                                            value={taskName}
+                                            id='createTaskName'
                                             onChange = {(event) => {this.setState({taskName: event.target.value})}}/>
                             </div>
 
                             <div className="tm-input-container">
-                                    <label className="tm-input__label">
-                                            Enter the estimated time (numeric value, in hours)
+                                    <label for='createTaskEstimated' className="tm-input__label">
+                                            Estimated time
                                     </label>
                                     <input 
                                             type="number"
                                             placeholder="Estimated time (in hours)"
                                             className="tm-input"
-                                            value={estimatedTime} 
+                                            value={estimatedTime}
+                                            id='createTaskEstimated' 
                                             onChange = {(event) => {this.setState({estimatedTime: event.target.value})}}/>
                             </div> 
 
                             <div className="tm-input-container">
-                                    <label className="tm-input__label">
-                                            Enter a description for the task
+                                    <label for='createTaskDescription' className="tm-input__label">
+                                            Description
                                     </label>
                                     <textarea 
                                             placeholder="Task description"
                                             value={taskDescription}
                                             className="tm-input tm-input--textarea"
+                                            id='createTaskDescription'
                                             onChange = {(event) => {this.setState({taskDescription: event.target.value})}}>
                                     </textarea>
                             </div>        
 
                             <div className="tm-input-container">
-                                    <label className="tm-input__label">
-                                            Choose an initial priority for the task
+                                    <label for='createTaskPriority' className="tm-input__label">
+                                            Initial priority
                                     </label>
-                                    <select className="tm-input tm-input--select" value={this.state.taskPriority} onChange = {(event) => {this.setState({taskPriority: event.target.value})}}>
+                                    <select className="tm-input tm-input--select" 
+                                        id='createTaskPriority' 
+                                        value={this.state.taskPriority} 
+                                        onChange = {(event) => {this.setState({taskPriority: event.target.value})}}>
                                             {priorities.map((item) => {
                                                 return (
                                                     <option key={item} value={item}>

@@ -161,7 +161,7 @@ class Task extends React.Component {
                                     </div>
                                     <div className="tm-task-info tm-task-container">
                                         <div className="tm-task-info-item tm-task-status">
-                                            <label className="tm-task__label">
+                                            <label for='taskStatus' className="tm-task__label">
                                                 Status
                                             </label>
                                             <select disabled={!this.state.isChanging} onChange={this.handleChange} value={this.state.taskStatus} id="taskStatus" className="tm-task-select">
@@ -174,7 +174,7 @@ class Task extends React.Component {
                                         </div>
 
                                         <div className="tm-task-info-item tm-task-status">
-                                            <label className="tm-task__label">
+                                            <label for='taskPriority' className="tm-task__label">
                                                 Priority
                                             </label>
                                             <select disabled={!this.state.isChanging} onChange={this.handleChange} value={this.state.taskPriority} id="taskPriority" className="tm-task-select">
@@ -188,27 +188,27 @@ class Task extends React.Component {
                                     </div>
                                     <div className='tm-task-estimated tm-task-container'>
                                         <div className="tm-task-estimated-item">
-                                            <label className="tm-task__label">
+                                            <label for="estimatedTime" className="tm-task__label">
                                                 Estimated time
                                             </label>
                                             <input disabled={!this.state.isChanging} onChange={this.handleChange} type="number" id="estimatedTime" value={this.state.estimatedTime} className="tm-task-input tm-task-estimated__input" />
                                         </div>
                                         <div className="tm-task-estimated-item">
-                                            <label className="tm-task__label">
+                                            <label for="loggedTime" className="tm-task__label">
                                                 Log time
                                             </label>
                                             <input disabled={!this.state.isChanging} onChange={this.handleChange} type="number" id="loggedTime" value={this.state.loggedTime} className="tm-task-input tm-task-estimated__input" />
                                         </div>
                                         <div className="tm-task-estimated-item">
-                                            <label className="tm-task__label">
+                                            <label for="remainingTime" className="tm-task__label">
                                                 Remaining time
                                             </label>    
-                                            <input disabled={true} type="number" value={this.state.remainingTime} className="tm-task-input tm-task-estimated__input" />
+                                            <input disabled={true} type="number" value={this.state.remainingTime} id="remainingTime" className="tm-task-input tm-task-estimated__input" />
                                         </div>
                                     </div>
                                     <div className="tm-task-description tm-task-container">
                                         <div className="tm-task-description-item">
-                                            <label className="tm-task__label">
+                                            <label for="taskDescription" className="tm-task__label">
                                                 Task description
                                             </label>    
                                             <textarea disabled={!this.state.isChanging} id="taskDescription" onChange={this.handleChange} className="tm-task-input tm-task-description__input" value={this.state.taskDescription}>
