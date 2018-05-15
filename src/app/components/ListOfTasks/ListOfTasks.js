@@ -19,7 +19,7 @@ import TasksList from './TasksList.js';
 import TasksGrid from './TasksGrid.js';
 import TasksScrum from './TasksScrum.js';
 
-import Preloader from '../Preloader/Preloader.js';
+import Spin from '../Preloader/Spin.js';
 import Notification from '../Notification.js';
 
 class ListOfTasks extends React.Component {
@@ -194,7 +194,7 @@ class ListOfTasks extends React.Component {
                             <TasksView updateList={this.maybeFetchTasks} tasksList={tasksList}/>
                         </div>
                         :
-                        <Preloader key="preloader"/>
+                        <Spin className="centered" key="preloader"/>
                     }
                 </ReactCSSTransitionGroup>   
             </div>

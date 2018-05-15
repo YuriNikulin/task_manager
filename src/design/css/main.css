@@ -521,6 +521,10 @@ input:focus {
   opacity: 0.01;
   transition: opacity 300ms ease-in; }
 
+.ant-modal .ant-form-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0; }
+
 .tm-navbar {
   text-align: right;
   padding: 15px 0; }

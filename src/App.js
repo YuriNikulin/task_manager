@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import actionAuth from './app/redux/actions/auth.js';
 import { firebase } from './app/services/firebase';
 
-import Preloader from './app/components/Preloader/Preloader.js';
+import Spin from './app/components/Preloader/Spin.js';
 import Notification from './app/components/Notification.js';
 
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -77,7 +77,7 @@ class App extends React.Component {
                 >
                     {!this.state.isLoaded 
                         ? 
-                            <Preloader key="preloader" />
+                            <Spin className="centered" key="preloader" />
                         :
                             <div key="content" className="tm-container">
                                 <Router history={browserHistory}>

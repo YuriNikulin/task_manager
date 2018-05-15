@@ -2,27 +2,28 @@ import React from 'react';
 import Select from './Select.js';
 import changeView from '../redux/actions/changeView.js';
 import { connect } from 'react-redux';
+import { Menu } from 'antd';
 
 class ViewSwitcher extends React.Component {
     constructor(props) {
         super(props);
     }
     handleClick = (event) => {
-        this.props.dispatch(changeView(event.target.id));
+        this.props.dispatch(changeView(event.key));
     }
     render() {
         return (
-            <Select className={"tm-view " + this.props.className} title="View" closeOnSelect={true}>
-                <a onClick={this.handleClick} className="tm-view__item tm-select__item" id="viewList">
+            <Menu onSelect={this.handleClick}>
+                <Menu.Item onSelect={this.handleClick} key="viewList">
                     List
-                </a>
-                <a onClick={this.handleClick} className="tm-view__item tm-select__item" id="viewGrid">
+                </Menu.Item>
+                <Menu.Item onSelect={this.handleClick} key="viewGrid">
                     Grid
-                </a>
-                <a onClick={this.handleClick} className="tm-view__item tm-select__item" id="viewScrum">
+                </Menu.Item>
+                <Menu.Item onSelect={this.handleClick} key="viewScrum">
                     Scrum
-                </a>
-            </Select>
+                </Menu.Item>
+            </Menu>
         )
     }
 }
