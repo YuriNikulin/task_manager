@@ -8,6 +8,8 @@ import Popup from './Popup.js';
 import Preloader from './Preloader/Preloader.js';
 import Input from './Input.js';
 import Formsy from 'formsy-react';
+import Button from 'antd/lib/button';
+import Modal from 'antd/lib/modal';
 
 class LogIn extends React.Component  {
 
@@ -62,8 +64,12 @@ class LogIn extends React.Component  {
 
     render() {
         return(
-            <Popup>
-                <h2 className="tm__title tm-popup__title"> Sign in </h2> 
+            <Modal 
+                visible={true}
+                closable={false}
+                title='Sign in'
+                footer={null}
+                >
                 <Formsy
                     ref={(form) => this.form = form}
                     onValidSubmit={this.handleSubmit} 
@@ -94,14 +100,13 @@ class LogIn extends React.Component  {
                                 type: 'password'
                             }}/>
                     </div>    
-                    <button type="submit" className="tm-btn tm-btn--primary mr">Log in</button>
-                    <Link className="tm-btn tm-btn--primary" to="/register">Create a new account</Link>
+                    <Button type="primary" loading={this.state.isLoading} htmlType="submit">Log In</Button>
+                    <Button type="primary">Button</Button>
                     {this.state.error && 
                         <p className="tm__error">{this.state.error}</p>
                     }
-                    {this.state.isLoading && <Preloader underlay={true} />}
                 </Formsy>
-            </Popup>
+            </Modal>
         )
     }
 }
