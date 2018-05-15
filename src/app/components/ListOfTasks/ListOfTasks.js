@@ -88,25 +88,41 @@ class ListOfTasks extends React.Component {
     }
 
     filterTasks = (items, filters) => {
-        let sortedItems = [];
-        let toPush;
+        let sortedItems = items;
+        let filtersObj = {};
+
+        const execFilter = (items, filters, key) => {
+            let filteredItems = [];
+            let toPush = false;
+            for (var i = 0; i < items.length; i++) {
+                for (var j = 0; j < filters.length; j++) {
+                    if (items[i][key] == filters[j]) {
+                        filteredItems.push(items[i]);
+                        break;
+                    }
+                }
+            }
+            return filteredItems;
+        }
+
         if (filters.length == 1 && filters[0].key == 'taskName') {
             let searchPhrase = filters[0].value;
             for (let i = 0; i < items.length; i++) {
-                
                 if (items[i].taskName.toLowerCase().includes(searchPhrase.toLowerCase())) {
                     sortedItems.push(items[i]);
                 }
             }
         } else {
-           for (let i = 0; i < items.length; i++) {
-                for (let j = 0; j < filters.length; j++) {
-                    if (items[i][filters[j].key] == filters[j].value) {
-                        sortedItems.push(items[i]);
-                        break;
-                    }
+            for (var i = 0; i < filters.length; i++) {
+                if (!filtersObj[filters[i].key]) {
+                    filtersObj[filters[i].key] = [];
                 }
-            } 
+                filtersObj[filters[i].key].push(filters[i].value);
+            }
+
+            for (var currentKey in filtersObj) {
+                sortedItems = execFilter(sortedItems, filtersObj[currentKey], currentKey);
+            }
         }
 
         return sortedItems;
