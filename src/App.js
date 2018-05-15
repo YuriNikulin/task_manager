@@ -13,7 +13,7 @@ import Task from './app/components/Task.js';
 import LogIn from './app/components/Login';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import Register from './app/components/Register.js';
+import Register from './app/components/Register/';
 import CreateTask from './app/components/CreateTask.js';
 
 import Transition from 'react-transition-group/Transition';

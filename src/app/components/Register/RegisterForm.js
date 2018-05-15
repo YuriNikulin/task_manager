@@ -7,7 +7,7 @@ const hasErrors = (fieldsError) => {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-class LoginForm extends React.Component {
+class Register extends React.Component {
     constructor(props) {
         super(props);
         this.props.form.validateFields();
@@ -17,19 +17,26 @@ class LoginForm extends React.Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.logIn(values);
+                this.props.handleSubmit(values);
             }
         })
     }
 
-    logIn = (data) => {
-        this.props.handleSubmit(data);
+    comparePasswords = (rule, value, callback) => {
+        const form = this.props.form;
+        if (value && value !== form.getFieldValue('password')) {
+            callback(`Passwords don't match`);
+        } else {
+            callback();
+        }
     }
 
     render() {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
         const emailError = isFieldTouched('email') && getFieldError('email');
-        const pwdError = isFieldTouched('password') && getFieldError('password');
+        const usernameError = isFieldTouched('username') && getFieldError('username');
+        const passwordError = isFieldTouched('password') && getFieldError('password');
+        const password2Error = isFieldTouched('password2') && getFieldError('password2');
         return(
             <Form layout="vertical" onSubmit={this.handleSubmit}>
                 <FormItem
@@ -51,17 +58,49 @@ class LoginForm extends React.Component {
                     )}
                 </FormItem>
                 <FormItem
-                    validateStatus={pwdError ? 'error' : ''}
-                    help={pwdError || ''}>
+                    validateStatus={usernameError ? 'error' : ''}
+                    help={usernameError || ''}>
+                    {getFieldDecorator('username', {
+                        rules: [
+                        {
+                            required: true,
+                            message: 'Please input your username!'
+                        }
+                        ]
+                    })(
+                        <Input type="text" placeholder="Username" />
+                    )}
+                </FormItem>
+
+                <FormItem
+                    validateStatus={passwordError ? 'error' : ''}
+                    help={passwordError || ''}>
                     {getFieldDecorator('password', {
                         rules: [
                         {
                             required: true,
-                            message: 'Please input your password!'
+                            message: 'Please input a password!'
                         }
                         ]
                     })(
                         <Input type="password" placeholder="Password" />
+                    )}
+                </FormItem>
+                <FormItem
+                    validateStatus={password2Error ? 'error' : ''}
+                    help={password2Error || ''}>
+                    {getFieldDecorator('password2', {
+                        rules: [
+                        {
+                            required: true,
+                            message: 'Please repeat the password!'
+                        },
+                        {
+                            validator: this.comparePasswords
+                        }
+                        ]
+                    })(
+                        <Input type="password" placeholder="Repeat the password" />
                     )}
                 </FormItem>
                 {this.props.error &&
@@ -75,14 +114,14 @@ class LoginForm extends React.Component {
                         htmlType="submit"
                         className="mr"
                         disabled={hasErrors(getFieldsError())}>
-                            Log in
+                            Register
                     </Button>
-                    <Link to="/register">
+                    <Link to="/login">
                         <Button
                             type="default"
 
                             >
-                            Create an account
+                            I already have an account
                         </Button>
                     </Link>
                 </FormItem>
@@ -91,6 +130,6 @@ class LoginForm extends React.Component {
     }
 }
 
-const WrappedLoginForm = Form.create()(LoginForm);
+const WrappedRegister = Form.create()(Register);
 
-export default WrappedLoginForm;
+export default WrappedRegister;
