@@ -8,7 +8,8 @@ import Popup from './Popup.js';
 import Preloader from './Preloader/Preloader.js';
 import Input from './Input.js';
 import Formsy from 'formsy-react';
-import Button from 'antd/lib/button';
+// import Button from 'antd/lib/button';
+import { Button } from 'antd';
 import Modal from 'antd/lib/modal';
 
 class LogIn extends React.Component  {
