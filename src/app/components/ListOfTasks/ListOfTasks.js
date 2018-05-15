@@ -88,7 +88,7 @@ class ListOfTasks extends React.Component {
     }
 
     filterTasks = (items, filters) => {
-        let sortedItems = items;
+        let sortedItems;
         let filtersObj = {};
 
         const execFilter = (items, filters, key) => {
@@ -107,12 +107,14 @@ class ListOfTasks extends React.Component {
 
         if (filters.length == 1 && filters[0].key == 'taskName') {
             let searchPhrase = filters[0].value;
+            sortedItems = [];
             for (let i = 0; i < items.length; i++) {
                 if (items[i].taskName.toLowerCase().includes(searchPhrase.toLowerCase())) {
                     sortedItems.push(items[i]);
                 }
             }
         } else {
+            sortedItems = items;
             for (var i = 0; i < filters.length; i++) {
                 if (!filtersObj[filters[i].key]) {
                     filtersObj[filters[i].key] = [];
