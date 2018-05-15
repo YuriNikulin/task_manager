@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import actionAuth from './app/redux/actions/auth.js';
-import LogIn from './app/components/LogIn.js';
 import { firebase } from './app/services/firebase';
 
 import Preloader from './app/components/Preloader/Preloader.js';
@@ -11,6 +10,7 @@ import Notification from './app/components/Notification.js';
 import { syncHistoryWithStore } from 'react-router-redux';
 import Home from './app/components/Home.js';
 import Task from './app/components/Task.js';
+import LogIn from './app/components/Login';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import Register from './app/components/Register.js';

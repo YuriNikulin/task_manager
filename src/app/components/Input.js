@@ -1,5 +1,6 @@
 import React from 'react';
 import { withFormsy } from 'formsy-react';
+import { Input as antInput } from 'antd'
 
 class Input extends React.Component {
     constructor(props) {

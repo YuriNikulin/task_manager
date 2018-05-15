@@ -368,6 +368,16 @@ input:focus {
     resize: none; }
   .tm-input-container {
     margin-bottom: 10px; }
+    .tm-input-container--required .tm-input__label:after {
+      content: '*';
+      color: #D41111;
+      font-size: 20px; }
+    .tm-input-container--error .tm-input {
+      border: 1px solid #D41111; }
+      .tm-input-container--error .tm-input__label {
+        color: #D41111;
+        font-style: italic;
+        margin-top: -15px; }
   .tm-input__label {
     width: 200px;
     padding-right: 10px;
@@ -402,7 +412,9 @@ input:focus {
       border-right: none; }
 
 .tm__error {
-  color: #D41111; }
+  color: #D41111;
+  display: block;
+  font-weight: bold; }
 
 .tm-select {
   position: relative;
@@ -619,6 +631,8 @@ input:focus {
 .tm-task-estimated-item {
   text-align: center;
   margin-bottom: 10px; }
+  .tm-task-estimated-item .tm-task-input {
+    text-align: center; }
   .tm-task-estimated-item:last-child {
     margin-bottom: 0; }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import actionAuth from '../redux/actions/auth.js';
-import LogIn from './LogIn.js';
 import { firebase } from '../services/firebase';
 
 import { Redirect } from 'react-router';
