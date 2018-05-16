@@ -1,66 +1,75 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { taskProperties } from '../../constants/taskProperties.js';
+import { Table } from 'antd';
 
-const TasksList = (props) => {
-    return (
-        <div className="tm-table-container">
-            <table className="tm-table tm-tasks-table">
-                <thead>
-                    <tr>
-                        {taskProperties.map((item) => 
-                            <td key={item.key}>
-                                <span>
-                                    {item.keyPrint}
-                                </span>
-                            </td>
-                        )}
-                    </tr>
-                </thead>
-                <tbody>
-                
-                {props.tasksList.map((item) => {
-                    return (
-                        <tr key={item.taskId} className="tm-tasks-item">
-                            <td>
-                                <span className="tm-tasks-item__name">
-                                    <Link className="tm-tasks__link" to={"/task" + item.taskId}>
-                                        {item.taskName}
-                                    </Link>    
-                                </span>
-                            </td>
-                            <td>
-                                <span className="tm-tasks-item__status">
-                                    {item.taskStatus}
-                                </span>
-                            </td>
-                            <td>
-                                <span>
-                                    {item.taskPriority}
-                                </span>
-                            </td>
-                            <td>
-                                <span>
-                                    {item.estimatedTime}
-                                </span>
-                            </td>
-                            <td>
-                                <span>
-                                    {item.remainingTime}
-                                </span>
-                            </td>
-                            <td>
-                                <span>
-                                    {new Date(item.taskCreationDate).toLocaleString()}
-                                </span>
-                            </td>
-                        </tr>
-                    )
-                })}
-                </tbody>
-            </table>
-        </div>
-    )
+class TasksList extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    generateAntdColumns = (items) => {
+        let columns = [];
+        columns.push({
+            title: 'Name',
+            dataIndex: 'taskName',
+            key: 'taskName',
+            render: (text, record) => {
+                return(
+                    <Link to={"/task" + record.taskId}>
+                        {record.taskName}
+                    </Link>
+                )
+            }
+        })
+        items.map((item) => {
+            if (item.key=='taskCreationDate' || item.key=='taskName') {
+                return;
+            }
+            columns.push({
+                title: item.keyPrint,
+                dataIndex: item.key,
+                key: item.key,
+            })
+        })
+        columns.push({
+            title: 'Created',
+            dataIndex: 'taskCreationDatePrint',
+            key: 'taskCreationDatePrint'
+        })
+        return columns;
+    }
+
+    generateAntdData = (items) => {
+        let data = [];
+        items.map((item) => {
+            item.taskCreationDatePrint = new Date(item.taskCreationDate).toLocaleString();
+            item.key = item.taskId;
+            item.render = (text, record) => {
+                return <div></div>
+            }
+            data.push(item);
+        })
+        return data;
+    }
+
+    render() {
+        const data = this.generateAntdData(this.props.tasksList);
+        const columns = this.generateAntdColumns(taskProperties);
+        return (
+            <Table 
+                dataSource={data} 
+                pagination={false}
+                columns={columns}
+                bordered
+                expandRowByClick
+                onRow={(record) => {
+                    return {
+                        onClick: this.handleClick
+                    }
+                }}
+                /> 
+        )
+    }
 }
 
 export default TasksList;

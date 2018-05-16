@@ -203,8 +203,54 @@ input:focus {
     }
 }
 
+.tm-container {
+    // max-width: $container-width;
+    // margin: 0 auto;
+    // padding: 0 $gutter;
+}
+
 .ant-layout {
     &-header {
         background: transparent;
+    }
+
+    &-content,
+    &-header {
+        width: 100%;
+        max-width: $container-width;
+        margin: 0 auto;
+        margin-bottom: $gutter;
+        padding: 0 $gutter;
+        height: auto;
+    }
+}
+
+.ant-table-wrapper {
+    width: 100%;
+    margin-left: -1px;
+    margin-right: -1px;
+}
+
+.ant-modal {
+  .ant-form-item {
+    &:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
+.tm-filter {
+    position: relative;
+    
+    &-container {
+        margin-bottom: $gutter;
+    }
+}
+
+.tm-create {
+    .ant-form-item-label {
+        text-align: right;
+        padding-right: 10px;
     }
 }

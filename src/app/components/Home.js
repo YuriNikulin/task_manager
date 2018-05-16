@@ -20,7 +20,7 @@ import { FirebaseComp } from '../services/firebase/firebase.js';
 import Filter from './Filter.js';
 import { Layout, Row, Col } from 'antd';
 
-const{ Header, Footer, Content } = Layout;
+const { Header, Footer, Content } = Layout;
 
 class Home extends React.Component {
     constructor(props) {
@@ -53,13 +53,7 @@ class Home extends React.Component {
                     </Header> 
                     <Content>
                         {this.state.showFilter &&
-                            <Header>
-                            <Row>
-                                <Col span={24}>
-                                    <Filter />
-                                </Col>
-                            </Row>
-                            </Header>
+                            <Filter />
                         }
                         <Row>
                             <Col span={24}>

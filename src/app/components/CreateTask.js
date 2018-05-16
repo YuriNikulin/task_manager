@@ -10,6 +10,8 @@ import { priorities } from '../constants/taskProperties.js';
 import actionPushNotification from '../redux/actions/pushNotification.js';
 import Input from './Input.js';
 import Formsy from 'formsy-react';
+import { Layout } from 'antd';
+const { Header, Footer, Content } = Layout;
 
 class CreateTask extends React.Component {
     constructor(props) {
@@ -71,89 +73,95 @@ class CreateTask extends React.Component {
         const {taskName, taskDescription, estimatedTime} = this.state;
         return(
             <div>
-                <Toolbar />
-                <div className="tm-create">
-                    <div className="tm-create-content">
-                        <Formsy 
-                            ref={(form) => this.form = form}
-                            onValid={this.handleValid}  
-                            onInvalid={this.handleInvalid} 
-                            onValidSubmit={this.handleSubmit} 
-                            onInvalidSubmit={this.handleInvalidSubmit}>
+                <Layout>
+                    <Header>
+                        <Toolbar listOfTasks={false} currentLocation="createtask"/>
+                    </Header>
+                    <Content>
+                        <div className="tm-create">
+                            <div className="tm-create-content">
+                                <Formsy 
+                                    ref={(form) => this.form = form}
+                                    onValid={this.handleValid}  
+                                    onInvalid={this.handleInvalid} 
+                                    onValidSubmit={this.handleSubmit} 
+                                    onInvalidSubmit={this.handleInvalidSubmit}>
 
-                                <Input 
-                                    name="taskName"
-                                    validations="minLength:1"
-                                    validationError="Task name can not be empty"
-                                    element='input'
-                                    label='Name'
-                                    toShowError={this.state.error}
-                                    required
-                                    attributes={{
-                                        type: 'text',
-                                        id: "taskName",
-                                        placeholder: 'Name',
-                                        className: 'tm-input',
-                                    }}
-                                />
-                                <Input 
-                                    name="estimatedTime"
-                                    validations="isNumeric"
-                                    validationError="Must be a number"
-                                    element='input'
-                                    label='Estimated time'
-                                    toShowError={this.state.error}
-                                    required
-                                    attributes={{
-                                        type: 'text',
-                                        id: "estimatedTime",
-                                        placeholder: 'Estimated time (in hours)',
-                                        className: 'tm-input',
-                                    }}
-                                />
+                                        <Input 
+                                            name="taskName"
+                                            validations="minLength:1"
+                                            validationError="Task name can not be empty"
+                                            element='input'
+                                            label='Name'
+                                            toShowError={this.state.error}
+                                            required
+                                            attributes={{
+                                                type: 'text',
+                                                id: "taskName",
+                                                placeholder: 'Name',
+                                                className: 'tm-input',
+                                            }}
+                                        />
+                                        <Input 
+                                            name="estimatedTime"
+                                            validations="isNumeric"
+                                            validationError="Must be a number"
+                                            element='input'
+                                            label='Estimated time'
+                                            toShowError={this.state.error}
+                                            required
+                                            attributes={{
+                                                type: 'text',
+                                                id: "estimatedTime",
+                                                placeholder: 'Estimated time (in hours)',
+                                                className: 'tm-input',
+                                            }}
+                                        />
 
-                                <Input 
-                                    name="taskDescription"
-                                    element='textarea'
-                                    label='Description'
-                                    value=''
-                                    toShowError={this.state.error}
-                                    attributes={{
-                                        id: "taskDescription",
-                                        placeholder: 'Task description',
-                                        className: 'tm-input tm-input--textarea',
-                                    }}
-                                />
+                                        <Input 
+                                            name="taskDescription"
+                                            element='textarea'
+                                            label='Description'
+                                            value=''
+                                            toShowError={this.state.error}
+                                            attributes={{
+                                                id: "taskDescription",
+                                                placeholder: 'Task description',
+                                                className: 'tm-input tm-input--textarea',
+                                            }}
+                                        />
 
-                                <Input
-                                    name="taskPriority"
-                                    element="select"
-                                    label="Initial priority"
-                                    value={priorities[0]}
-                                    toShowError={this.state.error}
-                                    attributes={{
-                                        id: "taskPriority",
-                                        className: 'tm-input tm-input--select'
-                                    }}
-                                >
-                                    {priorities.map((item) => {
-                                        return (
-                                            <option key={item} value={item}>
-                                                {item}
-                                            </option>
-                                        )
-                                    })}
-                                </Input>
+                                        <Input
+                                            name="taskPriority"
+                                            element="select"
+                                            label="Initial priority"
+                                            value={priorities[0]}
+                                            toShowError={this.state.error}
+                                            attributes={{
+                                                id: "taskPriority",
+                                                className: 'tm-input tm-input--select'
+                                            }}
+                                        >
+                                            {priorities.map((item) => {
+                                                return (
+                                                    <option key={item} value={item}>
+                                                        {item}
+                                                    </option>
+                                                )
+                                            })}
+                                        </Input>
 
-                            {this.state.error && 
-                                <p className="tm__error">{this.state.error}</p>
-                            }
-                            <div className="tac mt2">
-                                <button type="submit" className="tm-btn tm-btn--primary mt">Create</button>        
+                                    {this.state.error && 
+                                        <p className="tm__error">{this.state.error}</p>
+                                    }
+                                    <div className="tac mt2">
+                                        <button type="submit" className="tm-btn tm-btn--primary mt">Create</button>        
+                                    </div>
+                                </Formsy>
                             </div>
-                        </Formsy>
-                    </div>
-                </div>
+                        </div>
+                    </Content>
+                </Layout>
             </div>        
         );
     }

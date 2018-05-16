@@ -18,16 +18,12 @@ class Toolbar extends React.Component {
         super(props);
         this.state = {
             showFilter: false,
-            current: 'dash',
+            current: this.props.currentLocation || "dash",
         }
     }
 
     componentDidUpdate() {
         console.log('updated', this.state);
-    }
-
-    handleFilterButtonClick = () => {
-        
     }
 
     handleClick = (event) => {
@@ -39,16 +35,7 @@ class Toolbar extends React.Component {
     }
 
     render() {
-        const testMenu = (
-            <Menu>
-                <Menu.Item key="1">
-                    1
-                </Menu.Item>
-                <Menu.Item key="2">
-                    2
-                </Menu.Item>
-            </Menu>
-        )
+        const tasksUtils = this.props.listOfTasks;
         return (
             <div>
                 <Menu
@@ -67,18 +54,21 @@ class Toolbar extends React.Component {
                             Create a task
                         </Link>
                     </Menu.Item>
-                    <Menu.Item key="filterbutton">
+                    {tasksUtils && <Menu.Item key="filterbutton">
                         Filter
-                    </Menu.Item>
-                    <Menu.Item key="sortbutton">
+                    </Menu.Item>}
+                    {tasksUtils &&<Menu.Item key="sortbutton">
                         <Dropdown overlay={<Sort />} placement="bottomCenter">
                             <a>Sort</a>
                         </Dropdown>
-                    </Menu.Item>
-                    <Menu.Item key="view">
+                    </Menu.Item>}
+                    {tasksUtils &&<Menu.Item key="view">
                         <Dropdown overlay={<ViewSwitcher/>} placement="bottomCenter">
                             <a>View</a>
                         </Dropdown>
+                    </Menu.Item>}
+                    <Menu.Item key="logout">
+                        <LogOut />
                     </Menu.Item>
                 </Menu>
             </div>

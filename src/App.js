@@ -14,7 +14,7 @@ import LogIn from './app/components/Login';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import Register from './app/components/Register/';
-import CreateTask from './app/components/CreateTask.js';
+import CreateTask from './app/components/CreateTask/';
 
 import Transition from 'react-transition-group/Transition';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
