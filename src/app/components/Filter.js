@@ -6,6 +6,7 @@ import actionApplyFilter from '../redux/actions/applyFilter.js';
 import actionRemoveFilter from '../redux/actions/removeFilter.js';
 import Search from './Search.js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { Menu, Dropdown } from 'antd';               
 
 class Filter extends React.Component {
     constructor(props) {
@@ -15,12 +16,27 @@ class Filter extends React.Component {
         }
     }
 
+    componentDidMount() {
+        console.log('filter mounted');
+    }
+
+    componentDidUpdate() {
+        console.log('filter updated');
+    }
+
     handleClick = (event) => {
-        let newFilter = {
-            key: event.target.dataset.filterKey,
-            value: event.target.dataset.filterValue
+        if (event.key == 'statuses' || event.key == 'priorities') return;
+        if (event.key == 'search') {
+            this.handleSearchButtonClick();
+            return;
         }
-        if (event.target.dataset.filterSelected == 'true') {
+
+        let data = event.item.props;
+        let newFilter = {
+            key: data['data-filter-key'],
+            value: data['data-filter-value']
+        }
+        if (data['data-filter-selected'] ) {
             this.removeFilter(newFilter);
         } else {
             this.applyFilter(newFilter);
@@ -64,46 +80,57 @@ class Filter extends React.Component {
         return(
             <div className="tm-filter-container">
                 <div className="tm-filter">
-                    <div onClick={this.handleSearchButtonClick} className="tm-filter-item tm-filter-item--search">
-                        <div className="tm-filter-select">
-                            <span className="tm-select__title">
-                                Search
-                            </span>
-                        </div>
-                    </div>
-                    <div className="tm-filter-item">
-                        <Select className="tm-filter-select" title={statusTitle}>
-                        {taskProperties.statuses.map((item) => {
-                            return (
-                                <a key={item} onClick={this.handleClick} 
-                                    data-filter-key="taskStatus" 
-                                    data-filter-selected={statusTitle.includes(item)} 
-                                    data-filter-value={item} 
-                                    className="tm-select__item">
-                                    {item}
-                                </a>
-                            )
-                        })}
-                        </Select>
-                    </div>
-                    <div className="tm-filter-item">
-                        <Select className="tm-filter-select" title={priorityTitle}>
-                        {taskProperties.priorities.map((item) => {
-                            return (
-                                <a key={item} onClick={this.handleClick} 
-                                    data-filter-key="taskPriority" 
-                                    data-filter-selected={priorityTitle.includes(item)} 
-                                    data-filter-value={item} 
-                                    className="tm-select__item">
-                                    {item}
-                                </a>
-                            )
-                        })}
-                        </Select>
-                    </div>
-                    {this.state.showSearch && 
-                        <Search closeHandler={this.closeSearch} />
-                    }
+                    <Menu 
+                        mode='horizontal'
+                        selectable={false}
+                        onClick={this.handleClick}>
+                        <Menu.Item onClick={this.handleSearchButtonClick} key="search">
+                            Search
+                        </Menu.Item>
+                        <Menu.Item className="tm-filter-item" key="statuses">
+                            <Dropdown placement="bottomCenter" overlay={
+                                <Menu onClick={this.handleClick}>
+                                    {taskProperties.statuses.map((item) => {
+                                        return (
+                                            <Menu.Item 
+                                            key={item}
+                                            data-filter-key="taskStatus"
+                                            data-filter-selected={statusTitle.includes(item)}
+                                            data-filter-value={item}>
+                                                {item}
+                                            </Menu.Item>
+                                        )
+                                    })}
+                                </Menu>
+                            }
+                            >
+                            <a>{statusTitle}</a>
+                            </Dropdown>
+                        </Menu.Item>
+                        <Menu.Item className="tm-filter-item" key="priorities">
+                            <Dropdown placement="bottomCenter" overlay={
+                                <Menu onClick={this.handleClick}>
+                                    {taskProperties.priorities.map((item) => {
+                                        return (
+                                            <Menu.Item 
+                                            key={item}
+                                            data-filter-key="taskPriority"
+                                            data-filter-selected={priorityTitle.includes(item)}
+                                            data-filter-value={item}>
+                                                {item}
+                                            </Menu.Item>
+                                        )
+                                    })}
+                                </Menu>
+                            }
+                            >
+                            <a>{priorityTitle}</a>
+                            </Dropdown>
+                        </Menu.Item>
+                        {this.state.showSearch && 
+                            <Search closeHandler={this.closeSearch} />
+                        }
+                    </Menu>
                 </div>
             </div>
         )

@@ -9,7 +9,7 @@ class FilterButton extends React.Component {
     }
     render() {
         return (
-            <a onClick={this.props.onClick} className={"tm__filter-button " + this.props.className}>Filter</a>
+            <a className={"tm__filter-button " + this.props.className}>Filter</a>
         )
     }
 }

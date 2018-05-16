@@ -21,6 +21,7 @@ import TasksScrum from './TasksScrum.js';
 
 import Spin from '../Preloader/Spin.js';
 import Notification from '../Notification.js';
+import { Row, Col } from 'antd';
 
 class ListOfTasks extends React.Component {
     constructor(props) {
@@ -183,21 +184,15 @@ class ListOfTasks extends React.Component {
         }
 
         return (
-            <div>
-                <ReactCSSTransitionGroup 
-                    transitionName="fade"
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={300}
-                >
-                    {this.state.isLoaded ? 
-                        <div key="tasksList"className="tm-tasks">
-                            <TasksView updateList={this.maybeFetchTasks} tasksList={tasksList}/>
-                        </div>
-                        :
-                        <Spin className="centered" key="preloader"/>
-                    }
-                </ReactCSSTransitionGroup>   
-            </div>
+                <React.Fragment>
+                {this.state.isLoaded ?
+                    <Row type="flex" justify="center">
+                        <TasksView updateList={this.maybeFetchTasks} tasksList={tasksList}/>
+                    </Row>
+                    :
+                    <Spin className="centered" key="preloader"/>
+                } 
+                </React.Fragment>
         )
     }
 }

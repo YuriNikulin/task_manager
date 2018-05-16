@@ -390,6 +390,15 @@ input:focus {
       width: calc(100% - 200px);
       vertical-align: middle; }
 
+.tm-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.1); }
+
 .tm-table {
   border-collapse: collapse; }
   .tm-table-container {
@@ -472,6 +481,12 @@ input:focus {
     transform: translate(-50%, -50%);
     max-width: 80px; }
 
+.ant-spin.centered {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); }
+
 .tm-popup {
   position: absolute;
   left: 50%;
@@ -505,6 +520,10 @@ input:focus {
 .example-leave.example-leave-active {
   opacity: 0.01;
   transition: opacity 300ms ease-in; }
+
+.ant-modal .ant-form-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0; }
 
 .tm-navbar {
   text-align: right;

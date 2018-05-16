@@ -17,16 +17,27 @@ import ListOfTasks from './ListOfTasks/ListOfTasks.js';
 
 import store from '../redux';
 import { FirebaseComp } from '../services/firebase/firebase.js';
+import Filter from './Filter.js';
+import { Layout, Row, Col } from 'antd';
+
+const{ Header, Footer, Content } = Layout;
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            'song': '',
-            'search': '',
+            'showFilter': false,
             'isLoading': true,
             'isLogged': false
         }
+    }
+
+    toggleFilter = () => {
+        this.setState((prevState) => {
+            return {
+                showFilter: !prevState.showFilter
+            }
+        })
     }
 
     componentDidUpdate() {
@@ -36,8 +47,27 @@ class Home extends React.Component {
     render() {
         return(
             <div>
-                <Toolbar listOfTasks={true}/>
-                <ListOfTasks />
+                <Layout>
+                    <Header>
+                        <Toolbar toggleFilter={this.toggleFilter} listOfTasks={true}/>
+                    </Header> 
+                    <Content>
+                        {this.state.showFilter &&
+                            <Header>
+                            <Row>
+                                <Col span={24}>
+                                    <Filter />
+                                </Col>
+                            </Row>
+                            </Header>
+                        }
+                        <Row>
+                            <Col span={24}>
+                                <ListOfTasks />
+                            </Col>
+                        </Row>
+                    </Content>  
+                </Layout>
             </div>
         )
     }

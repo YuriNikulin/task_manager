@@ -21,6 +21,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import store from './app/redux';
 import { FirebaseComp } from './app/services/firebase/firebase.js';
+import { Layout } from 'antd';
 
 const history = browserHistory;
 
@@ -70,36 +71,16 @@ class App extends React.Component {
         return(
             <div>
                 <FirebaseComp />
-                <ReactCSSTransitionGroup 
-                    transitionName="fade"
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={300}
-                >
-                    {!this.state.isLoaded 
-                        ? 
-                            <Spin className="centered" key="preloader" />
-                        :
-                            <div key="content" className="tm-container">
-                                <Router history={browserHistory}>
-                                    {routes}
-                                </Router>
-                            </div>
-                    }
-                </ReactCSSTransitionGroup>
-                <ReactCSSTransitionGroup 
-                    transitionName="notification"
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={300}
-                >
-                    {this.props.notifications.length && 
-                        this.props.notifications.map((item, index) => {
-                            return (
-                                <Notification key={item.id} id={item.id} duration={item.duration} text={item.text} />
-                            )
-                        })
-                        
-                    }
-                </ReactCSSTransitionGroup>  
+                {!this.state.isLoaded 
+                    ? 
+                        <Spin className="centered" key="preloader" />
+                    :
+                        <div key="content" className="tm-container">
+                            <Router history={browserHistory}>
+                                {routes}
+                            </Router>
+                        </div>
+                }
             </div> 
         )
     }

@@ -2,6 +2,7 @@ import React from 'react';
 import { taskProperties } from '../constants/taskProperties.js';
 import actionSort from '../redux/actions/sort.js';
 import { connect } from 'react-redux';
+import { Menu } from 'antd';
 
 class Sort extends React.Component {
     constructor(props) {
@@ -9,21 +10,21 @@ class Sort extends React.Component {
     }
 
     handleClick = (event) => {
-        let key = event.target.dataset.sortKey;
+        let key = event.key;
         this.props.dispatch(actionSort(key));
     }
 
     render() {
         return (
-            <div>
+            <Menu onClick={this.handleClick}>
                 {taskProperties.map((item) => {
                     return(
-                        <a onClick={this.handleClick} key={item.key} data-sort-key={item.key} className="tm-select__item">
+                        <Menu.Item onClick={this.handleClick} key={item.key} data-sort-key={item.key} className="tm-select__item">
                            {item.keyPrint}
-                        </a>
+                        </Menu.Item>
                     )
                 })}
-            </div>
+            </Menu>
         )
     }
 }
