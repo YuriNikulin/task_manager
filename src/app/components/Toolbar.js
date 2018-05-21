@@ -18,7 +18,7 @@ class Toolbar extends React.Component {
         super(props);
         this.state = {
             showFilter: false,
-            current: this.props.currentLocation || "dash",
+            current: this.props.currentLocation,
         }
     }
 
@@ -67,7 +67,7 @@ class Toolbar extends React.Component {
                             <a>View</a>
                         </Dropdown>
                     </Menu.Item>}
-                    <Menu.Item key="logout">
+                    <Menu.Item className="flr" key="logout">
                         <LogOut />
                     </Menu.Item>
                 </Menu>

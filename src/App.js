@@ -9,7 +9,7 @@ import Notification from './app/components/Notification.js';
 
 import { syncHistoryWithStore } from 'react-router-redux';
 import Home from './app/components/Home.js';
-import Task from './app/components/Task.js';
+import Task from './app/components/Task/';
 import LogIn from './app/components/Login';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';

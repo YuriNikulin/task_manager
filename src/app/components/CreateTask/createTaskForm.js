@@ -97,7 +97,7 @@ class createTaskForm extends React.Component {
                     {getFieldDecorator('taskPriority', {
                         initialValue: priorities[0]
                     })(
-                    <Select initialValue="test">
+                    <Select>
                         {priorities.map((item) => {
                             return (
                                 <Option key={item} value={item}>

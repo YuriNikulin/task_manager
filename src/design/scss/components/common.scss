@@ -12,44 +12,46 @@ h1,h2,h3,h4,h5,h6 {
     font-weight: normal;
 }
 
-.mr {
-    margin-right: $gutter;
+.tm-container {
+    .mr {
+        margin-right: $gutter;
 
-    &2 {
-        margin-right: $gutter * 2;
+        &2 {
+            margin-right: $gutter * 2;
+        }
     }
-}
 
-.ml {
-    margin-left: $gutter;
+    .ml {
+        margin-left: $gutter;
 
-    &2 {
-        margin-left: $gutter * 2;
+        &2 {
+            margin-left: $gutter * 2;
+        }
     }
-}
 
-.mt {
-    margin-top: $gutter;
+    .mt {
+        margin-top: $gutter;
 
-    &2 {
-        margin-top: $gutter * 2;
+        &2 {
+            margin-top: $gutter * 2;
+        }
     }
-}
 
-.mb {
-    margin-bottom: $gutter;
+    .mb {
+        margin-bottom: $gutter;
 
-    &2 {
-        margin-bottom: $gutter * 2;
+        &2 {
+            margin-bottom: $gutter * 2;
+        }
     }
-}
 
-.flr {
-    float: right;
-}
+    .flr {
+        float: right;
+    }
 
-.tac {
-    text-align: center; 
+    .tac {
+        text-align: center; 
+    }
 }
 
 a {
@@ -248,11 +250,9 @@ input:focus {
     }
 }
 
-.tm-create {
-    .ant-form-item-label {
-        text-align: right;
-        padding-right: 10px;
-    }
+.tm-container .ant-form-item-label {
+    text-align: right;
+    padding-right: 10px;
 }
 
 .ant-input-number {

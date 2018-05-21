@@ -49,7 +49,7 @@ class Home extends React.Component {
             <div>
                 <Layout>
                     <Header>
-                        <Toolbar toggleFilter={this.toggleFilter} listOfTasks={true}/>
+                        <Toolbar toggleFilter={this.toggleFilter} currentLocation="dash" listOfTasks={true}/>
                     </Header> 
                     <Content>
                         {this.state.showFilter &&
