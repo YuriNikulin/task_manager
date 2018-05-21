@@ -2,9 +2,55 @@
     .tm-task-title {
         margin-bottom: 0;
 
+        .ant-input {
+            color: #000;
+            font-size: 24px;
+            height: 40px;
+            line-height: 40px;
+
+            &-disabled {
+                padding-left: 0;
+            }
+        }
+
         .ant-form-item-control-wrapper {
             width: 100%;
         }
+    }
+
+    .ant-form-item {
+        margin-bottom: 0;
+
+        &-label {
+            padding-bottom: 0;
+        }
+    }
+
+    &-container {
+        border-bottom: 1px solid darken($base, 5%);
+        padding-top: $gutter;
+    }
+
+    .ant-form-item-label {
+        text-transform: uppercase;
+    }
+
+    .ant-select {
+        text-align: center;
+
+        &-selection-selected-value {
+            float: none;
+            padding-right: 0;
+        }
+    }
+
+    .ant-input-number,
+    .ant-input-number-input {
+        text-align: center;
+    }
+
+    .ant-select-dropdown-menu {
+        text-align: center;
     }
 
     &-date {
@@ -17,6 +63,7 @@
 
     .ant-form-item-label {
         text-align: center;
+        padding-right: 0;
     }
 
     .ant-form-item-control-wrapper {
@@ -31,6 +78,7 @@
 
         textarea {
             resize: none;
+            color: #000;
         }
     }
 }

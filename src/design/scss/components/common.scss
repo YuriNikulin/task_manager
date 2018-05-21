@@ -258,3 +258,27 @@ input:focus {
 .ant-input-number {
     width: 100%;
 }
+
+.ant-input {
+    &.ant-input-disabled {
+        background: none;
+        border-color: $base;
+    }
+}
+
+.ant {
+    &-select-disabled .ant-select-selection,
+    &-input-number-disabled {
+        background: none;
+        border-color: $base;
+        color: #000;
+
+        .ant-input-number-input {
+            color: #000;
+        }
+
+        .ant-select-arrow {
+            display: none;
+        }
+    }
+}
