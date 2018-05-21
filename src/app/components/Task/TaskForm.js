@@ -22,6 +22,7 @@ class TaskForm extends React.Component {
     }
 
     disableChangingMode = () => {
+        this.props.form.resetFields();
         this.setState({
             isChanging: false
         })
@@ -33,7 +34,20 @@ class TaskForm extends React.Component {
         } else {
             this.disableChangingMode();
         }
-    } 
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                this.props.handleSubmit(values, this.props.form);
+            }
+        })
+    }
+
+    handleRemoveButtonClick = () => {
+        this.props.handleRemoveButtonClick();
+    }
 
     render() {
         const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, hasErrors } = this.props.form;
@@ -43,7 +57,8 @@ class TaskForm extends React.Component {
         return(
             <Form
                 layout="vertical"
-                onSubmit={this.handleSubmit}>
+                onSubmit={this.handleSubmit}
+                hideRequiredMark={true}>
 
                 <div className="tm-task-header tm-task-container">
                     <FormItem
@@ -64,7 +79,7 @@ class TaskForm extends React.Component {
                                 }
                             ]
                         })(
-                            <Input disabled/>
+                            <Input disabled={!this.state.isChanging}/>
                         )}
                     </FormItem>
                     <span className="tm-task-date">
@@ -77,19 +92,18 @@ class TaskForm extends React.Component {
                         className="mb2"
                         isChanging={this.state.isChanging}
                         handleChangeButtonClick = {this.handleChangeButtonClick}
+                        handleRemoveButtonClick = {this.handleRemoveButtonClick}
                     />
                 </div>
                 <div className="tm-task-info tm-task-container">
                     <div className="tm-task-info-item">
                         <FormItem
                             label="Status"
-                            labelCol={{sm: {span: 5}}}
-                            wrapperCol={{sm: {span: 19}}}
                         >                        
                             {getFieldDecorator('taskStatus', {
                                 initialValue: this.data.taskStatus,
                             })(
-                                <Select>
+                                <Select disabled={!this.state.isChanging}>
                                     {taskProperties.statuses.map((item) => {
                                         return (
                                             <Option key={item} value={item}>
@@ -101,6 +115,78 @@ class TaskForm extends React.Component {
                             )}
                         </FormItem>
                     </div>
+
+                    <div className="tm-task-info-item">
+                        <FormItem
+                            label="Priority"
+                        >
+                            {getFieldDecorator('taskPriority', {
+                                initialValue: this.data.taskPriority
+                            })(
+                                <Select disabled={!this.state.isChanging}>
+                                    {taskProperties.priorities.map((item) => {
+                                        return (
+                                            <Option key={item} value={item}>
+                                                {item}
+                                            </Option>
+                                        )
+                                    })}
+                                </Select>
+                            )}
+                        </FormItem>
+                    </div>
+                </div>
+                <div className="tm-task-time tm-task-container">
+                    <div className="tm-task-time-item">
+                        <FormItem
+                            label="Estimated time"
+                        >
+                            {getFieldDecorator('estimatedTime', {
+                                initialValue: this.data.estimatedTime,
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: 'Estimated time can not be empty'
+                                    }
+                                ]
+                            })(
+                                <InputNumber disabled={!this.state.isChanging} min={0} placeholder="Estimated time" />
+                            )}
+                        </FormItem>
+                    </div>
+                    <div className="tm-task-time-item">
+                        <FormItem
+                            label="Log time"
+                        >
+                            {getFieldDecorator('loggedTime', {
+                                initialValue: this.data.loggedTime,
+                            })(
+                                <InputNumber disabled={!this.state.isChanging} min={0} placeholder="Log time" />
+                            )}
+                        </FormItem>
+                    </div>
+                    <div className="tm-task-time-item">
+                        <FormItem
+                            label="Remaining time"
+                        >
+                            {getFieldDecorator('remainingTime', {
+                                initialValue: this.data.remainingTime,
+                            })(
+                                <InputNumber disabled placeholder="Remaining time" />
+                            )}
+                        </FormItem>
+                    </div>
+                </div>
+                <div className="tm-task-description tm-task-container">
+                    <FormItem
+                        label="Description"
+                    >
+                        {getFieldDecorator('taskDescription', {
+                            initialValue: this.data.taskDescription
+                        })(
+                            <TextArea disabled={!this.state.isChanging}rows={4} />
+                        )}
+                    </FormItem>
                 </div>
             </Form>
         )

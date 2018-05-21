@@ -1,6 +1,10 @@
 .tm-task {
-    &-title {
+    .tm-task-title {
         margin-bottom: 0;
+
+        .ant-form-item-control-wrapper {
+            width: 100%;
+        }
     }
 
     &-date {
@@ -9,5 +13,24 @@
 
     &-buttons {
         padding: $gutter 0;
+    }
+
+    .ant-form-item-label {
+        text-align: center;
+    }
+
+    .ant-form-item-control-wrapper {
+        width: $task_select_width;
+        margin: 0 auto;
+    }
+
+    .tm-task-description {
+        .ant-form-item-control-wrapper {
+            width: $task_description_width;
+        }
+
+        textarea {
+            resize: none;
+        }
     }
 }

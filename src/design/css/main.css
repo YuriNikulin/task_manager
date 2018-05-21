@@ -303,7 +303,7 @@ body, html {
   height: 100%; }
 
 body {
-  background: #E8E8E8;
+  background: #f0f2f5;
   font-family: "sans";
   font-size: 15px; }
 
@@ -402,7 +402,7 @@ input:focus {
     .tm-table thead td {
       border-top: none; }
   .tm-table td {
-    border: 1px solid #E8E8E8;
+    border: 1px solid #f0f2f5;
     padding: 10px;
     min-width: 160px; }
     @media (max-width: 1200px) {
@@ -434,7 +434,7 @@ input:focus {
     display: block;
     padding: 10px; }
     .tm-select__item:hover, .tm-select__item:active {
-      background: #fafafa; }
+      background: white; }
   .tm-select.shown .tm-select-content {
     display: block; }
 
@@ -480,7 +480,7 @@ input:focus {
     color: #0D90DB; }
   .tm-search-container.focused .tm-search__close {
     color: #D41111;
-    background-color: whitesmoke; }
+    background-color: white; }
     .tm-search-container.focused .tm-search__close:hover {
       color: #f25959; }
 
@@ -530,11 +530,26 @@ input:focus {
   top: 50%;
   transform: translate(-50%, -50%); }
 
-.tm-task-title {
+.tm-task .tm-task-title {
   margin-bottom: 0; }
+  .tm-task .tm-task-title .ant-form-item-control-wrapper {
+    width: 100%; }
 
 .tm-task-date {
   display: block; }
 
 .tm-task-buttons {
   padding: 10px 0; }
+
+.tm-task .ant-form-item-label {
+  text-align: center; }
+
+.tm-task .ant-form-item-control-wrapper {
+  width: 200px;
+  margin: 0 auto; }
+
+.tm-task .tm-task-description .ant-form-item-control-wrapper {
+  width: 500px; }
+
+.tm-task .tm-task-description textarea {
+  resize: none; }

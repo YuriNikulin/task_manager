@@ -17,15 +17,16 @@ const Buttons = (props) => {
             <Button 
                 onClick={props.handleSaveButtonClick}
                 disabled={!props.isChanging}
-                type="primary">
+                type="primary"
+                htmlType="submit">
                 Save
             </Button>
             <Button
-                onClick={props.handleDeleteButtonClick}
+                onClick={props.handleRemoveButtonClick}
                 className="flr"
                 type="danger">
                 Delete task
-            </Button>    
+            </Button>  
         </div>
     )
 }

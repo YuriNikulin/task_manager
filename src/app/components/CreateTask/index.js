@@ -10,7 +10,7 @@ import { priorities } from '../../constants/taskProperties.js';
 import actionPushNotification from '../../redux/actions/pushNotification.js';
 import Input from '../Input.js';
 import Formsy from 'formsy-react';
-import { Layout } from 'antd';
+import { Layout, message } from 'antd';
 import CreateTaskForm from './createTaskForm.js';
 const { Header, Footer, Content } = Layout;
 
@@ -44,6 +44,7 @@ class CreateTask extends React.Component {
                 let updates = {};
                 updates['/users/' + currentUser.uid + '/tasks/' + taskId] = {taskId, taskName, taskDescription, taskPriority, estimatedTime, remainingTime, taskStatus, taskCreationDate};
                 db.ref().update(updates).then(() => {
+                    message.success('A task has been created');
                     form.resetFields();
                     this.props.dispatch(actionPushNotification({
                         text: `Task ${event.taskName} has been created`,

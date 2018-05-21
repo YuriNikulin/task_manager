@@ -13,7 +13,7 @@ import actionPushNotification from '../../redux/actions/pushNotification.js';
 import Input from '../Input.js';
 import TaskForm from './TaskForm.js';
 import Formsy from 'formsy-react';
-import { Layout } from 'antd';
+import { Layout, Modal, Button, message } from 'antd';
 import Spin from '../Preloader/Spin.js';
 const { Header, Footer, Content } = Layout;
 
@@ -31,6 +31,7 @@ class Task extends React.Component {
             loggedTime: '',
             remainingTime: '', 
             taskStatus: '',
+            showRemoveModal: false
         }
     }
 
@@ -89,6 +90,8 @@ class Task extends React.Component {
     }
 
     handleRemove = () => {
+        this.hideRemoveModal();
+
         const user = this.props.currentUser;
         const userId = user.uid;
         db.ref('/users/' + user.uid + '/tasks/' + this.props.params.id).set(null).then(() => {
@@ -97,6 +100,7 @@ class Task extends React.Component {
                 text: `Task ${this.state.taskName} has been removed`, 
                 duration: 3000
             }));
+            message.success(`Task ${this.state.taskName} has been removed`);
 
             history.push('/');
         });
@@ -109,6 +113,7 @@ class Task extends React.Component {
     }
 
     handleSubmit = (event) => {
+        console.log(event);
         let {taskName, taskDescription, taskPriority, estimatedTime, loggedTime, remainingTime, taskStatus} = event;
         let {taskId, taskCreationDate} = this.state;
 
@@ -126,12 +131,12 @@ class Task extends React.Component {
 
         updates['/users/' + user.uid + '/tasks/' + this.props.params.id] = {taskId, taskName, taskDescription, taskPriority, estimatedTime, remainingTime, taskStatus, taskCreationDate};
         db.ref().update(updates).then(() => {
+            message.success(`The Task has been changed`);
             this.setState({
                 isChanging: false,
                 isLoaded: false,
                 loggedTime: '',
             });
-            this.loggedTime.setValue('');
             this.props.dispatch(actionPushNotification({text: 'The task has been updated', duration: 3000}));
             this.maybeFetchTask();
         });
@@ -139,6 +144,18 @@ class Task extends React.Component {
 
     handleInvalidSubmit = (event) => {
         console.log('invalid', event);
+    }
+
+    handleRemoveButtonClick = () => {
+        this.setState({
+            showRemoveModal: true
+        })
+    }
+
+    hideRemoveModal = () => {
+        this.setState({
+            showRemoveModal: false
+        })
     }
 
     render() {
@@ -150,14 +167,25 @@ class Task extends React.Component {
                     </Header>
                     <Content>
                         <div className="tm-task">
-                        {this.state.isLoaded 
-                            ? 
-                            <TaskForm data={this.state}/> 
-                            :
-                            <Spin className="centered"/>
-                        }
+                            {this.state.isLoaded 
+                                ? 
+                                <TaskForm handleRemoveButtonClick={this.handleRemoveButtonClick} handleSubmit={this.handleSubmit} data={this.state}/> 
+                                :
+                                <Spin className="centered"/>
+                            }
                         
                         </div>
+                        <Modal
+                            visible={this.state.showRemoveModal}
+                            closable={true}
+                            title='Warning'
+                            okText='Remove task'
+                            onOk={this.handleRemove}
+                            onCancel={this.hideRemoveModal}
+                            mask={true}
+                            >
+                                You are going to remove <b>{this.state.taskName}</b>. Do you want to proceed? 
+                        </Modal>
                     </Content>
                 </Layout>
             </div>
