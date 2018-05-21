@@ -467,6 +467,9 @@ input:focus {
   text-align: right;
   padding-right: 10px; }
 
+.ant-input-number {
+  width: 100%; }
+
 .tm-search-container {
   position: absolute;
   left: 0;

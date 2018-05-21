@@ -1,7 +1,14 @@
 import React from 'react';
-import { Form, Input, Icon, Button, Spin } from 'antd';
+import { Form, Input, InputNumber, Icon, Button, Spin, Select } from 'antd';
 import { Link } from 'react-router';
+import { priorities } from '../../constants/taskProperties.js';
 const FormItem = Form.Item;
+const Option = Select.Option;
+const { TextArea } = Input;
+
+const hasErrors = (fieldsError) => {
+    return Object.keys(fieldsError).some(field => fieldsError[field]);
+}
 
 class createTaskForm extends React.Component {
     constructor(props) {
@@ -13,10 +20,18 @@ class createTaskForm extends React.Component {
         callback();
     }
 
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                this.props.handleSubmit(values, this.props.form);
+            }
+        })
+    }
     render() {
-        const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched } = this.props.form;
-        const nameError = isFieldTouched('name') && getFieldError('name');
-        const estimatedError = isFieldTouched('estimated') && getFieldError('estimated');
+        const { getFieldDecorator, getFieldsError, getFieldError, isFieldTouched, hasErrors } = this.props.form;
+        const nameError = isFieldTouched('taskName') && getFieldError('taskName');
+        const estimatedError = isFieldTouched('estimatedTime') && getFieldError('estimatedTime');
         return (
             <Form 
                 layout="vertical"
@@ -25,15 +40,20 @@ class createTaskForm extends React.Component {
                     validateStatus={nameError ? 'error' : ''}
                     help={nameError || ''}
                     label="Name"
-                    labelCol={{sm: {span: 10}}}
-                    wrapperCol={{sm: {span: 14}}}>
+                    labelCol={{sm: {span: 5}}}
+                    wrapperCol={{sm: {span: 19}}}>
                     
-                    {getFieldDecorator('name', {
+                    {getFieldDecorator('taskName', {
                         rules: [
                         {
                             required: true,
                             message: 'Please input task name!'
                         },
+                        {
+                            type: 'string',
+                            whitespace: true,
+                            message: 'Task name can not consist of whitespaces only'
+                        }
                         ]
                     })(
                         <Input placeholder="Task name" />
@@ -43,10 +63,10 @@ class createTaskForm extends React.Component {
                     validateStatus={estimatedError ? 'error' : ''}
                     help={estimatedError || ''}
                     label="Estimated"
-                    labelCol={{sm: {span: 10}}}
-                    wrapperCol={{sm: {span: 14}}}>
+                    labelCol={{sm: {span: 5}}}
+                    wrapperCol={{sm: {span: 19}}}>
                     
-                    {getFieldDecorator('estimated', {
+                    {getFieldDecorator('estimatedTime', {
                         rules: [
                         {
                             required: true,
@@ -57,8 +77,44 @@ class createTaskForm extends React.Component {
                         },
                         ]
                     })(
-                        <Input placeholder="Estimated time" />
+                        <InputNumber min={0} placeholder="Estimated time" />
                     )}
+                </FormItem>
+                <FormItem
+                    label="Description"
+                    labelCol={{sm: {span: 5}}}
+                    wrapperCol={{sm: {span: 19}}}>
+                    {getFieldDecorator('taskDescription', {
+
+                    })(
+                        <TextArea rows={4} />
+                    )}
+                </FormItem>
+                <FormItem
+                    label="Priority"
+                    labelCol={{sm: {span: 5}}}
+                    wrapperCol={{sm: {span: 19}}}>
+                    {getFieldDecorator('taskPriority', {
+                        initialValue: priorities[0]
+                    })(
+                    <Select initialValue="test">
+                        {priorities.map((item) => {
+                            return (
+                                <Option key={item} value={item}>
+                                    {item}
+                                </Option>
+                            )
+                        })}
+                    </Select>
+                    )}  
+                </FormItem>
+                <FormItem className="tac">
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        >
+                            Create
+                    </Button>
                 </FormItem>
                     
             </Form>

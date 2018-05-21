@@ -20,6 +20,7 @@ class LogIn extends React.Component  {
     }
 
     handleSubmit = (event) => {
+        console.log(event);
         this.setState({
             isLoading: true
         })

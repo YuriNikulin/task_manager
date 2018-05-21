@@ -25,11 +25,10 @@ class CreateTask extends React.Component {
             this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event) {
-        console.log(event);
-        return;
+    handleSubmit(event, form) {
         let {taskName, taskDescription, taskPriority, estimatedTime} = event;
 
+        if (!taskDescription) taskDescription = null;
         estimatedTime = parseFloat(estimatedTime);
 
         const taskStatus = 'Open';
@@ -45,12 +44,12 @@ class CreateTask extends React.Component {
                 let updates = {};
                 updates['/users/' + currentUser.uid + '/tasks/' + taskId] = {taskId, taskName, taskDescription, taskPriority, estimatedTime, remainingTime, taskStatus, taskCreationDate};
                 db.ref().update(updates).then(() => {
+                    form.resetFields();
                     this.props.dispatch(actionPushNotification({
                         text: `Task ${event.taskName} has been created`,
                         duration: 2000
                     }));
 
-                    this.form.reset();
                     this.setState({
                         error: false
                     })
