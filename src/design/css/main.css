@@ -647,3 +647,39 @@ input:focus {
       box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.1); }
   .tm-scrum .react-grid-item.react-grid-placeholder {
     background-color: transparent; }
+
+.tm-filter {
+  background: #fff;
+  height: 37px;
+  transition: 200ms;
+  opacity: 1;
+  position: relative; }
+  .tm-filter .ant-menu {
+    display: flex; }
+  .tm-filter-select {
+    height: 100%;
+    padding: 0 18px; }
+  .tm-filter-item {
+    display: inline-block;
+    max-width: calc(50% - 90px);
+    height: 100%;
+    cursor: pointer; }
+    .tm-filter-item .ant-select {
+      min-width: 150px;
+      max-width: 100%; }
+    .tm-filter-item--search {
+      width: 90px; }
+    .tm-filter-item .tm-select__title {
+      line-height: 37px;
+      text-transform: uppercase;
+      max-width: 100%;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap; }
+  .tm-filter-container {
+    padding-bottom: 10px;
+    height: 47px; }
+
+[data-filter-selected='true'].tm-select__item {
+  font-weight: bold; }
