@@ -310,30 +310,30 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-weight: normal; }
 
-.tm-container .mr {
+.mr {
   margin-right: 10px; }
-  .tm-container .mr2 {
+  .mr2 {
     margin-right: 20px; }
 
-.tm-container .ml {
+.ml {
   margin-left: 10px; }
-  .tm-container .ml2 {
+  .ml2 {
     margin-left: 20px; }
 
-.tm-container .mt {
+.mt {
   margin-top: 10px; }
-  .tm-container .mt2 {
+  .mt2 {
     margin-top: 20px; }
 
-.tm-container .mb {
+.mb {
   margin-bottom: 10px; }
-  .tm-container .mb2 {
+  .mb2 {
     margin-bottom: 20px; }
 
-.tm-container .flr {
-  float: right; }
+.flr {
+  float: right !important; }
 
-.tm-container .tac {
+.tac {
   text-align: center; }
 
 a {
@@ -618,3 +618,12 @@ input:focus {
 
 .tm-grid .ant-card-body {
   padding: 12px 24px; }
+
+#root .tm-container table .ant-table-column-sorter-up i, #root .tm-container table .ant-table-column-sorter-down i {
+  font-size: 18px; }
+
+#root .tm-container table .ant-table-column-sorter-up {
+  bottom: 2px; }
+
+#root .tm-container table .ant-table-column-sorter-down {
+  top: 2px; }

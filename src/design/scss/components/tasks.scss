@@ -27,3 +27,22 @@
         padding: 12px 24px;
     }
 }
+
+#root .tm-container table {
+    .ant-table-column-sorter {
+        &-up,
+        &-down {
+            i {
+                font-size: 18px;
+            }
+        }
+
+        &-up {
+            bottom: 2px;
+        }
+
+        &-down {
+            top: 2px;
+        }
+    }
+}

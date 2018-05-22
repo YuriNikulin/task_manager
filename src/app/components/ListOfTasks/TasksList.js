@@ -19,7 +19,8 @@ class TasksList extends React.Component {
                         {record.taskName}
                     </Link>
                 )
-            }
+            },
+            sorter: (a, b) => {return (a['taskName'] > b['taskName'] ? 1 : -1)}
         })
         items.map((item) => {
             if (item.key=='taskCreationDate' || item.key=='taskName') {
@@ -29,12 +30,15 @@ class TasksList extends React.Component {
                 title: item.keyPrint,
                 dataIndex: item.key,
                 key: item.key,
+                sorter: (a, b) => {return (a[item.key] > b[item.key] ? 1 : -1)}
             })
         })
         columns.push({
             title: 'Created',
             dataIndex: 'taskCreationDatePrint',
-            key: 'taskCreationDatePrint'
+            key: 'taskCreationDatePrint',
+            sorter: (a, b) => {return (Date.parse(a['taskCreationDate']) > Date.parse(b['taskCreationDate']) ? 1 : -1)}
+            // sorter: (a, b) => {return ( (Date.parse(a['taskCreationDate']) > Date.parse(b['taskCreationDate']) ? 1 : -1)}
         })
         return columns;
     }
