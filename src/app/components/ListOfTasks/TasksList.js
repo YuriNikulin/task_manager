@@ -38,7 +38,6 @@ class TasksList extends React.Component {
             dataIndex: 'taskCreationDatePrint',
             key: 'taskCreationDatePrint',
             sorter: (a, b) => {return (Date.parse(a['taskCreationDate']) > Date.parse(b['taskCreationDate']) ? 1 : -1)}
-            // sorter: (a, b) => {return ( (Date.parse(a['taskCreationDate']) > Date.parse(b['taskCreationDate']) ? 1 : -1)}
         })
         return columns;
     }

@@ -4,6 +4,7 @@ import { statuses } from '../../constants/taskProperties.js';
 import scrumProperties from '../../constants/scrumProperties.js';
 import { db } from '../../services/firebase/firebase.js';
 import { connect } from 'react-redux';
+import { message } from 'antd';
 import actionPushNotification from '../../redux/actions/pushNotification.js';
 
 class Container extends React.Component {
@@ -24,10 +25,7 @@ class Container extends React.Component {
         let userId = this.props.currentUser.uid;
         updates['/users/' + userId + '/tasks/' + taskId + '/taskStatus'] = newStatus;
         db.ref().update(updates).then(() => {
-            this.props.dispatch(actionPushNotification({
-                text: task.taskName + ' is now ' + newStatus,
-                duration: 3000
-            }));
+            message.success(task.taskName + ' is now ' + newStatus);
             this.props.updateList();
         });
     }
