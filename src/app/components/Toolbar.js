@@ -1,13 +1,9 @@
 import React from 'react';
 import { Link, browserHistory, hashHistory } from 'react-router';
-import CreateTaskButton from './CreateTaskButton.js';
-import DashboardButton from './DashboardButton.js';
 import ViewSwitcher from './ViewSwitcher.js';
-import FilterButton from './FilterButton.js';
 import LogOut from './LogOut.js';
 import Filter from './Filter.js';
 import Sort from './Sort.js';
-import SortButton from './SortButton.js';
 import { Menu, Dropdown } from 'antd';
 import Transition from 'react-transition-group/Transition';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';

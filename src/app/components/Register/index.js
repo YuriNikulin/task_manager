@@ -4,7 +4,6 @@ import { db } from '../../services/firebase/firebase.js';
 import { connect } from 'react-redux';
 import { Link, browserHistory as history } from 'react-router';
 import { Modal } from 'antd';
-import Input from '../Input.js';
 import Formsy from 'formsy-react';
 import Spin from '../Preloader/Spin.js';
 import RegisterForm from './RegisterForm.js';

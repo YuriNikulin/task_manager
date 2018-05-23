@@ -5,7 +5,6 @@ import actionAuth from './app/redux/actions/auth.js';
 import { firebase } from './app/services/firebase';
 
 import Spin from './app/components/Preloader/Spin.js';
-import Notification from './app/components/Notification.js';
 
 import { syncHistoryWithStore } from 'react-router-redux';
 import Home from './app/components/Home.js';

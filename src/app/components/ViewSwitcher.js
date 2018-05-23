@@ -1,5 +1,4 @@
 import React from 'react';
-import Select from './Select.js';
 import changeView from '../redux/actions/changeView.js';
 import { connect } from 'react-redux';
 import { Menu } from 'antd';

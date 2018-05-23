@@ -9,9 +9,7 @@ import { Redirect } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import { Router, Route,  hashHistory } from 'react-router';
-import Register from './Register.js';
 
-import CreateTask from './CreateTask.js';
 import Toolbar from './Toolbar.js';
 import ListOfTasks from './ListOfTasks/ListOfTasks.js';
 

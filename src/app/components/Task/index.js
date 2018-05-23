@@ -10,7 +10,6 @@ import Toolbar from '../Toolbar.js';
 import Preloader from '../Preloader/Preloader.js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import actionPushNotification from '../../redux/actions/pushNotification.js';
-import Input from '../Input.js';
 import TaskForm from './TaskForm.js';
 import Formsy from 'formsy-react';
 import { Layout, Modal, Button, message } from 'antd';

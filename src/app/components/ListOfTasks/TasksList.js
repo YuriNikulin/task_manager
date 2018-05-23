@@ -58,7 +58,6 @@ class TasksList extends React.Component {
         })
 
         let filtersObj = this.divideFiltersByKeys(this.props.tasksFilter);
-        // console.log(filtersObj);
 
         items.map((item) => {
             if (item.key=='taskCreationDate' || item.key=='taskName') {
@@ -76,7 +75,6 @@ class TasksList extends React.Component {
                 activeColumn.filters = [];
                 activeColumn.filteredValue = (filtersObj[item.key] || null);
                 activeColumn.filtered = true;
-                console.log(activeColumn.filteredValue);
 
                 filterKeys.map((filterKey) => {
                     activeColumn.filters.push({

@@ -20,7 +20,6 @@ import TasksGrid from './TasksGrid.js';
 import TasksScrum from './TasksScrum.js';
 
 import Spin from '../Preloader/Spin.js';
-import Notification from '../Notification.js';
 import { Row, Col } from 'antd';
 
 class ListOfTasks extends React.Component {

@@ -8,7 +8,6 @@ import { FirebaseComp } from '../../services/firebase/firebase.js';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { priorities } from '../../constants/taskProperties.js';
 import actionPushNotification from '../../redux/actions/pushNotification.js';
-import Input from '../Input.js';
 import Formsy from 'formsy-react';
 import { Layout, message } from 'antd';
 import CreateTaskForm from './createTaskForm.js';
