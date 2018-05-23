@@ -5,7 +5,8 @@ import { Table } from 'antd';
 import store from '../../redux';
 import actionApplyFilter from '../../redux/actions/applyFilter.js';
 import actionRemoveFilter from '../../redux/actions/removeFilter.js';
-console.log(store.getState());
+import actionRemoveAllFilters from '../../redux/actions/removeAllFilters.js';
+
 class TasksList extends React.Component {
     constructor(props) {
         super(props);
@@ -25,6 +26,19 @@ class TasksList extends React.Component {
         return filtersObj;
     }
 
+    handleTableChange = (pagination, filters, sorter) => {
+        store.dispatch(actionRemoveAllFilters());
+        for (var key in filters) {
+            for (var i = 0; i < filters[key].length; i++) {
+                let newFilter = {
+                    key: key,
+                    value: filters[key][i]
+                }
+                store.dispatch(actionApplyFilter(newFilter));
+            }
+        }
+    }
+
     generateAntdColumns = (items) => {
         let columns = [];
         columns.push({
@@ -42,6 +56,7 @@ class TasksList extends React.Component {
         })
 
         let filtersObj = this.divideFiltersByKeys(this.props.tasksFilter);
+        console.log(filtersObj);
 
         items.map((item) => {
             if (item.key=='taskCreationDate' || item.key=='taskName') {
@@ -54,17 +69,18 @@ class TasksList extends React.Component {
                 sorter: (a, b) => {return (a[item.key] > b[item.key] ? 1 : -1)}
             })
             if (item.key == 'taskStatus' || item.key == 'taskPriority') {
+                let activeColumn = columns[columns.length - 1];
                 let filterKeys = (item.key == 'taskStatus' ? statuses : priorities);
-                columns[columns.length - 1].filters = [];
-                columns[columns.length - 1].filteredValue = filtersObj[item.key];
-                columns[columns.length - 1].filtered = true;
+                activeColumn.filters = [];
+                activeColumn.filteredValue = filtersObj[item.key];
+                activeColumn.filtered = true;
 
                 filterKeys.map((filterKey) => {
-                    columns[columns.length - 1].filters.push({
+                    activeColumn.filters.push({
                         text: filterKey,
                         value: filterKey
                     });
-                    columns[columns.length - 1].onFilter = (value, record) => {
+                    activeColumn.onFilter = (value, record) => {
                         return (
                             record[item.key] === value
                         )
@@ -107,6 +123,7 @@ class TasksList extends React.Component {
                         onClick: this.handleClick
                     }
                 }}
+                onChange={this.handleTableChange}
                 /> 
         )
     }
