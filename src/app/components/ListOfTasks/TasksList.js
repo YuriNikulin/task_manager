@@ -115,7 +115,6 @@ class TasksList extends React.Component {
         return (
             <Table 
                 dataSource={data} 
-                pagination={false}
                 columns={columns}
                 bordered
                 expandRowByClick

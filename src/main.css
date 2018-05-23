@@ -474,6 +474,9 @@ input:focus {
   background: none;
   border-color: #f0f2f5; }
 
+.ant-select-selection__rendered:after {
+  display: none; }
+
 .ant-select-disabled .ant-select-selection, .ant-input-number-disabled {
   background: none;
   border-color: #f0f2f5;
@@ -543,6 +546,12 @@ input:focus {
   top: 50%;
   transform: translate(-50%, -50%); }
 
+.ant-spin.fixed {
+  position: fixed; }
+
+.tm-task-header {
+  padding-top: 0; }
+
 .tm-task .tm-task-title {
   margin-bottom: 0; }
   .tm-task .tm-task-title .ant-input {
@@ -551,7 +560,8 @@ input:focus {
     height: 40px;
     line-height: 40px; }
     .tm-task .tm-task-title .ant-input-disabled {
-      padding-left: 0; }
+      padding-left: 0;
+      border-color: #fff; }
   .tm-task .tm-task-title .ant-form-item-control-wrapper {
     width: 100%; }
 
@@ -562,7 +572,11 @@ input:focus {
 
 .tm-task-container {
   border-bottom: 1px solid #e1e5eb;
-  padding-top: 10px; }
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+  background-color: #fff; }
 
 .tm-task .ant-form-item-label {
   text-transform: uppercase; }
@@ -601,6 +615,9 @@ input:focus {
   resize: none;
   color: #000; }
 
+.tm-create {
+  margin-top: 24px; }
+
 .tm-grid-item {
   margin-bottom: 10px; }
   .tm-grid-item:hover {
@@ -627,6 +644,9 @@ input:focus {
 
 #root .tm-container table .ant-table-column-sorter-down {
   top: 2px; }
+
+#root .tm-container table .ant-table-header > tr > th .ant-table-column-sorter + .anticon-filter {
+  font-size: 18px; }
 
 .tm-scrum {
   width: 100%; }

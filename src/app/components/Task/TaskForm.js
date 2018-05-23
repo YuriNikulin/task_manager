@@ -89,7 +89,6 @@ class TaskForm extends React.Component {
                         </span>
                     </span>
                     <Buttons
-                        className="mb2"
                         isChanging={this.state.isChanging}
                         handleChangeButtonClick = {this.handleChangeButtonClick}
                         handleRemoveButtonClick = {this.handleRemoveButtonClick}

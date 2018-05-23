@@ -546,6 +546,12 @@ input:focus {
 .ant-spin.fixed {
   position: fixed; }
 
+.tm-task-header {
+  padding-top: 0; }
+
+.tm-task .ant-select-selection__rendered:after {
+  display: none; }
+
 .tm-task .tm-task-title {
   margin-bottom: 0; }
   .tm-task .tm-task-title .ant-input {
@@ -554,18 +560,24 @@ input:focus {
     height: 40px;
     line-height: 40px; }
     .tm-task .tm-task-title .ant-input-disabled {
-      padding-left: 0; }
+      padding-left: 0;
+      border-color: #fff; }
   .tm-task .tm-task-title .ant-form-item-control-wrapper {
     width: 100%; }
 
 .tm-task .ant-form-item {
-  margin-bottom: 0; }
+  margin-bottom: 10px;
+  padding-bottom: 0; }
   .tm-task .ant-form-item-label {
     padding-bottom: 0; }
 
 .tm-task-container {
   border-bottom: 1px solid #e1e5eb;
-  padding-top: 10px; }
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-bottom: 10px;
+  background-color: #fff; }
 
 .tm-task .ant-form-item-label {
   text-transform: uppercase; }
@@ -604,6 +616,9 @@ input:focus {
   resize: none;
   color: #000; }
 
+.tm-create {
+  margin-top: 24px; }
+
 .tm-grid-item {
   margin-bottom: 10px; }
   .tm-grid-item:hover {
@@ -621,6 +636,9 @@ input:focus {
 
 .tm-grid .ant-card-body {
   padding: 12px 24px; }
+
+.ant-table-bordered .ant-table-body > table {
+  background: #fff; }
 
 #root .tm-container table .ant-table-column-sorter-up i, #root .tm-container table .ant-table-column-sorter-down i {
   font-size: 18px; }

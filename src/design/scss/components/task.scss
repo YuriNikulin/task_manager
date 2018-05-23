@@ -1,4 +1,12 @@
 .tm-task {
+    &-header {
+        padding-top: 0;
+    }
+
+    .ant-select-selection__rendered:after {
+        display: none;
+    }
+
     .tm-task-title {
         margin-bottom: 0;
 
@@ -10,6 +18,7 @@
 
             &-disabled {
                 padding-left: 0;
+                border-color: #fff;
             }
         }
 
@@ -19,7 +28,8 @@
     }
 
     .ant-form-item {
-        margin-bottom: 0;
+        margin-bottom: $gutter;
+        padding-bottom: 0;
 
         &-label {
             padding-bottom: 0;
@@ -29,6 +39,10 @@
     &-container {
         border-bottom: 1px solid darken($base, 5%);
         padding-top: $gutter;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin-bottom: $gutter;
+        background-color: #fff;
     }
 
     .ant-form-item-label {
@@ -81,4 +95,8 @@
             color: #000;
         }
     }
+}
+
+.tm-create {
+    margin-top: 24px;
 }

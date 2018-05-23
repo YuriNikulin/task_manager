@@ -27,6 +27,10 @@
     }
 }
 
+.ant-table-bordered .ant-table-body > table {
+    background: #fff;
+}
+
 #root .tm-container table {
     .ant-table-column-sorter {
         &-up,
