@@ -13,6 +13,18 @@ class TasksList extends React.Component {
             filterValue: ''
         }
     }
+
+    divideFiltersByKeys = (filters) => {
+        var filtersObj = {};
+        for (var i = 0; i < filters.length; i++) {
+            if (!filtersObj[filters[i].key]) {
+                filtersObj[filters[i].key] = [];
+            }
+            filtersObj[filters[i].key].push(filters[i].value);
+        }
+        return filtersObj;
+    }
+
     generateAntdColumns = (items) => {
         let columns = [];
         columns.push({
@@ -29,7 +41,7 @@ class TasksList extends React.Component {
             sorter: (a, b) => {return (a['taskName'] > b['taskName'] ? 1 : -1)}
         })
 
-        let filterValue = this.state.filterValue;
+        let filtersObj = this.divideFiltersByKeys(this.props.tasksFilter);
 
         items.map((item) => {
             if (item.key=='taskCreationDate' || item.key=='taskName') {
@@ -44,6 +56,7 @@ class TasksList extends React.Component {
             if (item.key == 'taskStatus' || item.key == 'taskPriority') {
                 let filterKeys = (item.key == 'taskStatus' ? statuses : priorities);
                 columns[columns.length - 1].filters = [];
+                columns[columns.length - 1].filteredValue = filtersObj[item.key];
                 columns[columns.length - 1].filtered = true;
 
                 filterKeys.map((filterKey) => {

@@ -188,7 +188,7 @@ class ListOfTasks extends React.Component {
                 <React.Fragment>
                 {this.state.isLoaded ?
                     <Row type="flex" justify="center">
-                        <TasksView updateList={this.maybeFetchTasks} tasksList={tasksList}/>
+                        <TasksView updateList={this.maybeFetchTasks} tasksFilter={this.props.tasksFilter} tasksList={tasksList}/>
                     </Row>
                     :
                     <Spin className="centered" key="preloader"/>

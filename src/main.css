@@ -665,7 +665,8 @@ input:focus {
     height: 100%;
     cursor: pointer; }
     .tm-filter-item .ant-select {
-      min-width: 150px; }
+      min-width: 150px;
+      max-width: 100%; }
     .tm-filter-item--search {
       width: 90px; }
     .tm-filter-item .tm-select__title {

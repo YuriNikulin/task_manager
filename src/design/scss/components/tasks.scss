@@ -2,7 +2,6 @@
     &-item {
         margin-bottom: $gutter;
 
-
         &:hover {
             box-shadow: 0px 0px 15px 0px $tr;
         }
@@ -44,5 +43,9 @@
         &-down {
             top: 2px;
         }
+    }
+
+    .ant-table-header > tr > th .ant-table-column-sorter + .anticon-filter {
+        font-size: 18px;
     }
 }

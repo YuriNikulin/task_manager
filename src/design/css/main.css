@@ -628,6 +628,9 @@ input:focus {
 #root .tm-container table .ant-table-column-sorter-down {
   top: 2px; }
 
+#root .tm-container table .ant-table-header > tr > th .ant-table-column-sorter + .anticon-filter {
+  font-size: 18px; }
+
 .tm-scrum {
   width: 100%; }
   .tm-scrum-status {
