@@ -28,7 +28,7 @@
     }
 
     .ant-form-item {
-        margin-bottom: $gutter;
+        margin-bottom: 15px;
         padding-bottom: 0;
 
         &-label {
@@ -38,9 +38,7 @@
 
     &-container {
         border-bottom: 1px solid darken($base, 5%);
-        padding-top: $gutter;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding: 10px 10px 20px 10px;
         margin-bottom: $gutter;
         background-color: #fff;
     }
@@ -98,5 +96,12 @@
 }
 
 .tm-create {
-    margin-top: 24px;
+    background: #fff;
+    padding: 24px 10px 10px 10px;
+
+    .ant-form-item {
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
 }

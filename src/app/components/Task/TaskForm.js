@@ -186,6 +186,11 @@ class TaskForm extends React.Component {
                             <TextArea disabled={!this.state.isChanging}rows={4} />
                         )}
                     </FormItem>
+                    <div className="tac">
+                        <Button onClick={this.handleSubmit} disabled={!this.state.isChanging} type="primary" htmlType="submit">
+                            Save
+                        </Button>
+                    </div>
                 </div>
             </Form>
         )

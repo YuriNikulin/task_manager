@@ -474,9 +474,6 @@ input:focus {
   background: none;
   border-color: #f0f2f5; }
 
-.ant-select-selection__rendered:after {
-  display: none; }
-
 .ant-select-disabled .ant-select-selection, .ant-input-number-disabled {
   background: none;
   border-color: #f0f2f5;
@@ -552,6 +549,9 @@ input:focus {
 .tm-task-header {
   padding-top: 0; }
 
+.tm-task .ant-select-selection__rendered:after {
+  display: none; }
+
 .tm-task .tm-task-title {
   margin-bottom: 0; }
   .tm-task .tm-task-title .ant-input {
@@ -566,7 +566,8 @@ input:focus {
     width: 100%; }
 
 .tm-task .ant-form-item {
-  margin-bottom: 0; }
+  margin-bottom: 10px;
+  padding-bottom: 0; }
   .tm-task .ant-form-item-label {
     padding-bottom: 0; }
 
@@ -616,7 +617,7 @@ input:focus {
   color: #000; }
 
 .tm-create {
-  margin-top: 24px; }
+  margin-top: 10px; }
 
 .tm-grid-item {
   margin-bottom: 10px; }
@@ -635,6 +636,9 @@ input:focus {
 
 .tm-grid .ant-card-body {
   padding: 12px 24px; }
+
+.ant-table-bordered .ant-table-body > table {
+  background: #fff; }
 
 #root .tm-container table .ant-table-column-sorter-up i, #root .tm-container table .ant-table-column-sorter-down i {
   font-size: 18px; }
@@ -674,6 +678,10 @@ input:focus {
   transition: 200ms;
   opacity: 1;
   position: relative; }
+  .tm-filter .ant-menu-horizontal > .ant-menu-item, .tm-filter .ant-menu-horizontal > .ant-menu-item:hover {
+    border-bottom: none; }
+  .tm-filter .ant-menu-horizontal > .ant-menu-item .ant-select-selection {
+    cursor: pointer; }
   .tm-filter .ant-menu {
     display: flex; }
   .tm-filter-select {
