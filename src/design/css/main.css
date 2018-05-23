@@ -543,6 +543,9 @@ input:focus {
   top: 50%;
   transform: translate(-50%, -50%); }
 
+.ant-spin.fixed {
+  position: fixed; }
+
 .tm-task .tm-task-title {
   margin-bottom: 0; }
   .tm-task .tm-task-title .ant-input {

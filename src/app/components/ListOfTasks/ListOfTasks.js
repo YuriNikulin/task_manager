@@ -190,7 +190,7 @@ class ListOfTasks extends React.Component {
                         <TasksView updateList={this.maybeFetchTasks} tasksFilter={this.props.tasksFilter} tasksList={tasksList}/>
                     </Row>
                     :
-                    <Spin className="centered" key="preloader"/>
+                    <Spin className="centered fixed" key="preloader"/>
                 } 
                 </React.Fragment>
         )
