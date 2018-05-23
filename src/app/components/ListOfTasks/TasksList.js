@@ -56,10 +56,8 @@ class TasksList extends React.Component {
                             record[item.key] === value
                         )
                     }
-                    // columns[columns.length - 1].filteredValue = ['In progress'];
                 })
-            }
-            console.log(columns);   
+            } 
         })
         columns.push({
             title: 'Created',
@@ -76,9 +74,6 @@ class TasksList extends React.Component {
         items.map((item) => {
             item.taskCreationDatePrint = new Date(item.taskCreationDate).toLocaleString();
             item.key = item.taskId;
-            item.render = (text, record) => {
-                return <div></div>
-            }
             data.push(item);
         })
         return data;
