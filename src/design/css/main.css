@@ -678,6 +678,10 @@ input:focus {
   transition: 200ms;
   opacity: 1;
   position: relative; }
+  .tm-filter .ant-menu-horizontal > .ant-menu-item, .tm-filter .ant-menu-horizontal > .ant-menu-item:hover {
+    border-bottom: none; }
+  .tm-filter .ant-menu-horizontal > .ant-menu-item .ant-select-selection {
+    cursor: pointer; }
   .tm-filter .ant-menu {
     display: flex; }
   .tm-filter-select {

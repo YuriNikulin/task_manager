@@ -5,6 +5,16 @@
     opacity: 1;
     position: relative;
 
+    .ant-menu-horizontal > .ant-menu-item {
+        &, &:hover {
+            border-bottom: none;
+        }
+
+        .ant-select-selection {
+            cursor: pointer;
+        }
+    }
+
     .ant-menu {
         display: flex;
     }
