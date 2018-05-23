@@ -16,6 +16,7 @@ class TasksList extends React.Component {
     }
 
     divideFiltersByKeys = (filters) => {
+
         var filtersObj = {};
         for (var i = 0; i < filters.length; i++) {
             if (!filtersObj[filters[i].key]) {
@@ -29,6 +30,7 @@ class TasksList extends React.Component {
     handleTableChange = (pagination, filters, sorter) => {
         store.dispatch(actionRemoveAllFilters());
         for (var key in filters) {
+            if (!filters[key]) continue;
             for (var i = 0; i < filters[key].length; i++) {
                 let newFilter = {
                     key: key,
@@ -56,7 +58,7 @@ class TasksList extends React.Component {
         })
 
         let filtersObj = this.divideFiltersByKeys(this.props.tasksFilter);
-        console.log(filtersObj);
+        // console.log(filtersObj);
 
         items.map((item) => {
             if (item.key=='taskCreationDate' || item.key=='taskName') {
@@ -72,8 +74,9 @@ class TasksList extends React.Component {
                 let activeColumn = columns[columns.length - 1];
                 let filterKeys = (item.key == 'taskStatus' ? statuses : priorities);
                 activeColumn.filters = [];
-                activeColumn.filteredValue = filtersObj[item.key];
+                activeColumn.filteredValue = (filtersObj[item.key] || null);
                 activeColumn.filtered = true;
+                console.log(activeColumn.filteredValue);
 
                 filterKeys.map((filterKey) => {
                     activeColumn.filters.push({
