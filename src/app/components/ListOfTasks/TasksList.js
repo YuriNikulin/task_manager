@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { taskProperties } from '../../constants/taskProperties.js';
+import { taskProperties, statuses, priorities } from '../../constants/taskProperties.js';
 import { Table } from 'antd';
 
 class TasksList extends React.Component {
@@ -32,6 +32,16 @@ class TasksList extends React.Component {
                 key: item.key,
                 sorter: (a, b) => {return (a[item.key] > b[item.key] ? 1 : -1)}
             })
+            if (item.key == 'taskStatus' || item.key == 'taskPriority') {
+                let filterKeys = (item.key == 'taskStatus' ? statuses : priorities);
+                columns[columns.length - 1].filters = [];
+                filterKeys.map((item) => {
+                    columns[columns.length - 1].filters.push({
+                        text: item,
+                        value: item
+                    })
+                })
+            }
         })
         columns.push({
             title: 'Created',

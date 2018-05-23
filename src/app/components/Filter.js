@@ -17,11 +17,11 @@ class Filter extends React.Component {
     }
 
     componentDidMount() {
-        console.log('filter mounted');
+        
     }
 
     componentDidUpdate() {
-        console.log('filter updated');
+        
     }
 
     handleClick = (event) => {
@@ -76,12 +76,14 @@ class Filter extends React.Component {
     }
 
     closeSearch = () => {
+        this.forceUpdate();
         this.setState({
             showSearch: false
         })
     }
 
     render() {
+        console.log('rerendered');
         let activeFilters = this.props.filter;
         let statusFilters = [];
         let priorityFilters = [];
@@ -92,8 +94,6 @@ class Filter extends React.Component {
                 priorityFilters.push(activeFilters[i].value);
             }
         }
-
-        console.log(statusFilters);
   
         return(
             <div className="tm-filter-container">
@@ -109,7 +109,7 @@ class Filter extends React.Component {
                             <Select
                                 mode="multiple"
                                 placeholder="Status"
-                                defaultValue={statusFilters}
+                                value={statusFilters}
                                 onSelect={this.handleFilterSelect}
                                 onDeselect={this.handleFilterDeselect}
                                 >
@@ -131,6 +131,7 @@ class Filter extends React.Component {
                             <Select
                                 mode="multiple"
                                 placeholder="Priority"
+                                value={priorityFilters}
                                 onSelect={this.handleFilterSelect}
                                 onDeselect={this.handleFilterDeselect}
                                 >
