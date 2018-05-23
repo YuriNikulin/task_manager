@@ -2,10 +2,16 @@ import React from 'react';
 import { Link } from 'react-router';
 import { taskProperties, statuses, priorities } from '../../constants/taskProperties.js';
 import { Table } from 'antd';
-
+import store from '../../redux';
+import actionApplyFilter from '../../redux/actions/applyFilter.js';
+import actionRemoveFilter from '../../redux/actions/removeFilter.js';
+console.log(store.getState());
 class TasksList extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            filterValue: ''
+        }
     }
     generateAntdColumns = (items) => {
         let columns = [];
@@ -22,6 +28,9 @@ class TasksList extends React.Component {
             },
             sorter: (a, b) => {return (a['taskName'] > b['taskName'] ? 1 : -1)}
         })
+
+        let filterValue = this.state.filterValue;
+
         items.map((item) => {
             if (item.key=='taskCreationDate' || item.key=='taskName') {
                 return;
@@ -35,13 +44,22 @@ class TasksList extends React.Component {
             if (item.key == 'taskStatus' || item.key == 'taskPriority') {
                 let filterKeys = (item.key == 'taskStatus' ? statuses : priorities);
                 columns[columns.length - 1].filters = [];
-                filterKeys.map((item) => {
+                columns[columns.length - 1].filtered = true;
+
+                filterKeys.map((filterKey) => {
                     columns[columns.length - 1].filters.push({
-                        text: item,
-                        value: item
-                    })
+                        text: filterKey,
+                        value: filterKey
+                    });
+                    columns[columns.length - 1].onFilter = (value, record) => {
+                        return (
+                            record[item.key] === value
+                        )
+                    }
+                    // columns[columns.length - 1].filteredValue = ['In progress'];
                 })
             }
+            console.log(columns);   
         })
         columns.push({
             title: 'Created',
@@ -49,6 +67,7 @@ class TasksList extends React.Component {
             key: 'taskCreationDatePrint',
             sorter: (a, b) => {return (Date.parse(a['taskCreationDate']) > Date.parse(b['taskCreationDate']) ? 1 : -1)}
         })
+
         return columns;
     }
 

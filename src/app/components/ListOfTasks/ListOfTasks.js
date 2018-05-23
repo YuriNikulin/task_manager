@@ -35,6 +35,7 @@ class ListOfTasks extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        console.log('updated');
         if (this.state.isLoaded) {
             return;
         }
